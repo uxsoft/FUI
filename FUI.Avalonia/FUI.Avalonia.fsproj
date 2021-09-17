@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <OutputType>WinExe</OutputType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="Model.fs" />
+        <Compile Include="State.fs" />
+        <Compile Include="DSL.fs" />
+        <Compile Include="Counter.fs" />
+        <Compile Include="Program.fs" />
+        <Content Include="global.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\FUI\FUI.fsproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Avalonia.Desktop" Version="0.10.5" />
+      <PackageReference Include="System.Reactive.Linq" Version="5.0.0" />
+    </ItemGroup>
+
+</Project>
