@@ -5,8 +5,4 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
-    <ItemGroup>
-        <Compile Include="Library.fs"/>
-    </ItemGroup>
-
 </Project>
