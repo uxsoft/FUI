@@ -7,7 +7,7 @@ open FUI.CollectionChange
 [<Fact>]
 let ``ObservableCollection.Get`` () =
     let mutable counter = 0
-    let a = ocol [1..5]
+    let a = ocol [1..5] :> IObservableCollection<int>
     
     a.OnChanged.Add(function
         | _ -> counter <- counter + 1)
@@ -21,7 +21,7 @@ let ``ObservableCollection.Get`` () =
 [<Fact>]
 let ``ObservableCollection.IndexOf`` () =
     let mutable counter = 0
-    let a = ocol [1..5]
+    let a = ocol [1..5] :> IObservableCollection<int>
     
     a.OnChanged.Add(function
         | _ -> counter <- counter + 1)
@@ -35,7 +35,7 @@ let ``ObservableCollection.IndexOf`` () =
 [<Fact>]
 let ``ObservableCollection.Count`` () =
     let mutable counter = 0
-    let a = ocol [1..5]
+    let a = ocol [1..5] :> IObservableCollection<int>
     
     a.OnChanged.Add(function
         | _ -> counter <- counter + 1)
@@ -49,7 +49,7 @@ let ``ObservableCollection.Count`` () =
 [<Fact>]
 let ``ObservableCollection.Clear`` () =
     let mutable counter = 0
-    let a = ocol [1..5]
+    let a = ocol [1..5] :> IObservableCollection<int>
     
     a.OnChanged.Add(function
         | Clear -> counter <- counter + 1
@@ -63,7 +63,7 @@ let ``ObservableCollection.Clear`` () =
 [<Fact>]
 let ``ObservableCollection.Insert`` () =
     let mutable counter = 0
-    let a = ocol [1..5]
+    let a = ocol [1..5] :> IObservableCollection<int>
     
     a.OnChanged.Add(function
         | Insert _ -> counter <- counter + 1
@@ -77,7 +77,7 @@ let ``ObservableCollection.Insert`` () =
 [<Fact>]
 let ``ObservableCollection.Move`` () =
     let mutable counter = 0
-    let a = ocol [1..5]
+    let a = ocol [1..5] :> IObservableCollection<int>
     
     a.OnChanged.Add(function
         | Move _ -> counter <- counter + 1
@@ -92,7 +92,7 @@ let ``ObservableCollection.Move`` () =
 [<Fact>]
 let ``ObservableCollection.Remove`` () =
     let mutable counter = 0
-    let a = ocol [1..5]
+    let a = ocol [1..5] :> IObservableCollection<int>
     
     a.OnChanged.Add(function
         | Remove _ -> counter <- counter + 1
@@ -106,7 +106,7 @@ let ``ObservableCollection.Remove`` () =
 [<Fact>]
 let ``ObservableCollection.Set`` () =
     let mutable counter = 0
-    let a = ocol [1..5]
+    let a = ocol [1..5] :> IObservableCollection<int>
     
     a.OnChanged.Add(function
         | Replace _ -> counter <- counter + 1
@@ -119,6 +119,41 @@ let ``ObservableCollection.Set`` () =
     Assert.Equal(2, counter)
     
 [<Fact>]
+let ``ObservableCollection.Add`` () =
+    let mutable counter = 0
+    let a = ocol [1..5]
+    
+    a.OnChanged.Add(function
+        | Insert _ -> counter <- counter + 1
+        | _ -> failwith "Wrong change")
+
+    a.Add(9)
+    
+    Assert.Equal([1; 2; 3; 4; 5; 9], a)
+    Assert.Equal(1, counter)
+    
+[<Fact>]
+let ``ObservableCollection.Item`` () =
+    let mutable counter = 0
+    let a = ocol [1..5]
+    
+    a.OnChanged.Add(function
+        | Replace _ -> counter <- counter + 1
+        | _ -> failwith "Wrong change")
+
+    let result = a.[0]
+    a.[0] <- 9
+    
+    Assert.Equal(1, result)
+    Assert.Equal([9; 2; 3; 4; 5], a)
+    Assert.Equal(1, counter)
+    
+[<Fact>]
 let ``IReadOnlyCollection`` () =
+    let a = ocol [1..5]
+    let b = a :> IReadOnlyObservableCollection<int>
+    let c = a :> IReadOnlyObservableCollection
+    
     ()
+    
     

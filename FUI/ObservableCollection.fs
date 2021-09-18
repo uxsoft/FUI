@@ -58,7 +58,12 @@ type ObservableCollection<'t>(source: System.Collections.Generic.IList<'t>) =
     member this.Set index item =
         let change = Replace(index, items.[index], item)
         Change.commit items change
-        event.Trigger change        
+        event.Trigger change
+        
+    member this.Add item =
+        let change = Insert(items.Count, item)
+        Change.commit items change
+        event.Trigger change
     
     member this.IndexOf item = items.IndexOf item
     member this.Get index = items.[index]
