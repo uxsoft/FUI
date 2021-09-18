@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Model.fs" />
         <Compile Include="State.fs" />
         <Compile Include="DSL.fs" />
         <Compile Include="Counter.fs" />

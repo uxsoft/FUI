@@ -1,6 +1,4 @@
-module FUI.Avalonia.Model
-
-open System.Collections.ObjectModel
+module FUI.ObservableValue
 
 type IObservableValue =
     abstract member GetValue: unit -> obj
@@ -31,6 +29,5 @@ type ObservableValue<'t>(initialValue: 't) =
         member this.GetValue(): obj = box this.Value
         member this.OnChanged = event.Publish
         
-        
+
 type 'T oval = ObservableValue<'T>
-type 'T ocol = ObservableCollection<'T>
