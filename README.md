@@ -1,5 +1,6 @@
 # FUI
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fuxsoft%2FFUI.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fuxsoft%2FFUI?ref=badge_shield)
+[![codecov](https://codecov.io/gh/uxsoft/FUI/branch/master/graph/badge.svg?token=ZHM5GSQ1T7)](https://codecov.io/gh/uxsoft/FUI)
 
 
 ## Goals
