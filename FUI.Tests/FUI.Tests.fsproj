@@ -11,6 +11,7 @@
         <Compile Include="ObservableValueTests.fs" />
         <Compile Include="CollectionChangeTests.fs" />
         <Compile Include="ObservableCollectionTests.fs" />
+        <Compile Include="CompositeObservableCollectionTest.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 

@@ -11,7 +11,7 @@ type Model =
     
 let init () =
     { Counter = oval 0
-      Items = ocol [1; 2; 3 ] }
+      Items = ocol [1; 2; 3] }
     
 let view () =
     let model = init ()
@@ -23,7 +23,7 @@ let view () =
         }
         Button {
             onClick (fun _ _ ->
-                model.Items.Insert model.Items.Count model.Items.Count
+                model.Items.Add model.Items.Count
                 model.Counter.Update (fun v -> v + 1))
             "+"
         }
@@ -32,14 +32,14 @@ let view () =
             "-"
         }
         
-        let isEven = model.Counter |> Ov.map (fun i -> (i % 2) = 0)
-        
-        If (isEven) {
-            TextBlock { "even" }
-        }
-        Else (isEven) {
-            TextBlock { "odd" }
-        }
+//        let isEven = model.Counter |> Ov.map (fun i -> (i % 2) = 0)
+//        
+//        If (isEven) {
+//            TextBlock { "even" }
+//        }
+//        Else (isEven) {
+//            TextBlock { "odd" }
+//        }
         
 //        if model.Counter |> State.map (fun i -> i > 2) then
 //            TextBlock {
@@ -47,6 +47,7 @@ let view () =
 //            }
 
         for i in model.Items do
-            TextBlock { string i }
+            for i in model.Items do
+                TextBlock { string i }
     }
     

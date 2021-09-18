@@ -69,7 +69,11 @@ let flatten (collections: IReadOnlyObservableCollection<IReadOnlyObservableColle
    
 type FilteredReadOnlyObservableCollection<'t when 't : equality>(f: 't -> bool, source: IReadOnlyObservableCollection<'t>) =
     interface IReadOnlyObservableCollection<'t> with
-        member this.Count = source.Count
+        member this.Count =
+            source
+            |> Seq.filter f
+            |> Seq.length
+            
         member this.Get (index: int) : 't =
             source
             |> Seq.filter f
@@ -99,7 +103,6 @@ type FilteredReadOnlyObservableCollection<'t when 't : equality>(f: 't -> bool, 
             Event.filter (Change.filter f) source.OnChanged
         member this.OnChanged : IEvent<CollectionChange<obj>> =
             Event.map (fun c -> c |> Change.map f id |> Change.box) source.OnChanged
-
     
 let filter f (col: IReadOnlyObservableCollection<'t>) =
     FilteredReadOnlyObservableCollection<'t>(f, col) :> IReadOnlyObservableCollection<'t>

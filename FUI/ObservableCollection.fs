@@ -59,11 +59,6 @@ type ObservableCollection<'t>(source: System.Collections.Generic.IList<'t>) =
         let change = Replace(index, items.[index], item)
         Change.commit items change
         event.Trigger change
-        
-    member this.Add item =
-        let change = Insert(items.Count, item)
-        Change.commit items change
-        event.Trigger change
     
     member this.IndexOf item = items.IndexOf item
     member this.Get index = items.[index]
@@ -95,3 +90,12 @@ type ObservableCollection<'t>(source: System.Collections.Generic.IList<'t>) =
  
 type 'T ocol = ObservableCollection<'T>
 
+[<AutoOpen>]
+module Extensions =
+    type IObservableCollection<'t> with
+        member this.Add item =
+            this.Insert this.Count item
+    
+    type IReadOnlyObservableCollection<'t> with
+        member this.Contains (item: 't) =
+            (this.IndexOf item) > 0
