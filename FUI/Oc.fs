@@ -93,9 +93,9 @@ type FilteredReadOnlyObservableCollection<'t when 't : equality>(f: 't -> bool, 
             source
             |> Seq.filter f
             |> Seq.map box
-            |> Seq.findIndex (fun i -> item.Equals(i :?> 'a))
+            |> Seq.findIndex item.Equals
             
-        member this.OnChanged : IEvent<CollectionChange<'b>> =
+        member this.OnChanged : IEvent<CollectionChange<'t>> =
             Event.filter (Change.filter f) source.OnChanged
         member this.OnChanged : IEvent<CollectionChange<obj>> =
             Event.map (fun c -> c |> Change.map f id |> Change.box) source.OnChanged

@@ -1,6 +1,5 @@
 module FUI.ObservableCollection
 
-open System.Collections.ObjectModel
 open FUI.CollectionChange
 
 type IReadOnlyObservableCollection =
