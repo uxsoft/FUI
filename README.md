@@ -9,9 +9,15 @@
 - Hot Reload
     - Model and output of View function can be serialised to JSON
 - Performant
-    - Avoid virtual dom and diffing as much as possible
+    - Avoid Virtual DOM and diffing by taking a Reactive approach
 - Scalable
     -  Able to decompose big application to components with precalculated lenses to the global model and update methods
+- Multi Platform
+    - The following platforms should be supported through modular bindings
+        - FsBolero/Blazor
+        - Avalonia
+        - Maui
+        - WinUI 3
 
 ## License
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fuxsoft%2FFUI.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fuxsoft%2FFUI?ref=badge_large)
