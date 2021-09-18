@@ -1,6 +1,7 @@
 module FUI.Tests.ObservableCollectionTests
 
 open Xunit
+open FUI
 open FUI.ObservableCollection
 open FUI.CollectionChange
 
@@ -26,9 +27,9 @@ let ``ObservableCollection.IndexOf`` () =
     a.OnChanged.Add(function
         | _ -> counter <- counter + 1)
 
-    let result = a.IndexOf 2
-    
-    Assert.Equal(1, result)
+    Assert.Equal(1, a.IndexOf 2)
+    Assert.Equal(-1, a.IndexOf 9)
+        
     Assert.Equal([1..5], a)
     Assert.Equal(0, counter)
     
@@ -43,6 +44,20 @@ let ``ObservableCollection.Count`` () =
     let result = a.Count
     
     Assert.Equal(5, result)
+    Assert.Equal([1..5], a)
+    Assert.Equal(0, counter)
+    
+[<Fact>]
+let ``IObservableCollection.Contains`` () =
+    let mutable counter = 0
+    let a = ocol [1..5] :> IObservableCollection<int>
+    
+    a.OnChanged.Add(function
+        | _ -> counter <- counter + 1)
+
+    Assert.Equal(true, a.Contains 2)
+    Assert.Equal(false, a.Contains 9)
+        
     Assert.Equal([1..5], a)
     Assert.Equal(0, counter)
     
@@ -150,10 +165,48 @@ let ``ObservableCollection.Item`` () =
     
 [<Fact>]
 let ``IReadOnlyCollection`` () =
-    let a = ocol [1..5]
+    let a = ocol ()
+    a.Add 9
+    
     let b = a :> IReadOnlyObservableCollection<int>
     let c = a :> IReadOnlyObservableCollection
     
-    ()
+    Assert.Equal(box 9, c.Get 0)
+    Assert.Equal(0, c.IndexOf (box 9))
     
+    for i in c do
+        Assert.Equal(box 9, i)
+        
+[<Fact>]
+let ``Oc.map`` () =
+    let a = ocol [1..5]
+    let b = Oc.map (fun i -> i * 2) a
+    
+    Assert.Equal(5, b.Count)
+    Assert.Equal(6, b.Get 2)
+    Assert.Equal(3, b.IndexOf 8)
+    
+    b.OnChanged.Add(function
+        | Insert(index, item) -> Assert.Equal(18, item)
+        | _ -> failwith "Wrong change")
+    a.Add 9
+    
+    Assert.Equal([2; 4; 6; 8; 10; 18], b)
+    
+[<Fact>]
+let ``Oc.filter`` () =
+    let a = ocol [1..5]
+    let b = Oc.filter (fun i -> i % 2 = 0) a
+    
+    Assert.Equal(2, b.Count)
+    Assert.Equal(4, b.Get 1)
+    Assert.Equal(1, b.IndexOf 4)
+    
+    b.OnChanged.Add(function
+        | Insert(_, item) -> Assert.Equal(8, item)
+        | _ -> failwith "Wrong change")
+    a.Add 8
+    a.Add 9
+    
+    Assert.Equal([2; 4; 8], b)
     
