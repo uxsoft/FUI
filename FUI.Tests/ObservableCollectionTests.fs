@@ -1,0 +1,2 @@
+module FUI.Tests.ObservableCollectionTests
+

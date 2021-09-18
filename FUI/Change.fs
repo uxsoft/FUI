@@ -9,8 +9,9 @@ let commit (items: System.Collections.Generic.IList<'t>) (change: CollectionChan
     | Insert (index, item) ->
         items.Insert(index, item)
     | Move (oldIndex, newIndex, removedItem) ->
+        let item = items.[oldIndex]
         items.RemoveAt oldIndex
-        items.Insert(newIndex, removedItem)
+        items.Insert(newIndex, item)
     | Remove (index, _) ->
         items.RemoveAt index
     | Replace (index, _, item) ->
