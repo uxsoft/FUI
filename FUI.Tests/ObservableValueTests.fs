@@ -71,6 +71,6 @@ let ``Ov.toObservableCollection`` () =
     a.Value <- 2
     a.Value <- 3
     
-    Assert.Equal(2, counter)
+    Assert.Equal(4, counter)
     Assert.Equal(3, a.Value)
     Assert.Equal([3], b)

@@ -18,8 +18,7 @@ let ``Oc.append`` () =
             else failwith "Remove should be the first change"
         | CollectionChange.Insert _ ->
             if counter < 4 then counter <- counter + 1
-            else failwith "Insert should be the second change"
-        | _ -> failwith "No other changes should happen")
+            else failwith "Insert should be the second change")
     
     Assert.Equal([1; 2; 3; 4; 5; 6; 7; 8; 9; 10], c)
     
@@ -60,8 +59,7 @@ let ``Oc.concat`` () =
             else failwith "Remove should be the first change"
         | CollectionChange.Insert _ ->
             if counter < 4 then counter <- counter + 1
-            else failwith "Insert should be the second change"
-        | _ -> failwith "No other changes should happen")
+            else failwith "Insert should be the second change")
     
     Assert.Equal([1; 2; 3; 4; 5; 6; 7; 8; 9; 10], c)
     
@@ -125,7 +123,7 @@ let ``Oc.flatten`` () =
     Assert.Equal(8, e.Get 2)
     Assert.Equal(-1, e.IndexOf 1)
     Assert.Equal(1, e.IndexOf 7)
-    Assert.Equal(15, counter)
+    Assert.Equal(20, counter)
     
     d.Set 0 a
     Assert.Equal([1; 2; 3; 4; 5; 11; 12; 13; 14; 15], e)
@@ -133,13 +131,13 @@ let ``Oc.flatten`` () =
     Assert.Equal(3, e.Get 2)
     Assert.Equal(-1, e.IndexOf 6)
     Assert.Equal(5, e.IndexOf 11)
-    Assert.Equal(25, counter)
+    Assert.Equal(30, counter)
     
     d.Clear()
     Assert.Equal([], e)
     Assert.Equal(0, e.Count)
     Assert.Equal(-1, e.IndexOf 1)
-    Assert.Equal(26, counter)
+    Assert.Equal(40, counter)
     
 [<Fact>]
 let ``Cartesian Product`` () =
