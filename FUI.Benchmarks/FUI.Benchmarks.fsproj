@@ -6,12 +6,17 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="ObservablesBenchmarks.fs" />
         <Compile Include="UIBenchmarks.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\FUI\FUI.fsproj" />
     </ItemGroup>
 
 </Project>

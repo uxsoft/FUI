@@ -1,7 +1,9 @@
 open BenchmarkDotNet.Running
-open FUI.UIBenchmarks
+open FUI.Benchmarks.ObservablesBenchmarks
+open FUI.Benchmarks.UIBenchmarks
+
 
 [<EntryPoint>]
 let main argv =
-    let summary = BenchmarkSwitcher([| typeof<UIBenchmarks> |]).Run(argv)
+    let summary = BenchmarkSwitcher([| typeof<ObservablesBenchmarks>; typeof<UIBenchmarks> |]).Run(argv)
     0 // return an integer exit code
