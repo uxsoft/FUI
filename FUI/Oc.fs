@@ -68,41 +68,41 @@ let flatten (collections: IReadOnlyObservableCollection<IReadOnlyObservableColle
     CompositeObservableCollection(collections) :> IReadOnlyObservableCollection<'t>
    
 type FilteredReadOnlyObservableCollection<'t when 't : equality>(f: 't -> bool, source: IReadOnlyObservableCollection<'t>) =
+    let filteredSource() =
+        source
+        |> Seq.filter f
+        |> Seq.toArray
+    
+    let mutable itemsCache = filteredSource() 
+            
+    do source.OnChanged.Add(fun _ -> itemsCache <- filteredSource())
+    
     interface IReadOnlyObservableCollection<'t> with
-        member this.Count =
-            source
-            |> Seq.filter f
-            |> Seq.length
-            
-        member this.Get (index: int) : 't =
-            source
-            |> Seq.filter f
-            |> Seq.item index
-            
-        member this.Get (index: int): obj =
-            source
-            |> Seq.filter f
-            |> Seq.item index
-            |> box
-            
+        member this.Count = itemsCache.Length
+        member this.Get (index: int) : 't = itemsCache.[index]
+        member this.Get (index: int): obj = itemsCache.[index] |> box
         member this.GetEnumerator(): System.Collections.Generic.IEnumerator<'t> =
-            (source |> Seq.filter f).GetEnumerator()
+            (itemsCache :> System.Collections.Generic.IEnumerable<'t>).GetEnumerator()
         member this.GetEnumerator(): System.Collections.IEnumerator =
-            ((source |> Seq.filter f) :> System.Collections.IEnumerable).GetEnumerator()
+            (itemsCache :> System.Collections.IEnumerable).GetEnumerator()
         member this.IndexOf (item: 't): int =
-            source
-            |> Seq.filter f
-            |> Seq.findIndex (fun i -> item = i)
+            itemsCache
+            |> Seq.tryFindIndex (fun i -> item = i)
+            |> Option.defaultValue -1
         member this.IndexOf (item: obj): int =
-            source
-            |> Seq.filter f
+            itemsCache
             |> Seq.map box
-            |> Seq.findIndex item.Equals
+            |> Seq.tryFindIndex item.Equals
+            |> Option.defaultValue -1
             
         member this.OnChanged : IEvent<CollectionChange<'t>> =
-            Event.filter (Change.filter f) source.OnChanged
+            source.OnChanged
+            |> Event.filter (Change.filter f) 
+            
         member this.OnChanged : IEvent<CollectionChange<obj>> =
-            Event.map (fun c -> c |> Change.map f id |> Change.box) source.OnChanged
+            source.OnChanged
+            |> Event.filter (Change.filter f)
+            |> Event.map Change.box
     
 let filter f (col: IReadOnlyObservableCollection<'t>) =
     FilteredReadOnlyObservableCollection<'t>(f, col) :> IReadOnlyObservableCollection<'t>

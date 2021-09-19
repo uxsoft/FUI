@@ -56,3 +56,21 @@ let ``Ov.map`` () =
     Assert.Equal(2, counter)
     Assert.Equal(3, a.Value)
     Assert.Equal(9, b.Value)
+   
+[<Fact>]
+let ``Ov.toObservableCollection`` () =
+    let mutable counter = 0
+    let a = oval 1
+    let b = a |> Ov.toObservableCollection
+        
+    Assert.Equal([1], b)
+        
+    b.OnChanged.Add(fun change ->
+        counter <- counter + 1)
+    
+    a.Value <- 2
+    a.Value <- 3
+    
+    Assert.Equal(2, counter)
+    Assert.Equal(3, a.Value)
+    Assert.Equal([3], b)

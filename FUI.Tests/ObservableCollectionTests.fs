@@ -201,6 +201,7 @@ let ``Oc.filter`` () =
     Assert.Equal(2, b.Count)
     Assert.Equal(4, b.Get 1)
     Assert.Equal(1, b.IndexOf 4)
+    Assert.Equal(-1, b.IndexOf -1)
     
     b.OnChanged.Add(function
         | Insert(_, item) -> Assert.Equal(8, item)

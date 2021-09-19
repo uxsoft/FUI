@@ -45,29 +45,28 @@ type CompositeObservableCollection<'t when 't : equality>(collections: IReadOnly
             event.Trigger Clear
         | Insert(index, item) ->
             let startIndex = start index
-            for i in 0..(item.Count - 1) do
+            for i = 0 to item.Count - 1 do
                 event.Trigger (Insert(startIndex + i, item.Get i))
         | Move(oldIndex, newIndex, item) ->
             let oldIndex' = start oldIndex
             let newIndex' = startOf item
-            for i in 0..(item.Count - 1) do
+            for i = 0 to item.Count - 1 do
                 event.Trigger (Move(oldIndex', newIndex' + i, item.Get i))
         | Remove(index, item) ->
             let startIndex = start index
-            for i in (item.Count - 1)..0 do
+            for i = item.Count - 1 downto 0 do
                 event.Trigger (Remove(startIndex + i, item.Get i))
         | Replace(index, oldItem, item) ->
             let startIndex = start index
-            for i in (oldItem.Count - 1)..0 do
+            for i = oldItem.Count - 1 downto 0 do
                 event.Trigger (Remove(startIndex + i, oldItem.Get i))
-            for i in 0..(item.Count - 1) do
+            for i = 0 to item.Count - 1 do
                 event.Trigger (Insert(startIndex + i, item.Get i))
     
     do
         collections.OnChanged.Add onCollectionChanged
         for col in collections do
             col.OnChanged.Add (onItemChanged col)
-        
 
     new (collections: IReadOnlyObservableCollection<'t> seq) =
         CompositeObservableCollection(ObservableCollection(collections))
@@ -80,8 +79,10 @@ type CompositeObservableCollection<'t when 't : equality>(collections: IReadOnly
         item
         
     member this.IndexOf item =
-        let masterIndex, _, _, _ = iterate() |> Seq.find (fun (_, _, _, i) -> i = item)
-        masterIndex
+        iterate()
+        |> Seq.tryFind (fun (_, _, _, i) -> i = item)
+        |> Option.map(fun (masterIndex, _, _, _) -> masterIndex)
+        |> Option.defaultValue -1
     
     interface IReadOnlyObservableCollection<'t> with
         member this.Count = this.Count
