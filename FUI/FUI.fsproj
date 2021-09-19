@@ -6,15 +6,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Compile Include="ObservableValue.fs" />
-      <Compile Include="CollectionChange.fs" />
-      <Compile Include="Change.fs" />
-      <Compile Include="ObservableCollection.fs" />
-      <Compile Include="CompositeObservableCollection.fs" />
-      <Compile Include="Ov.fs" />
-      <Compile Include="Oc.fs" />
-      <Compile Include="Block.fs" />
-      <Compile Include="Builder.fs" />
+      <Compile Include="Observables\ObservableValue.fs" />
+      <Compile Include="Observables\CollectionChange.fs" />
+      <Compile Include="Observables\Change.fs" />
+      <Compile Include="Observables\ObservableCollection.fs" />
+      <Compile Include="Observables\CompositeObservableCollection.fs" />
+      <Compile Include="Observables\Ov.fs" />
+      <Compile Include="Observables\Oc.fs" />
+      <Compile Include="Observables\Block.fs" />
+      <Compile Include="Observables\Builder.fs" />
+      <Compile Include="DSL\UIBuilder.fs" />
+      <Compile Include="DSL\IfBuilder.fs" />
     </ItemGroup>
 
 </Project>

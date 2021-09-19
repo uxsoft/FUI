@@ -3,6 +3,7 @@ module FUI.Tests.CompositeObservableCollectionTest
 open FUI
 open FUI.ObservableCollection
 open Xunit
+open Xunit
 
 [<Fact>]
 let ``Oc.append`` () =
@@ -104,20 +105,70 @@ let ``Oc.flatten`` () =
     
     d.Remove 0
     Assert.Equal([6; 7; 8; 9; 10], e)
+    Assert.Equal(5, e.Count)
+    Assert.Equal(8, e.Get 2)
+    Assert.Equal(-1, e.IndexOf 1)
+    Assert.Equal(1, e.IndexOf 7)
     Assert.Equal(5, counter)
     
     d.Insert 0 c
     Assert.Equal([11; 12; 13; 14; 15; 6; 7; 8; 9; 10], e)
+    Assert.Equal(10, e.Count)
+    Assert.Equal(13, e.Get 2)
+    Assert.Equal(-1, e.IndexOf 1)
+    Assert.Equal(6, e.IndexOf 7)
     Assert.Equal(10, counter) 
     
     d.Move 0 1
     Assert.Equal([6..15], e)
+    Assert.Equal(10, e.Count)
+    Assert.Equal(8, e.Get 2)
+    Assert.Equal(-1, e.IndexOf 1)
+    Assert.Equal(1, e.IndexOf 7)
     Assert.Equal(15, counter)
     
     d.Set 0 a
     Assert.Equal([1; 2; 3; 4; 5; 11; 12; 13; 14; 15], e)
+    Assert.Equal(10, e.Count)
+    Assert.Equal(3, e.Get 2)
+    Assert.Equal(-1, e.IndexOf 6)
+    Assert.Equal(5, e.IndexOf 11)
     Assert.Equal(25, counter)
     
     d.Clear()
     Assert.Equal([], e)
+    Assert.Equal(0, e.Count)
+    Assert.Equal(-1, e.IndexOf 1)
     Assert.Equal(26, counter)
+    
+[<Fact>]
+let ``Cartesian Product`` () =
+    let a = ObservableCollection([1; 2; 3])
+    let b = a |> Oc.map (fun i -> ObservableCollection(Array.create i i) :> IReadOnlyObservableCollection<int>)
+    let c = b |> Oc.flatten
+    let d = ResizeArray(c)
+    
+    c.OnChanged.Add(Change.commit d)
+   
+    Assert.Equal([1; 2; 2; 3; 3; 3], c)
+    Assert.Equal(c, d)
+    
+    a.Add 4
+    Assert.Equal([1; 2; 2; 3; 3; 3; 4; 4; 4; 4], c)
+    Assert.Equal(c, d)
+    
+    a.Remove(1)
+    Assert.Equal([1; 3; 3; 3; 4; 4; 4; 4], c)
+    Assert.Equal(c, d)
+    
+    a.Move 2 0
+    Assert.Equal([4; 4; 4; 4; 1; 3; 3; 3], c)
+    Assert.Equal(c, d)
+    
+    a.Set 1 2
+    Assert.Equal([4; 4; 4; 4; 2; 2; 3; 3; 3], c)
+    Assert.Equal(c, d)
+    
+    a.Clear()
+    Assert.Equal([], c)
+    Assert.Equal([], d)

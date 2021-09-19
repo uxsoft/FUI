@@ -4,6 +4,7 @@ open FUI
 open FUI.ObservableValue
 open FUI.ObservableCollection
 open FUI.Avalonia.DSL
+open FUI.IfBuilder
 
 type Model =
     { Counter: int oval
@@ -32,14 +33,13 @@ let view () =
             "-"
         }
         
-//        let isEven = model.Counter |> Ov.map (fun i -> (i % 2) = 0)
-//        
-//        If (isEven) {
-//            TextBlock { "even" }
-//        }
-//        Else (isEven) {
-//            TextBlock { "odd" }
-//        }
+        let isEven = model.Counter |> Ov.map (fun i -> (i % 2) = 0)
+        If (isEven) {
+            TextBlock { "even" }
+        }
+        Else (isEven) {
+            TextBlock { "odd" }
+        }
         
 //        if model.Counter |> State.map (fun i -> i > 2) then
 //            TextBlock {
@@ -47,7 +47,6 @@ let view () =
 //            }
 
         for i in model.Items do
-            for i in model.Items do
-                TextBlock { string i }
+            TextBlock { string i }
     }
     
