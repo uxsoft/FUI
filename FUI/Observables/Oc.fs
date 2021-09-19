@@ -71,7 +71,6 @@ type FilteredReadOnlyObservableCollection<'t when 't : equality>(f: 't -> bool, 
         items
         |> Seq.filter snd
         |> Seq.map fst
-        |> Seq.toArray
                     
     let onSourceChanged (sourceChange: CollectionChange<'t>) =
         match sourceChange with
@@ -80,7 +79,7 @@ type FilteredReadOnlyObservableCollection<'t when 't : equality>(f: 't -> bool, 
             let passes = f item
             let index' = projectIndex index
             
-            Change.commit items (Insert(index, (item, passes)))
+            items.Insert(index, (item, f item))
             if passes then 
                 event.Trigger (Insert(index', item))
                 
@@ -88,7 +87,7 @@ type FilteredReadOnlyObservableCollection<'t when 't : equality>(f: 't -> bool, 
             let passes = f item
             let index' = projectIndex index
             
-            Change.commit items (Remove(index, (item, passes)))
+            items.RemoveAt index
             if passes then 
                 event.Trigger (Remove(index', item))
         
