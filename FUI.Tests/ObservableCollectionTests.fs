@@ -197,17 +197,36 @@ let ``Oc.map`` () =
 let ``Oc.filter`` () =
     let a = ocol [1..5]
     let b = Oc.filter (fun i -> i % 2 = 0) a
+    let c = ResizeArray(b)
     
     Assert.Equal(2, b.Count)
     Assert.Equal(4, b.Get 1)
     Assert.Equal(1, b.IndexOf 4)
     Assert.Equal(-1, b.IndexOf -1)
     
-    b.OnChanged.Add(function
-        | Insert(_, item) -> Assert.Equal(8, item)
-        | _ -> failwith "Wrong change")
+    b.OnChanged.Add(Change.commit c)
+    
     a.Add 8
     a.Add 9
-    
+    // [1; 2; 3; 4; 5; 8; 9]
     Assert.Equal([2; 4; 8], b)
+    Assert.Equal(b, c)
+    
+    a.Remove 0
+    a.Remove 0
+    // [3; 4; 5; 8; 9]
+    Assert.Equal([4; 8], b)
+    Assert.Equal(b, c)
+    
+    a.Move 2 0
+    a.Move 2 4
+    // [5; 3; 8; 9; 4]
+    Assert.Equal([8; 4], b)
+    Assert.Equal(b, c)
+    
+    a.Set 2 1
+    a.Set 0 6
+    // [6; 3; 1; 9; 4]
+    Assert.Equal([6; 4], b)
+    Assert.Equal(b, c)    
     

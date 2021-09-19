@@ -68,40 +68,97 @@ let flatten (collections: IReadOnlyObservableCollection<IReadOnlyObservableColle
     CompositeObservableCollection(collections) :> IReadOnlyObservableCollection<'t>
    
 type FilteredReadOnlyObservableCollection<'t when 't : equality>(f: 't -> bool, source: IReadOnlyObservableCollection<'t>) =
-    let filteredSource() =
+    let items =
         source
-        |> Seq.filter f
-        |> Seq.toArray
+        |> Seq.map (fun i -> i, f i)
+        |> ResizeArray
+    let event = Event<CollectionChange<'t>>()
+        
+    let projectIndex index =
+        items
+        |> Seq.take index
+        |> Seq.sumBy (fun (_, f) -> if f then 1 else 0)
     
-    let mutable itemsCache = filteredSource() 
+    let filteredItems () =
+        items
+        |> Seq.filter snd
+        |> Seq.map fst
+        |> Seq.toArray
+                    
+    let onSourceChanged (sourceChange: CollectionChange<'t>) =
+        match sourceChange with
+        | Clear ->
+            Change.commit items Clear
+            event.Trigger Clear
             
-    do source.OnChanged.Add(fun _ -> itemsCache <- filteredSource())
+        | Insert(index, item) ->
+            let passes = f item
+            let index' = projectIndex index
+            
+            Change.commit items (Insert(index, (item, passes)))
+            if passes then 
+                event.Trigger (Insert(index', item))
+                
+        | Remove(index, item) ->
+            let passes = f item
+            let index' = projectIndex index
+            
+            Change.commit items (Remove(index, (item, passes)))
+            if passes then 
+                event.Trigger (Remove(index', item))
+                
+        | Replace(index, oldItem, item) ->
+            let passes = f item
+            let passed = f oldItem
+            let index' = projectIndex index
+            
+            Change.commit items (Replace(index, (oldItem, f oldItem), (item, passes)))
+            if passed || passes then // we could be removing or adding an element we care about
+                event.Trigger (Replace(index', oldItem, item))
+                
+        | Move(oldIndex, newIndex, item) ->
+            let passes = f item
+            
+            let oldIndex' = projectIndex oldIndex
+            Change.commit items (Move(oldIndex, newIndex, (item, passes)))
+            let newIndex' = projectIndex newIndex
+            
+            if passes then 
+                event.Trigger (Move(oldIndex', newIndex', item))
+        
+    do source.OnChanged.Add onSourceChanged
     
     interface IReadOnlyObservableCollection<'t> with
-        member this.Count = itemsCache.Length
-        member this.Get (index: int) : 't = itemsCache.[index]
-        member this.Get (index: int): obj = itemsCache.[index] |> box
+        member this.Count = items |> Seq.sumBy (fun (_, f) -> if f then 1 else 0)
+        member this.Get (index: int) : 't =
+            filteredItems()
+            |> Seq.item index
+            
+        member this.Get (index: int): obj =
+            filteredItems()
+            |> Seq.item index
+            |> box
+            
         member this.GetEnumerator(): System.Collections.Generic.IEnumerator<'t> =
-            (itemsCache :> System.Collections.Generic.IEnumerable<'t>).GetEnumerator()
+            (filteredItems() :> System.Collections.Generic.IEnumerable<'t>).GetEnumerator()
         member this.GetEnumerator(): System.Collections.IEnumerator =
-            (itemsCache :> System.Collections.IEnumerable).GetEnumerator()
+            (filteredItems() :> System.Collections.IEnumerable).GetEnumerator()
+        
         member this.IndexOf (item: 't): int =
-            itemsCache
+            filteredItems()
             |> Seq.tryFindIndex (fun i -> item = i)
             |> Option.defaultValue -1
+            
         member this.IndexOf (item: obj): int =
-            itemsCache
-            |> Seq.map box
+            filteredItems()
             |> Seq.tryFindIndex item.Equals
             |> Option.defaultValue -1
-            
+             
         member this.OnChanged : IEvent<CollectionChange<'t>> =
-            source.OnChanged
-            |> Event.filter (Change.filter f) 
+            event.Publish
             
         member this.OnChanged : IEvent<CollectionChange<obj>> =
-            source.OnChanged
-            |> Event.filter (Change.filter f)
+            event.Publish
             |> Event.map Change.box
     
 let filter f (col: IReadOnlyObservableCollection<'t>) =
