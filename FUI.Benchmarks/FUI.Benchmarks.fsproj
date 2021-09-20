@@ -6,8 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="ObservablesBenchmarks.fs" />
-        <Compile Include="UIBenchmarks.fs" />
+        <Compile Include="Benchmarks.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 

@@ -1,12 +1,14 @@
-module FUI.Benchmarks.ObservablesBenchmarks
+module FUI.Benchmarks.Benchmark
 
 open BenchmarkDotNet.Attributes
+open BenchmarkDotNet.Exporters.Json
 open BenchmarkDotNet.Jobs
 open FUI
 open FUI.ObservableCollection
 
-[<SimpleJob(RuntimeMoniker.Net50)>]
-type ObservablesBenchmarks() =
+[<SimpleJob(RuntimeMoniker.Net50, invocationCount = 100)>]
+[<JsonExporterAttribute.FullCompressed>]
+type Benchmarks() =
     
     [<Benchmark>]
     member _.CartesianProduct() =
