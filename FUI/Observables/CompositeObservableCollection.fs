@@ -13,7 +13,7 @@ type CompositeObservableCollection<'t when 't : equality>(source: IReadOnlyObser
         |> Seq.sumBy (fun i -> i.Count)
     
     let projectIndexOf (col: IReadOnlyObservableCollection<'t>) =
-        cache
+        source
         |> Seq.takeWhile (fun i -> i <> col)
         |> Seq.sumBy (fun i -> i.Count)
     

@@ -106,6 +106,7 @@ type FilteredReadOnlyObservableCollection<'t when 't : equality>(f: 't -> bool, 
             
         member this.GetEnumerator(): System.Collections.Generic.IEnumerator<'t> =
             (filteredItems() :> System.Collections.Generic.IEnumerable<'t>).GetEnumerator()
+            
         member this.GetEnumerator(): System.Collections.IEnumerator =
             (filteredItems() :> System.Collections.IEnumerable).GetEnumerator()
         

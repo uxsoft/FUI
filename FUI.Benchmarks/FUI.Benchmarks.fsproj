@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
@@ -18,5 +17,4 @@
       <ProjectReference Include="..\FUI.Avalonia\FUI.Avalonia.fsproj" />
       <ProjectReference Include="..\FUI\FUI.fsproj" />
     </ItemGroup>
-
 </Project>

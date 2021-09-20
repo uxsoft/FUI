@@ -24,14 +24,23 @@ let view () =
         }
         Button {
             onClick (fun _ _ ->
-                model.Items.Add model.Items.Count
+                model.Items.Add (model.Items.Count + 1)
                 model.Counter.Update (fun v -> v + 1))
             "+"
         }
         Button {
-            onClick (fun _ _ -> model.Counter.Update (fun v -> v - 1)) 
+            onClick (fun _ _ ->
+                model.Items.Remove (model.Items.Count - 1)
+                model.Counter.Update (fun v -> v - 1)) 
             "-"
         }
+        Button {
+            onClick (fun _ _ ->
+                model.Items.Clear()
+                model.Counter.Update (fun _ -> 0)) 
+            "reset"
+        }
+        
         
         let isEven = model.Counter |> Ov.map (fun i -> (i % 2) = 0)
         If (isEven) {
@@ -41,12 +50,8 @@ let view () =
             TextBlock { "odd" }
         }
         
-//        if model.Counter |> State.map (fun i -> i > 2) then
-//            TextBlock {
-//                "too big!"
-//            }
-
         for i in model.Items do
-            TextBlock { string i }
+            for j in model.Items do
+            TextBlock { $"item-{i}-{j}" }
     }
     
