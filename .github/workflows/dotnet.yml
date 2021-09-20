@@ -43,6 +43,8 @@ jobs:
         name: Benchmark.Net Benchmark
         tool: 'benchmarkdotnet'
         output-file-path: FUI.Benchmarks/BenchmarkDotNet.Artifacts/results/FUI.Benchmarks.Benchmark.Benchmarks-report-full-compressed.json
+        # Where the previous data file is stored
+        external-data-json-path: ./cache/benchmark-data.json
         # Use personal access token instead of GITHUB_TOKEN due to https://github.community/t5/GitHub-Actions/Github-action-not-triggering-gh-pages-upon-push/td-p/26869/highlight/false          
         github-token: ${{ secrets.GITHUB_TOKEN }}
         auto-push: false
