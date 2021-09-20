@@ -1,5 +1,5 @@
 open BenchmarkDotNet.Running
-open FUI.Benchmarks.Benchmark
+open FUI
 
 [<EntryPoint>]
 let main argv =
