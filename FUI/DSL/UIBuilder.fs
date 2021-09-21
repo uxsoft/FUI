@@ -21,25 +21,23 @@ type UIBuilder<'t>() =
     member inline _.Delay(f) = f ()
 
     member inline x.Yield() = x.Zero()
-
-    member _.Yield(attr: KeyValuePair<string, obj>) =
-        { Attributes = Builder.init [ KeyValuePair(attr.Key, attr.Value) ]
-          Children = Builder.empty }
             
-    member _.Yield(children: obj list) =
-        { Attributes = Builder.empty
-          Children = Builder.init children }
-
     member _.Yield(child: obj) =
-        if isNull child then
+        match child with
+        | null ->
             { Attributes = Builder.empty
               Children = Builder.empty }
-        else
+        | :? Element as element ->
+            element
+        | :? list<obj> as children ->
+            { Attributes = Builder.empty
+              Children = Builder.init children }
+        | :? KeyValuePair<string, obj> as pair ->
+            { Attributes = Builder.init [ pair ]
+              Children = Builder.empty }
+        | _ ->
             { Attributes = Builder.empty
               Children = Builder.init [ child ] }
-            
-    member inline x.Yield _ =
-        x.Zero()
 
     member _.Combine(a: Element, b: Element) =
         { Attributes = Builder.append a.Attributes b.Attributes

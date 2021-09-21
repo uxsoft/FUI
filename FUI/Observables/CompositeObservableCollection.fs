@@ -1,23 +1,41 @@
 module FUI.CompositeObservableCollection
 
+open System
 open FUI.ObservableCollection
 open FUI.CollectionChange
 
+let private random = Random()
+
 type CompositeObservableCollection<'t when 't : equality>(source: IReadOnlyObservableCollection<IReadOnlyObservableCollection<'t>>) =
-    let cache = ResizeArray(source)
+    let cId = random.Next()
     let event = Event<CollectionChange<'t>>()
     
+    let handlers = System.Collections.Generic.Dictionary<IReadOnlyObservableCollection<'t>, Handler<CollectionChange<'t>>>()
+    
+    let addHandler col f =
+        let handler = Handler<CollectionChange<'t>>(f)
+        handlers.[col] <- handler
+        col.OnChanged.AddHandler handler
+    
+    let removeHandler col =
+        let a = handlers |> Seq.map (fun i -> obj.ReferenceEquals(i, col))
+        let handler = handlers.[col]
+        handlers.Remove col |> ignore
+        col.OnChanged.RemoveHandler handler
+    
+    let items = source |> Seq.map (fun i -> i, ResizeArray i) |> ResizeArray
+    
     let projectIndex index =
-        source
+        items
         |> Seq.take index
-        |> Seq.sumBy (fun i -> i.Count)
+        |> Seq.sumBy (fun (i, cache) -> cache.Count)
     
     let projectIndexOf (col: IReadOnlyObservableCollection<'t>) =
-        cache
-        |> Seq.takeWhile (fun i -> i <> col)
-        |> Seq.sumBy (fun i -> i.Count)
+        items
+        |> Seq.takeWhile (fun (i, cache) -> i <> col)
+        |> Seq.sumBy (fun (i, cache) -> cache.Count)
     
-    let iterate() =
+    let iterateSources() =
         seq {
             let mutable masterIndex = 0
             for col in source do
@@ -26,65 +44,55 @@ type CompositeObservableCollection<'t when 't : equality>(source: IReadOnlyObser
                     yield (masterIndex, col, slaveIndex, item)
                     masterIndex <- masterIndex + 1
                     slaveIndex <- slaveIndex + 1
-        } 
+        }
+        
+    let iterateItems() =
+        items |> Seq.collect snd
     
-    let onItemChanged (source: IReadOnlyObservableCollection<'t>) (change: CollectionChange<'t>) =
+    let onItemChanged (col: IReadOnlyObservableCollection<'t>) sender (change: CollectionChange<'t>) =
         match change with
-        | Clear ->
-            let index' = projectIndexOf source
-            for i = source.Count - 1 downto 0 do
-                event.Trigger (Remove(index' + i, source.Get i))
-                //Get will obviously not work when the item is there already
-        | _ -> event.Trigger (Change.map id (fun index -> projectIndexOf source + index) change)
-    
-    let onCollectionChanged (sourceChange: CollectionChange<IReadOnlyObservableCollection<'t>>) =
-        // The change in `source` already happened
-        // Reverse-engineer what happened
-        match sourceChange with
-        | Clear ->
-            Change.commit cache Clear
-            event.Trigger Clear
-            
         | Insert(index, item) ->
-            let index' = projectIndex index
-            Change.commit cache sourceChange
+            let index' = projectIndexOf col + index
             
-            for i = 0 to item.Count - 1 do
-                event.Trigger (Insert(index' + i, item.Get i))
-                
-        | Move(oldIndex, newIndex, item) ->
-            let oldIndex' = projectIndex oldIndex
-            Change.commit cache sourceChange
-            let newIndex' = projectIndex newIndex
+            let i, cache = items |> Seq.find (fun (i, cache) -> obj.ReferenceEquals(i, col))
+            cache.Insert(index, item)
             
-            for i = 0 to item.Count - 1 do
-                if newIndex' >  oldIndex' then // right move: 0 1 1 0 -> 0 1 0 1 -> 0 0 1 1
-                    // items keep shifting to oldIndex as they're moved to the right
-                    event.Trigger (Move(oldIndex', newIndex' + i, item.Get i))
-                else // left move: 0 1 1 0 -> 1 0 1 0 -> 1 1 0 0 
-                    event.Trigger (Move(oldIndex' + i, newIndex' + i, item.Get i))
-                
+            event.Trigger(Insert(index', item))
+            
         | Remove(index, item) ->
-            let index' = projectIndex index
-            Change.commit cache sourceChange
+            let index' = projectIndexOf col + index
             
-            for i = item.Count - 1 downto 0 do
-                event.Trigger (Remove(index' + i, item.Get i))
-                
-        | Replace(index, oldItem, item) ->
-            // Collections can have different lengths so we remove the old one and insert the new one
-            let index' = projectIndex index
-            Change.commit cache sourceChange
+            let i, cache = items |> Seq.find (fun (i, cache) -> obj.ReferenceEquals(i, col))
+            cache.RemoveAt(index)
             
-            for i = oldItem.Count - 1 downto 0 do
-                event.Trigger (Remove(index' + i, oldItem.Get i))
-            for i = 0 to item.Count - 1 do
-                event.Trigger (Insert(index' + i, item.Get i))
+            event.Trigger(Remove(index', item))
     
-    do
+    let onCollectionChanged (change: CollectionChange<IReadOnlyObservableCollection<'t>>) =
+        match change with
+        | Insert(colIndex, col) ->
+            addHandler col (onItemChanged col)
+            
+            let index' = projectIndex colIndex
+            items.Insert(colIndex, (col, ResizeArray col))
+            
+            for i = 0 to col.Count - 1 do
+                event.Trigger (Insert(index' + i, col.Get i))
+                
+        | Remove(colIndex, col) ->
+            removeHandler col
+            
+            let index' = projectIndex colIndex
+            items.RemoveAt(colIndex)
+            
+            for i = col.Count - 1 downto 0 do
+                event.Trigger (Remove(index' + i, col.Get i))
+    
+    let initHandlers () =
         source.OnChanged.Add onCollectionChanged
         for col in source do
-            col.OnChanged.Add (onItemChanged col)
+            addHandler col (onItemChanged col)
+    
+    do initHandlers()
 
     new (collections: IReadOnlyObservableCollection<'t> seq) =
         CompositeObservableCollection(ObservableCollection(collections))
@@ -92,17 +100,19 @@ type CompositeObservableCollection<'t when 't : equality>(source: IReadOnlyObser
     new (collections: IReadOnlyObservableCollection seq) =
         CompositeObservableCollection(Seq.toArray collections)
         
-    member this.Count = source |> Seq.sumBy (fun col -> col.Count)
+    member this.Count =
+        items |> Seq.sumBy (fun (i, cache) -> cache.Count)
     
     member this.Get index =
-        let _, _, _, item = iterate() |> Seq.item index
-        item
+        iterateItems()
+        |> Seq.item index
         
     member this.IndexOf item =
-        iterate()
-        |> Seq.tryFind (fun (_, _, _, i) -> i = item)
-        |> Option.map(fun (masterIndex, _, _, _) -> masterIndex)
+        iterateItems()
+        |> Seq.tryFindIndex (fun i -> i = item)
         |> Option.defaultValue -1
+    
+    override this.ToString() = $"C{cId}: %A{this}"
     
     interface IReadOnlyObservableCollection<'t> with
         member this.Count = this.Count
@@ -113,7 +123,7 @@ type CompositeObservableCollection<'t when 't : equality>(source: IReadOnlyObser
         member this.OnChanged : IEvent<CollectionChange<'t>> = event.Publish
         member this.OnChanged : IEvent<CollectionChange<obj>> = event.Publish |> Event.map Change.box
         member this.GetEnumerator(): System.Collections.Generic.IEnumerator<'t> =
-            (iterate() |> Seq.map (fun (_, _, _, i) -> i)).GetEnumerator()
+            (iterateItems() :> System.Collections.Generic.IEnumerable<'t>).GetEnumerator()
         member this.GetEnumerator(): System.Collections.IEnumerator =
-            ((iterate() |> Seq.map (fun (_, _, _, i) -> i)) :> System.Collections.IEnumerable).GetEnumerator()
+            (iterateItems() :> System.Collections.IEnumerable).GetEnumerator()
             

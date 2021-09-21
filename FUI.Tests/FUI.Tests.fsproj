@@ -2,12 +2,12 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-
         <IsPackable>false</IsPackable>
         <GenerateProgramFile>false</GenerateProgramFile>
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="EventsTests.fs" />
         <Compile Include="ObservableValueTests.fs" />
         <Compile Include="CollectionChangeTests.fs" />
         <Compile Include="ObservableCollectionTests.fs" />

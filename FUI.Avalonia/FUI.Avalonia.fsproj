@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -19,8 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Avalonia.Desktop" Version="0.10.5" />
+      <PackageReference Include="Avalonia.Desktop" Version="0.10.7" />
       <PackageReference Include="System.Reactive.Linq" Version="5.0.0" />
     </ItemGroup>
-
 </Project>

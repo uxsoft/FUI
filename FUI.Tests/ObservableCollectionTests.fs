@@ -66,14 +66,11 @@ let ``ObservableCollection.Clear`` () =
     let mutable counter = 0
     let a = ocol [1..5] :> IObservableCollection<int>
     
-    a.OnChanged.Add(function
-        | Clear -> counter <- counter + 1
-        | _ -> failwith "Wrong change")
-
+    a.OnChanged.Add(fun _ -> counter <- counter + 1)
     a.Clear()
     
     Assert.Equal([], a)
-    Assert.Equal(1, counter)
+    Assert.Equal(5, counter)
     
 [<Fact>]
 let ``ObservableCollection.Insert`` () =
@@ -94,24 +91,20 @@ let ``ObservableCollection.Move`` () =
     let mutable counter = 0
     let a = ocol [1..5] :> IObservableCollection<int>
     
-    a.OnChanged.Add(function
-        | Move _ -> counter <- counter + 1
-        | _ -> failwith "Wrong change")
-
+    a.OnChanged.Add(fun _ -> counter <- counter + 1)
+    
     a.Move 1 4
     a.Move 2 0
     
     Assert.Equal([4; 1; 3; 5; 2], a)
-    Assert.Equal(2, counter)
+    Assert.Equal(4, counter)
     
 [<Fact>]
 let ``ObservableCollection.Remove`` () =
     let mutable counter = 0
     let a = ocol [1..5] :> IObservableCollection<int>
     
-    a.OnChanged.Add(function
-        | Remove _ -> counter <- counter + 1
-        | _ -> failwith "Wrong change")
+    a.OnChanged.Add(fun _ -> counter <- counter + 1)
 
     a.Remove(0)
     
@@ -123,15 +116,13 @@ let ``ObservableCollection.Set`` () =
     let mutable counter = 0
     let a = ocol [1..5] :> IObservableCollection<int>
     
-    a.OnChanged.Add(function
-        | Replace _ -> counter <- counter + 1
-        | _ -> failwith "Wrong change")
-
+    a.OnChanged.Add(fun _ -> counter <- counter + 1)
+    
     a.Set 4 9
     a.Set 0 8
     
     Assert.Equal([8; 2; 3; 4; 9], a)
-    Assert.Equal(2, counter)
+    Assert.Equal(4, counter)
     
 [<Fact>]
 let ``ObservableCollection.Add`` () =
@@ -152,16 +143,14 @@ let ``ObservableCollection.Item`` () =
     let mutable counter = 0
     let a = ocol [1..5]
     
-    a.OnChanged.Add(function
-        | Replace _ -> counter <- counter + 1
-        | _ -> failwith "Wrong change")
-
+    a.OnChanged.Add(fun _ -> counter <- counter + 1)
+    
     let result = a.[0]
     a.[0] <- 9
     
     Assert.Equal(1, result)
     Assert.Equal([9; 2; 3; 4; 5], a)
-    Assert.Equal(1, counter)
+    Assert.Equal(2, counter)
     
 [<Fact>]
 let ``IReadOnlyCollection`` () =
@@ -220,6 +209,7 @@ let ``Oc.filter`` () =
     
     a.Move 2 0
     a.Move 2 4
+    
     // [5; 3; 8; 9; 4]
     Assert.Equal([8; 4], b)
     Assert.Equal(b, c)
