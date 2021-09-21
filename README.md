@@ -19,5 +19,58 @@
         - Maui
         - WinUI 3
 
+## Declarative DSL 
+
+```fsharp
+type Model =
+    { Counter: int oval
+      Items: int ocol }
+    
+let init () =
+    { Counter = oval 0
+      Items = ocol [1; 2; 3] }
+    
+let view () =
+    let model = init ()
+    
+    StackPanel {
+        TextBlock {
+            let txt = (model.Counter |> Ov.map string)
+            txt
+        }
+        Button {
+            onClick (fun _ _ ->
+                model.Items.Add (model.Items.Count + 1)
+                model.Counter.Update (fun v -> v + 1))
+            "+"
+        }
+        Button {
+            onClick (fun _ _ ->
+                model.Items.Remove (model.Items.Count - 1)
+                model.Counter.Update (fun v -> v - 1)) 
+            "-"
+        }
+        Button {
+            onClick (fun _ _ ->
+                model.Items.Clear()
+                model.Counter.Update (fun _ -> 0)) 
+            "reset"
+        }
+        
+        
+        let isEven = model.Counter |> Ov.map (fun i -> (i % 2) = 0)
+        If (isEven) {
+            TextBlock { "even" }
+        }
+        Else (isEven) {
+            TextBlock { "odd" }
+        }
+        
+        for i in model.Items do
+            for j in model.Items do
+            TextBlock { $"item-{i}-{j}" }
+    }    
+```
+
 ## License
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fuxsoft%2FFUI.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fuxsoft%2FFUI?ref=badge_large)
