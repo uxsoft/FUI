@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1632207905976,
+  "lastUpdate": 1632226819945,
   "repoUrl": "https://github.com/uxsoft/FUI",
   "entries": {
     "Benchmark.Net Benchmark": [
@@ -308,6 +308,54 @@ window.BENCHMARK_DATA = {
             "value": 1191985.9501694918,
             "unit": "ns",
             "range": "± 52626.74957378553"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "me@uxsoft.cz",
+            "name": "Jan Dryk",
+            "username": "uxsoft"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "89ef9404681950026fd4b737815add18fb0c23dc",
+          "message": "Update README.md",
+          "timestamp": "2021-09-21T14:18:13+02:00",
+          "tree_id": "83782c6d176ab15eef734b3459f286c1bc28ea28",
+          "url": "https://github.com/uxsoft/FUI/commit/89ef9404681950026fd4b737815add18fb0c23dc"
+        },
+        "date": 1632226819450,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "FUI.Benchmarks.CartesianProduct",
+            "value": 14845.839837881234,
+            "unit": "ns",
+            "range": "± 68.02801825186305"
+          },
+          {
+            "name": "FUI.Benchmarks.CounterUI",
+            "value": 1182963.3091145833,
+            "unit": "ns",
+            "range": "± 5077.600504497444"
+          },
+          {
+            "name": "FUI.Benchmarks.CartesianProduct",
+            "value": 19206.039333333334,
+            "unit": "ns",
+            "range": "± 122.7782356508016"
+          },
+          {
+            "name": "FUI.Benchmarks.CounterUI",
+            "value": 1156146.7353333335,
+            "unit": "ns",
+            "range": "± 6541.313029940504"
           }
         ]
       }
