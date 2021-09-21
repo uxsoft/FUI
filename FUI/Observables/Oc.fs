@@ -1,9 +1,12 @@
 module FUI.Oc
 
+open System
 open System.Collections.ObjectModel
 open FUI.CollectionChange
 open FUI.ObservableCollection
 open FUI.CompositeObservableCollection
+
+let private random = Random()
 
 let empty<'t> = ObservableCollection<'t>([])
 
@@ -26,22 +29,41 @@ let cast'<'t> (col: IReadOnlyObservableCollection) : IReadOnlyObservableCollecti
     CastReadOnlyObservableCollection<'t>(col) :> IReadOnlyObservableCollection<'t>
 
 type MappedReadOnlyObservableCollection<'a, 'b when 'b : equality>(f: 'a -> 'b, source: IReadOnlyObservableCollection<'a>) =
+    let cId = random.Next()
+    let event = Event<CollectionChange<'b>>()
+    let items = source |> Seq.map f |> ResizeArray
+    
+    let onItemChanged (change: CollectionChange<'a>) =
+        match change with
+        | Insert(index, item) ->
+            let m = f item
+            items.Insert(index, m)
+            event.Trigger(Insert(index, m))
+        | Remove(index, _) ->
+            let m = items.[index]
+            items.RemoveAt(index)
+            event.Trigger(Remove(index, m))
+    
+    do source.OnChanged.Add onItemChanged
+    
+    override this.ToString() = $"M{cId}: %A{this}"
+    
     interface IReadOnlyObservableCollection<'b> with
         member this.Count = source.Count
-        member this.Get (index: int) = f (source.Get index)
-        member this.Get (index: int): obj = source.Get index |> f |> box
+        member this.Get (index: int) = items.[index]
+        member this.Get (index: int): obj = items.[index] |> box
         member this.GetEnumerator(): System.Collections.Generic.IEnumerator<'b> =
-            (source |> Seq.map f).GetEnumerator()
+            (items :> System.Collections.Generic.IEnumerable<'b>).GetEnumerator()
         member this.GetEnumerator(): System.Collections.IEnumerator =
-            ((source |> Seq.map f) :> System.Collections.IEnumerable).GetEnumerator()
+            (items :> System.Collections.IEnumerable).GetEnumerator()
         member this.IndexOf (item: 'b): int =
             source |> Seq.findIndex (fun i -> item = f i)
         member this.IndexOf (item: obj): int =
             source |> toSeq' |> Seq.findIndex (fun i -> item.Equals(f (i :?> 'a)))
         member this.OnChanged : IEvent<CollectionChange<'b>> =
-            Event.map (Change.map f id) source.OnChanged
+            event.Publish
         member this.OnChanged : IEvent<CollectionChange<obj>> =
-            Event.map (fun c -> c |> Change.map f id |> Change.box) source.OnChanged 
+            event.Publish |> Event.map Change.box 
 
 let map f (col: IReadOnlyObservableCollection<'a>) =
     MappedReadOnlyObservableCollection<'a, 'b>(f, col) :> IReadOnlyObservableCollection<'b>
@@ -60,12 +82,13 @@ type FilteredReadOnlyObservableCollection<'t when 't : equality>(f: 't -> bool, 
         source
         |> Seq.map (fun i -> i, f i)
         |> ResizeArray
+
     let event = Event<CollectionChange<'t>>()
         
     let projectIndex index =
         items
         |> Seq.take index
-        |> Seq.sumBy (fun (_, f) -> if f then 1 else 0)
+        |> Seq.sumBy (fun (_, passes) -> if passes then 1 else 0)
     
     let filteredItems () =
         items
@@ -73,13 +96,13 @@ type FilteredReadOnlyObservableCollection<'t when 't : equality>(f: 't -> bool, 
         |> Seq.map fst
                     
     let onSourceChanged (sourceChange: CollectionChange<'t>) =
+        let a = source
         match sourceChange with
-            
         | Insert(index, item) ->
             let passes = f item
             let index' = projectIndex index
             
-            items.Insert(index, (item, f item))
+            items.Insert(index, (item, passes))
             if passes then 
                 event.Trigger (Insert(index', item))
                 

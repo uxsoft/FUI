@@ -1,5 +1,6 @@
 module FUI.ObservableCollection
 
+open System
 open FUI.CollectionChange
 
 type IReadOnlyObservableCollection =
@@ -24,7 +25,11 @@ type IObservableCollection<'t> =
     abstract member Remove: int -> unit
     abstract member Insert: int -> 't -> unit
 
+let private random = Random()
+
 type ObservableCollection<'t>(source: System.Collections.Generic.IList<'t>) =
+    let cId = random.Next()
+    
     let items = source
     let event = Event<CollectionChange<'t>>()
     
@@ -46,6 +51,8 @@ type ObservableCollection<'t>(source: System.Collections.Generic.IList<'t>) =
     member this.Count = items.Count
     member this.OnChanged = event.Publish
     
+    override this.ToString() = $"O{cId}: %A{this}"
+        
     interface IObservableCollection<'t> with
         member this.Get index = this.Get index
         member this.Get index = box (this.Get index)

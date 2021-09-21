@@ -170,3 +170,92 @@ let ``Cartesian Product`` () =
     a.Clear()
     Assert.Equal([], c)
     Assert.Equal([], d)
+
+
+[<Fact>]
+let ``Filtered Cartesian Product`` () =
+    let a = ObservableCollection([1; 2; 3])
+    let b = a |> Oc.map (fun i -> ObservableCollection(Array.create i i) :> IReadOnlyObservableCollection<int>)
+    let c = b |> Oc.flatten |> Oc.filter (fun i -> i % 2 = 1)
+    let d = ResizeArray(c)
+    
+    c.OnChanged.Add(Change.commit d)
+   
+    Assert.Equal([1; 3; 3; 3], c)
+    Assert.Equal(c, d)
+    
+    a.Add 4
+    a.Add 5
+    // [ 1; 2; 3; 4; 5 ]
+    Assert.Equal([1; 3; 3; 3; 5; 5; 5; 5; 5], c)
+    Assert.Equal(c, d)
+    
+    a.Remove 3
+    a.Remove 0
+    // [ 2; 3; 5 ]
+    Assert.Equal([3; 3; 3; 5; 5; 5; 5; 5], c)
+    Assert.Equal(c, d)
+    
+    a.Move 2 0
+    // a = [ 5; 2; 3 ]
+    Assert.Equal([5; 5; 5; 5; 5; 3; 3; 3], c)
+    Assert.Equal(c, d)
+    
+    a.Set 1 1
+    // a = [ 5; 1; 3 ]
+    Assert.Equal([5; 5; 5; 5; 5; 1; 3; 3; 3], c)
+    Assert.Equal(c, d)
+    
+    a.Clear()
+    Assert.Equal([], c)
+    Assert.Equal([], d)
+
+[<Fact>]
+let ``Empty Cartesian Product`` () =
+    let a = ObservableCollection([])
+    let b = a |> Oc.map (fun i -> ObservableCollection(Array.create i i) :> IReadOnlyObservableCollection<int>)
+    let c = b |> Oc.flatten 
+    let d = ResizeArray(c)
+    
+    c.OnChanged.Add(Change.commit d)
+   
+    Assert.Equal([], c)
+    Assert.Equal(c, d)
+    
+    a.Add 1
+    a.Add 2
+    a.Add 3
+    // a = [ 1; 2; 3 ]
+    Assert.Equal([1; 2; 2; 3; 3; 3], c)
+    Assert.Equal(c, d)
+    
+    a.Remove 2
+    a.Remove 0
+    // a = [ 2 ]
+    Assert.Equal([2; 2], c)
+    Assert.Equal(c, d)
+
+[<Fact>]
+let ``Newly added collections are correctly subscribed and unsubscribed`` () =
+    let a = ObservableCollection([ObservableCollection([1]) :> IReadOnlyObservableCollection<int>])
+    let b = a |> Oc.flatten 
+    let c = ObservableCollection([2])
+    let d = ResizeArray b
+    
+    b.OnChanged.Add(Change.commit d)
+    
+    // add new collection
+    a.Add c
+    Assert.Equal([1; 2], d)
+    
+    // this collection is sending events
+    c.Add 3
+    Assert.Equal([1; 2; 3], d)
+    
+    // remove that collection, it's no longer sending events
+    a.Remove 1
+    c.Remove 0
+    Assert.Equal([1], d)
+    
+    
+    
