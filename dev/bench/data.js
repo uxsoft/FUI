@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1632206580615,
+  "lastUpdate": 1632206786893,
   "repoUrl": "https://github.com/uxsoft/FUI",
   "entries": {
     "Benchmark.Net Benchmark": [
@@ -152,6 +152,66 @@ window.BENCHMARK_DATA = {
             "value": 1262344.5930769232,
             "unit": "ns",
             "range": "± 10821.52635895028"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "me@uxsoft.cz",
+            "name": "Jan Dryk",
+            "username": "uxsoft"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "a66e13cca8f6080afdc841d5aec81dfff122bb6c",
+          "message": "Simplified change (#5)\n\n* simplified change to only inserts and removes\r\n\r\n* add ui benchmark\r\n\r\n* ifbuilder now works\r\n\r\n* cache in Oc.map ensuring stability of the projection",
+          "timestamp": "2021-09-21T08:44:27+02:00",
+          "tree_id": "655798371fc2ed0216e9c35b4e93a531e52aab16",
+          "url": "https://github.com/uxsoft/FUI/commit/a66e13cca8f6080afdc841d5aec81dfff122bb6c"
+        },
+        "date": 1632206786445,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "FUI.Benchmarks.CartesianProduct",
+            "value": 12172.44091389974,
+            "unit": "ns",
+            "range": "± 123.63976495287237"
+          },
+          {
+            "name": "FUI.Benchmarks.CartesianProduct",
+            "value": 17242.9,
+            "unit": "ns",
+            "range": "± 111.49419811939019"
+          },
+          {
+            "name": "FUI.Benchmarks.CartesianProduct",
+            "value": 16142.282666666666,
+            "unit": "ns",
+            "range": "± 105.38639844920806"
+          },
+          {
+            "name": "FUI.Benchmarks.CounterUI",
+            "value": 988948.6173177083,
+            "unit": "ns",
+            "range": "± 8000.796406595875"
+          },
+          {
+            "name": "FUI.Benchmarks.CounterUI",
+            "value": 972273.9028571427,
+            "unit": "ns",
+            "range": "± 6474.798810040279"
+          },
+          {
+            "name": "FUI.Benchmarks.CounterUI",
+            "value": 910514.3346666669,
+            "unit": "ns",
+            "range": "± 5060.482827720616"
           }
         ]
       }
