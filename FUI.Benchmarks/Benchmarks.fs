@@ -8,8 +8,7 @@ open FUI.ObservableValue
 open FUI.Avalonia.DSL
 open FUI.IfBuilder
 
-[<SimpleJob(RuntimeMoniker.Net50, invocationCount = 100, baseline = true)>]
-[<SimpleJob(RuntimeMoniker.Net60, invocationCount = 100)>]
+[<SimpleJob(RuntimeMoniker.Net50, invocationCount = 100)>]
 [<JsonExporterAttribute.FullCompressed>]
 type Benchmarks() =
     
