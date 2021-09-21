@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1632206786893,
+  "lastUpdate": 1632207712758,
   "repoUrl": "https://github.com/uxsoft/FUI",
   "entries": {
     "Benchmark.Net Benchmark": [
@@ -212,6 +212,54 @@ window.BENCHMARK_DATA = {
             "value": 910514.3346666669,
             "unit": "ns",
             "range": "± 5060.482827720616"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "me@uxsoft.cz",
+            "name": "Jan Dryk",
+            "username": "uxsoft"
+          },
+          "committer": {
+            "email": "me@uxsoft.cz",
+            "name": "Jan Dryk",
+            "username": "uxsoft"
+          },
+          "distinct": true,
+          "id": "a070d941387430d0aa62d0438ecc12cc325dfe87",
+          "message": "remove net 6 benchmark as it was causing graphs to be weird",
+          "timestamp": "2021-09-21T08:59:04+02:00",
+          "tree_id": "f9e3770568a88a2908c9692325761aedd9f3ac98",
+          "url": "https://github.com/uxsoft/FUI/commit/a070d941387430d0aa62d0438ecc12cc325dfe87"
+        },
+        "date": 1632207711834,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "FUI.Benchmarks.CartesianProduct",
+            "value": 15111.117932771382,
+            "unit": "ns",
+            "range": "± 513.528581907502"
+          },
+          {
+            "name": "FUI.Benchmarks.CounterUI",
+            "value": 1303194.9858685662,
+            "unit": "ns",
+            "range": "± 22272.638820744844"
+          },
+          {
+            "name": "FUI.Benchmarks.CartesianProduct",
+            "value": 18244.54237113403,
+            "unit": "ns",
+            "range": "± 1865.1181175167198"
+          },
+          {
+            "name": "FUI.Benchmarks.CounterUI",
+            "value": 1281014.241333333,
+            "unit": "ns",
+            "range": "± 36410.34934720761"
           }
         ]
       }
