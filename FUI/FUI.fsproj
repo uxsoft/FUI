@@ -14,7 +14,7 @@
       <Compile Include="Observables\Oc.fs" />
       <Compile Include="Observables\Block.fs" />
       <Compile Include="Observables\Builder.fs" />
-      <Compile Include="DSL\UIBuilder.fs" />
+      <Compile Include="DSL\UiBuilder.fs" />
       <Compile Include="DSL\IfBuilder.fs" />
     </ItemGroup>
 </Project>

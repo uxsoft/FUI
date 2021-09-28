@@ -1,5 +1,5 @@
 module Avalonia.FuncUI.Experiments.DSL.TextBlock
-open FUI.UIBuilder
+open FUI.UiBuilder
 open Avalonia.FuncUI.Experiments.DSL.Control
 
 open Avalonia
@@ -21,57 +21,57 @@ type TextBlockBuilder<'t when 't :> TextBlock>() =
             x.Attributes @ [ AttrBuilder<'t>.CreateProperty(TextBlock.TextProperty, lastChild.ToString(), ValueNone) ]
         
     [<CustomOperation("text")>] 
-    member _.text<'t>(x: Element, value: string) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<string>(TextBlock.TextProperty, value, ValueNone) ]
+    member _.text<'t>(x: Node<_, _>, value: string) =
+        Types.dependencyProperty<string>(TextBlock.TextProperty, value, ValueNone) ]
         
     [<CustomOperation("background")>] 
-    member _.background<'t>(x: Element, value: IBrush) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<IBrush>(TextBlock.BackgroundProperty, value, ValueNone) ]
+    member _.background<'t>(x: Node<_, _>, value: IBrush) =
+        Types.dependencyProperty<IBrush>(TextBlock.BackgroundProperty, value, ValueNone) ]
     
     [<CustomOperation("fontFamily")>] 
-    member _.fontFamily<'t>(x: Element, value: FontFamily) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<FontFamily>(TextBlock.FontFamilyProperty, value, ValueNone) ]
+    member _.fontFamily<'t>(x: Node<_, _>, value: FontFamily) =
+        Types.dependencyProperty<FontFamily>(TextBlock.FontFamilyProperty, value, ValueNone) ]
         
     [<CustomOperation("fontSize")>] 
-    member _.fontSize<'t>(x: Element, value: double) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<double>(TextBlock.FontSizeProperty, value, ValueNone) ]
+    member _.fontSize<'t>(x: Node<_, _>, value: double) =
+        Types.dependencyProperty<double>(TextBlock.FontSizeProperty, value, ValueNone) ]
         
     [<CustomOperation("fontStyle")>] 
-    member _.fontStyle<'t>(x: Element, value: FontStyle) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<FontStyle>(TextBlock.FontStyleProperty, value, ValueNone) ]
+    member _.fontStyle<'t>(x: Node<_, _>, value: FontStyle) =
+        Types.dependencyProperty<FontStyle>(TextBlock.FontStyleProperty, value, ValueNone) ]
         
     [<CustomOperation("fontWeight")>] 
-    member _.fontWeight<'t>(x: Element, value: FontWeight) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<FontWeight>(TextBlock.FontWeightProperty, value, ValueNone) ]
+    member _.fontWeight<'t>(x: Node<_, _>, value: FontWeight) =
+        Types.dependencyProperty<FontWeight>(TextBlock.FontWeightProperty, value, ValueNone) ]
         
     [<CustomOperation("foreground")>] 
-    member _.foreground<'t>(x: Element, value: IBrush) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<IBrush>(TextBlock.ForegroundProperty, value, ValueNone) ]
+    member _.foreground<'t>(x: Node<_, _>, value: IBrush) =
+        Types.dependencyProperty<IBrush>(TextBlock.ForegroundProperty, value, ValueNone) ]
 
     [<CustomOperation("lineHeight")>] 
-    member _.lineHeight<'t>(x: Element, value: float) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<float>(TextBlock.LineHeightProperty, value, ValueNone) ]
+    member _.lineHeight<'t>(x: Node<_, _>, value: float) =
+        Types.dependencyProperty<float>(TextBlock.LineHeightProperty, value, ValueNone) ]
         
     [<CustomOperation("maxLines")>] 
-    member _.maxLines<'t>(x: Element, value: int) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<int>(TextBlock.MaxLinesProperty, value, ValueNone) ]
+    member _.maxLines<'t>(x: Node<_, _>, value: int) =
+        Types.dependencyProperty<int>(TextBlock.MaxLinesProperty, value, ValueNone) ]
 
     [<CustomOperation("padding")>] 
-    member _.padding<'t>(x: Element, value: Thickness) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<Thickness>(TextBlock.PaddingProperty, value, ValueNone) ]
+    member _.padding<'t>(x: Node<_, _>, value: Thickness) =
+        Types.dependencyProperty<Thickness>(TextBlock.PaddingProperty, value, ValueNone) ]
 
     [<CustomOperation("textAlignment")>] 
-    member _.textAlignment<'t>(x: Element, alignment: TextAlignment) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<TextAlignment>(TextBlock.TextAlignmentProperty, alignment, ValueNone) ]
+    member _.textAlignment<'t>(x: Node<_, _>, alignment: TextAlignment) =
+        Types.dependencyProperty<TextAlignment>(TextBlock.TextAlignmentProperty, alignment, ValueNone) ]
 
     [<CustomOperation("textDecorations")>] 
-    member _.textDecorations<'t>(x: Element, value: TextDecorationCollection) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<TextDecorationCollection>(TextBlock.TextDecorationsProperty, value, ValueNone) ]
+    member _.textDecorations<'t>(x: Node<_, _>, value: TextDecorationCollection) =
+        Types.dependencyProperty<TextDecorationCollection>(TextBlock.TextDecorationsProperty, value, ValueNone) ]
 
     [<CustomOperation("textTrimming")>] 
-    member _.textTrimming<'t>(x: Element, value: TextTrimming) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<TextTrimming>(TextBlock.TextTrimmingProperty, value, ValueNone) ]
+    member _.textTrimming<'t>(x: Node<_, _>, value: TextTrimming) =
+        Types.dependencyProperty<TextTrimming>(TextBlock.TextTrimmingProperty, value, ValueNone) ]
         
     [<CustomOperation("textWrapping")>] 
-    member _.textWrapping<'t>(x: Element, value: TextWrapping) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<TextWrapping>(TextBlock.TextWrappingProperty, value, ValueNone) ]
+    member _.textWrapping<'t>(x: Node<_, _>, value: TextWrapping) =
+        Types.dependencyProperty<TextWrapping>(TextBlock.TextWrappingProperty, value, ValueNone) ]

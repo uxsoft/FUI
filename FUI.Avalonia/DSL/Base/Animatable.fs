@@ -1,16 +1,16 @@
 module Avalonia.FuncUI.Experiments.DSL.Animatable
 
 open Avalonia.Animation
-open Avalonia.FuncUI.Builder
-open FUI.UIBuilder
+open FUI.UiBuilder
+open FUI.Avalonia
 
 type AnimatableBuilder<'t when 't :> Animatable>() =
-    inherit UIBuilder<'t>()
+    inherit UiBuilder<'t>()
     
     [<CustomOperation("transitions")>]
-    member _.transitions<'t>(x: Element, v: Transitions) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<Transitions>(Animatable.TransitionsProperty, v, ValueNone) ]
+    member _.transitions<'t>(x: Node<_, _>, v: Transitions) =
+        Types.dependencyProperty Animatable.TransitionsProperty v
         
     [<CustomOperation("clock")>]
-    member _.clock<'t>(x: Element, clock: IClock) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<IClock>(Animatable.ClockProperty, clock, ValueNone) ]
+    member _.clock<'t>(x: Node<_, _>, clock: IClock) =
+        Types.dependencyProperty Animatable.ClockProperty clock

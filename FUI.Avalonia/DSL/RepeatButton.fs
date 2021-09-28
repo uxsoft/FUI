@@ -2,7 +2,7 @@
 
 open Avalonia.Controls
 open Avalonia.FuncUI.Experiments.DSL.Button
-open FUI.UIBuilder
+open FUI.UiBuilder
 open Avalonia.FuncUI.Builder
 
 type RepeatButtonBuilder<'t when 't :> RepeatButton>() =
@@ -12,12 +12,12 @@ type RepeatButtonBuilder<'t when 't :> RepeatButton>() =
     /// Sets the amount of time, in milliseconds, of repeating clicks.
     /// </summary>
     [<CustomOperation("interval")>]
-    member _.interval<'t>(x: Element, value: int) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<int>(RepeatButton.IntervalProperty, value, ValueNone) ]
+    member _.interval<'t>(x: Node<_, _>, value: int) =
+        Types.dependencyProperty<int>(RepeatButton.IntervalProperty, value, ValueNone) ]
     
     /// <summary>
     /// Sets the amount of time, in milliseconds, to wait before repeating begins.
     /// </summary>
     [<CustomOperation("delay")>]
-    member _.delay<'t>(x: Element, value: int) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<int>(RepeatButton.DelayProperty, value, ValueNone) ]
+    member _.delay<'t>(x: Node<_, _>, value: int) =
+        Types.dependencyProperty<int>(RepeatButton.DelayProperty, value, ValueNone) ]

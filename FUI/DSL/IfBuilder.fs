@@ -2,13 +2,13 @@ module FUI.IfBuilder
 
 open System.Collections.Generic
 open FUI.ObservableCollection
-open FUI.UIBuilder
+open FUI.UiBuilder
 open FUI.ObservableValue
 
 type IfBuilder<'t>(q: IObservableValue<bool>) =
-    inherit UIBuilder<'t>()
+    inherit UiBuilder<'t>()
     
-    member _.Run (x: Element) =
+    member _.Run (x: Node<_, _>) =
         let sourceAttributes = x.Attributes |> Builder.build
         let sourceChildren = x.Children |> Builder.build
         

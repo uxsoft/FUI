@@ -1,6 +1,6 @@
 module Avalonia.FuncUI.Experiments.DSL.Path
 
-open FUI.UIBuilder
+open FUI.UiBuilder
 open Avalonia.FuncUI.Experiments.DSL.Shape
 open Avalonia.Media
 open Avalonia.Controls.Shapes
@@ -10,5 +10,5 @@ type PathBuilder<'t when 't :> Path>() =
     inherit ShapeBuilder<'t>()
     
     [<CustomOperation("data")>]
-    member _.data<'t>(x: Element, geometry: Geometry) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<Geometry>(Path.DataProperty, geometry, ValueNone) ]
+    member _.data<'t>(x: Node<_, _>, geometry: Geometry) =
+        Types.dependencyProperty<Geometry>(Path.DataProperty, geometry, ValueNone) ]

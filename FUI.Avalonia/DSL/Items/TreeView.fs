@@ -2,7 +2,7 @@
 
     open System.Collections
     open Avalonia.Controls
-    open FUI.UIBuilder
+    open FUI.UiBuilder
     open Avalonia.FuncUI.Experiments.DSL.ItemsControl
     open Avalonia.FuncUI.Builder
 
@@ -13,26 +13,26 @@
         /// Sets a value indicating whether to automatically scroll to newly selected items.
         /// </summary>
         [<CustomOperation("autoScrollToSelectedItem")>] 
-        member _.autoScrollToSelectedItem<'t>(x: Element, value: bool) =
-            x @@ [ AttrBuilder<'t>.CreateProperty<bool>(TreeView.AutoScrollToSelectedItemProperty, value, ValueNone) ]
+        member _.autoScrollToSelectedItem<'t>(x: Node<_, _>, value: bool) =
+            Types.dependencyProperty<bool>(TreeView.AutoScrollToSelectedItemProperty, value, ValueNone) ]
         
         /// <summary>
         /// Sets the selected items.
         /// </summary>
         [<CustomOperation("selectedItem")>] 
-        member _.selectedItem<'t>(x: Element, value: obj) =
-            x @@ [ AttrBuilder<'t>.CreateProperty<obj>(TreeView.SelectedItemProperty, value, ValueNone) ]
+        member _.selectedItem<'t>(x: Node<_, _>, value: obj) =
+            Types.dependencyProperty<obj>(TreeView.SelectedItemProperty, value, ValueNone) ]
          
         /// <summary>
         /// Sets the selected item.
         /// </summary>
         [<CustomOperation("selectedItems")>] 
-        member _.selectedItems<'t>(x: Element, value: IList) =
-            x @@ [ AttrBuilder<'t>.CreateProperty<IList>(TreeView.SelectedItemsProperty, value, ValueNone) ]
+        member _.selectedItems<'t>(x: Node<_, _>, value: IList) =
+            Types.dependencyProperty<IList>(TreeView.SelectedItemsProperty, value, ValueNone) ]
 
         /// <summary>
         /// Sets the selection mode.
         /// </summary>
         [<CustomOperation("selectionMode")>] 
-        member _.selectionMode<'t>(x: Element, value: SelectionMode) =
-            x @@ [ AttrBuilder<'t>.CreateProperty<SelectionMode>(TreeView.SelectionModeProperty, value, ValueNone) ]
+        member _.selectionMode<'t>(x: Node<_, _>, value: SelectionMode) =
+            Types.dependencyProperty<SelectionMode>(TreeView.SelectionModeProperty, value, ValueNone) ]

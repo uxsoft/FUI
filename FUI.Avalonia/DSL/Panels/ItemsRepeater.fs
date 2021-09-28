@@ -2,7 +2,7 @@
 
 open System.Collections
 open Avalonia.Controls
-open FUI.UIBuilder
+open FUI.UiBuilder
 open Avalonia.FuncUI.Experiments.DSL.Panel
 open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
@@ -12,13 +12,13 @@ type ItemsRepeaterBuilder<'t when 't :> ItemsRepeater>() =
     inherit PanelBuilder<'t>()
     
     [<CustomOperation("viewItems")>] 
-    member _.viewItems<'t>(x: Element, views: List<IView>) =
+    member _.viewItems<'t>(x: Node<_, _>, views: List<IView>) =
         x @@ [ AttrBuilder<'t>.CreateContentMultiple(ItemsRepeater.ItemsProperty, views) ]
     
     [<CustomOperation("dataItems")>] 
-    member _.dataItems<'t>(x: Element, data : IEnumerable) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<IEnumerable>(ItemsRepeater.ItemsProperty, data, ValueNone) ]
+    member _.dataItems<'t>(x: Node<_, _>, data : IEnumerable) =
+        Types.dependencyProperty<IEnumerable>(ItemsRepeater.ItemsProperty, data, ValueNone) ]
         
     [<CustomOperation("itemTemplate")>] 
-    member _.itemTemplate<'t>(x: Element, value : IDataTemplate) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<IDataTemplate>(ItemsRepeater.ItemTemplateProperty, value, ValueNone) ]
+    member _.itemTemplate<'t>(x: Node<_, _>, value : IDataTemplate) =
+        Types.dependencyProperty<IDataTemplate>(ItemsRepeater.ItemTemplateProperty, value, ValueNone) ]

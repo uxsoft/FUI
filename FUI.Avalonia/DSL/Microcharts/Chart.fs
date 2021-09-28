@@ -1,7 +1,7 @@
 module Avalonia.FuncUI.Experiments.DSL.Microcharts.Chart
 
 open Avalonia.Controls
-open FUI.UIBuilder
+open FUI.UiBuilder
 open Avalonia.FuncUI.Experiments.DSL.Control
 open Avalonia.FuncUI.Experiments.DSL.TemplatedControl
 open Avalonia.Layout

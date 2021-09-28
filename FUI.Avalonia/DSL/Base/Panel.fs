@@ -1,7 +1,7 @@
 module Avalonia.FuncUI.Experiments.DSL.Panel
 
 open Avalonia.Controls
-open FUI.UIBuilder
+open FUI.UiBuilder
 open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
 open Avalonia.Media
@@ -17,6 +17,6 @@ type PanelBuilder<'t when 't :> Panel>() =
         x.Attributes @ [ childrenProp ]
             
     [<CustomOperation("background")>]
-    member _.background<'t>(x: Element, value: IBrush) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<IBrush>(Panel.BackgroundProperty, value, ValueNone) ]
+    member _.background<'t>(x: Node<_, _>, value: IBrush) =
+        Types.dependencyProperty<IBrush>(Panel.BackgroundProperty, value, ValueNone) ]
         

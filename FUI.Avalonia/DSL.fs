@@ -10,11 +10,11 @@ open FUI
 open FUI.CompositeObservableCollection
 open FUI.ObservableCollection
 open FUI.ObservableValue
-open FUI.UIBuilder
+open FUI.UiBuilder
 
 // DSL Avalonia Platform
-type UIBuilder<'t> with
-    member _.RunAvaloniaWithChildren (x: Element) (setChildren: 't -> IReadOnlyObservableCollection<obj> -> unit) =
+type UiBuilder<'t> with
+    member _.RunAvaloniaWithChildren (x: Node<_, _>) (setChildren: 't -> IReadOnlyObservableCollection<obj> -> unit) =
         try
             let control = Activator.CreateInstance<'t>()
             let controlType = typeof<'t>
@@ -49,7 +49,7 @@ type UIBuilder<'t> with
             printfn $"{e}"
             reraise()
             
-    member this.RunAvaloniaWithChild (x: Element) (setChild: 't -> obj -> unit) =
+    member this.RunAvaloniaWithChild (x: Node<_, _>) (setChild: 't -> obj -> unit) =
         let setChildren (control: 't) (children: IReadOnlyObservableCollection<obj>) =
             let set () = 
                 children
@@ -65,18 +65,18 @@ type UIBuilder<'t> with
             
         this.RunAvaloniaWithChildren x setChildren
         
-    member this.RunAvaloniaChildless (x: Element) =
+    member this.RunAvaloniaChildless (x: Node<_, _>) =
         this.RunAvaloniaWithChildren x (fun _ _ -> ())
 
 // DSL Avalonia Elements
 type WindowBuilder() =
-    inherit UIBuilder<Window>()
+    inherit UiBuilder<Window>()
     member inline this.Run x =            
         this.RunAvaloniaWithChild x (fun window child -> window.Content <- child)
         
-    [<CustomOperation("title")>] member inline _.Title(x: Element, v: string) = x.attr "Title" v
-    [<CustomOperation("height")>] member inline _.Height(x: Element, v: float) = x.attr "Height" v
-    [<CustomOperation("width")>] member inline _.Width(x: Element, v: float) = x.attr "Width" v
+    [<CustomOperation("title")>] member inline _.Title(x: Node<_, _>, v: string) = x.attr "Title" v
+    [<CustomOperation("height")>] member inline _.Height(x: Node<_, _>, v: float) = x.attr "Height" v
+    [<CustomOperation("width")>] member inline _.Width(x: Node<_, _>, v: float) = x.attr "Width" v
     
     
 let Window = WindowBuilder()
@@ -84,7 +84,7 @@ let Window = WindowBuilder()
 
 
 type StackPanelBuilder() =
-    inherit UIBuilder<StackPanel>()
+    inherit UiBuilder<StackPanel>()
     
     member this.Run x =
         this.RunAvaloniaWithChildren x (fun panel (children: IReadOnlyObservableCollection<obj>) ->
@@ -102,7 +102,7 @@ let StackPanel = StackPanelBuilder()
     
 
 type TextBlockBuilder() =
-    inherit UIBuilder<TextBlock>()
+    inherit UiBuilder<TextBlock>()
     member this.Run x =
         this.RunAvaloniaWithChild x (fun textBlock text -> textBlock.Text <- string text)
         
@@ -111,10 +111,10 @@ let TextBlock = TextBlockBuilder()
 
 
 type ButtonBuilder() =
-    inherit UIBuilder<Button>()
+    inherit UiBuilder<Button>()
     member this.Run x =
         this.RunAvaloniaWithChild x (fun button child -> button.Content <- string child)
         
-    [<CustomOperation("onClick")>] member inline _.onClick (x: Element, v: EventHandler<RoutedEventArgs>) = x.attr "Click" v
+    [<CustomOperation("onClick")>] member inline _.onClick (x: Node<_, _>, v: EventHandler<RoutedEventArgs>) = x.attr "Click" v
         
 let Button = ButtonBuilder()

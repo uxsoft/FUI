@@ -1,7 +1,7 @@
 namespace Avalonia.FuncUI.Experiments.DSL.Grid
   
 open Avalonia.Controls
-open FUI.UIBuilder
+open FUI.UiBuilder
 open Avalonia.FuncUI.Experiments.DSL.Panel
 open Avalonia.FuncUI.Builder
     
@@ -51,11 +51,11 @@ type GridBuilder<'t when 't :> Grid>() =
     inherit PanelBuilder<'t>()
     
     [<CustomOperation("showGridLines")>] 
-    member _.showGridLines<'t>(x: Element, value: bool) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(Grid.ShowGridLinesProperty, value, ValueNone) ]
+    member _.showGridLines<'t>(x: Node<_, _>, value: bool) =
+        Types.dependencyProperty<bool>(Grid.ShowGridLinesProperty, value, ValueNone) ]
 
     [<CustomOperation("columnDefinitions")>] 
-    member _.columnDefinitions<'t>(x: Element, value: string) =
+    member _.columnDefinitions<'t>(x: Node<_, _>, value: string) =
         let columnDefinitions = ColumnDefinitions.Parse value        
         let getter : 't -> ColumnDefinitions = fun view -> view.ColumnDefinitions
         let setter : 't * ColumnDefinitions -> unit = fun (view, value) -> view.ColumnDefinitions <- value
@@ -71,7 +71,7 @@ type GridBuilder<'t when 't :> Grid>() =
         x @@ [ attr ]
 
     [<CustomOperation("rowDefinitions")>] 
-    member _.rowDefinitions<'t>(x: Element, value: string) =
+    member _.rowDefinitions<'t>(x: Node<_, _>, value: string) =
         let rowDefinitions = RowDefinitions.Parse value
         let getter : 't -> RowDefinitions = fun view -> view.RowDefinitions
         let setter : 't * RowDefinitions -> unit = fun (view, value) -> view.RowDefinitions <- value
