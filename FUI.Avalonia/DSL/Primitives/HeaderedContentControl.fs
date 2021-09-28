@@ -1,7 +1,7 @@
 module Avalonia.FuncUI.Experiments.DSL.HeaderedContentControl
 
 open Avalonia.Controls.Primitives
-open FUI.UIBuilder
+open FUI.UiBuilder
 open Avalonia.FuncUI.Experiments.DSL.ContentControl
 open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
@@ -11,7 +11,7 @@ type HeaderedContentControlBuilder<'t when 't :> HeaderedContentControl>() =
     inherit ContentControlBuilder<'t>()
         
     [<CustomOperation("header")>] 
-    member _.header<'t, 'c when 't :> HeaderedContentControl and 'c :> obj>(x: Element, value: 'c) =
+    member _.header<'t, 'c when 't :> HeaderedContentControl and 'c :> obj>(x: Node<_, _>, value: 'c) =
         let prop = 
             match box value with
             | :? IView as view -> AttrBuilder<'t>.CreateContentSingle(HeaderedContentControl.HeaderProperty, Some view)
@@ -21,5 +21,5 @@ type HeaderedContentControlBuilder<'t when 't :> HeaderedContentControl>() =
         x @@ [ prop ]
         
     [<CustomOperation("headerTemplate")>] 
-    member _.headerTemplate<'t when 't :> HeaderedContentControl>(x: Element, value: IDataTemplate) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<IDataTemplate>(HeaderedContentControl.HeaderTemplateProperty, value, ValueNone) ]
+    member _.headerTemplate<'t when 't :> HeaderedContentControl>(x: Node<_, _>, value: IDataTemplate) =
+        Types.dependencyProperty<IDataTemplate>(HeaderedContentControl.HeaderTemplateProperty, value, ValueNone) ]

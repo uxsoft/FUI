@@ -1,7 +1,7 @@
 ﻿module Avalonia.FuncUI.Experiments.DSL.UniformGrid
 
 open Avalonia.Controls.Primitives
-open FUI.UIBuilder
+open FUI.UiBuilder
 open Avalonia.FuncUI.Experiments.DSL.Panel
 open Avalonia.FuncUI.Builder
 
@@ -12,19 +12,19 @@ type UniformGridBuilder<'t when 't :> UniformGrid>() =
     /// Specifies the column count. If set to 0, column count will be calculated automatically.
     /// </summary>
     [<CustomOperation("columns")>] 
-    member _.columns<'t>(x: Element, value: int) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<int>(UniformGrid.ColumnsProperty, value, ValueNone) ]
+    member _.columns<'t>(x: Node<_, _>, value: int) =
+        Types.dependencyProperty<int>(UniformGrid.ColumnsProperty, value, ValueNone) ]
 
     /// <summary>
     /// Specifies the row count. If set to 0, row count will be calculated automatically.
     /// </summary>
     [<CustomOperation("rows")>] 
-    member _.rows<'t>(x: Element, value: int) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<int>(UniformGrid.RowsProperty, value, ValueNone) ]
+    member _.rows<'t>(x: Node<_, _>, value: int) =
+        Types.dependencyProperty<int>(UniformGrid.RowsProperty, value, ValueNone) ]
        
     /// <summary>
     /// Specifies, for the first row, the column where the items should start.
     /// </summary>
     [<CustomOperation("firstColumn")>] 
-    member _.firstColumn<'t>(x: Element, value: int) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<int>(UniformGrid.FirstColumnProperty, value, ValueNone) ]
+    member _.firstColumn<'t>(x: Node<_, _>, value: int) =
+        Types.dependencyProperty<int>(UniformGrid.FirstColumnProperty, value, ValueNone) ]

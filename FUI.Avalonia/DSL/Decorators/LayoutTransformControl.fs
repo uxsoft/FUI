@@ -1,6 +1,6 @@
 ﻿module Avalonia.FuncUI.Experiments.DSL.LayoutTransformControl
 
-open FUI.UIBuilder
+open FUI.UiBuilder
 open Avalonia.FuncUI.Experiments.DSL.Decorator
 open Avalonia.Media
 open Avalonia.Controls
@@ -10,9 +10,9 @@ type LayoutTransformControlBuilder<'t when 't :> LayoutTransformControl>() =
     inherit DecoratorBuilder<'t>()
     
     [<CustomOperation("layoutTransform")>]
-    member _.layoutTransform<'t>(x: Element, value: Transform) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<Transform>(LayoutTransformControl.LayoutTransformProperty, value, ValueNone) ]
+    member _.layoutTransform<'t>(x: Node<_, _>, value: Transform) =
+        Types.dependencyProperty<Transform>(LayoutTransformControl.LayoutTransformProperty, value, ValueNone) ]
         
     [<CustomOperation("useRenderTransform")>]
-    member _.useRenderTransform<'t>(x: Element, value: bool) =
-        x @@ [ AttrBuilder<'t>.CreateProperty<bool>(LayoutTransformControl.UseRenderTransformProperty, value, ValueNone) ]
+    member _.useRenderTransform<'t>(x: Node<_, _>, value: bool) =
+        Types.dependencyProperty<bool>(LayoutTransformControl.UseRenderTransformProperty, value, ValueNone) ]
