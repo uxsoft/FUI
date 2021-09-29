@@ -1,55 +1,53 @@
-module FUI.Avalonia
+module FUI.Avalonia.Patcher
 
 open System
-open System.Collections.Generic
-open System.Collections.ObjectModel
-open System.Reflection
-open Avalonia.Controls
-open Avalonia.Interactivity
 open FUI
-open FUI.CompositeObservableCollection
 open FUI.ObservableCollection
 open FUI.ObservableValue
 open FUI.UiBuilder
+open FUI.Avalonia.Types
+
+let addProperty control name value (meta: PropertyMeta<_>) =
+    meta.Setter(control, value)
+
+let addDependencyProperty (control: obj) name (value: obj) (property: Avalonia.AvaloniaProperty) =
+    match control with
+    | :? Avalonia.AvaloniaObject as ao -> ao.SetValue(property, value)
+    | _ -> printfn $"Can't set a Dependency Property on a control which doesn't derive from AvaloniaObject"
+    
+let addRoutedEvent control name value (meta: RoutedEventMeta<_>) =
+    ()
+
+let addAttribute control (attribute: Attribute<_>) =
+    match attribute.Meta with
+    | Property meta -> addProperty control attribute.Name attribute.Value meta
+    | DependencyProperty meta -> addDependencyProperty control attribute.Name attribute.Value meta
+    | RoutedEvent meta -> addRoutedEvent control attribute.Name attribute.Value meta
+    
+let removeAttribute (control) attribute =
+    ()
 
 // DSL Avalonia Platform
-type UiBuilder<'t> with
-    member _.RunWithChildren (x: Node<_, _>) (setChildren: 't -> IReadOnlyObservableCollection<obj> -> unit) =
+type UiBuilder<'t when 't : equality> with
+    member _.RunWithChildren (x: AvaloniaNode<'t>) (setChildren: 't -> IReadOnlyObservableCollection<obj> -> unit) =
         try
             let control = Activator.CreateInstance<'t>()
-            let controlType = typeof<'t>
-            
-            let setEvent (event: EventInfo) (action: obj) =
-                match action with
-                | :? Delegate as action -> event.AddEventHandler(control, action)
-                | other -> printfn $"Failed to convert {other.GetType().FullName} to delegate"
-            
-            let setProp (prop: PropertyInfo) (value: obj) =
-                match value with
-                | :? IObservableValue as state -> Ov.iter' (fun v -> prop.SetValue(control, v)) state
-                | _ -> prop.SetValue(control, value)
-            
+
             let attributes = x.Attributes |> Builder.build
             let children = x.Children |> Builder.build
-            
-            // TODO handle changes in attributes
-            for pair in attributes do
-                let event = controlType.GetEvent(pair.Key)
-                let prop = controlType.GetProperty(pair.Key)
+             
+            attributes
+            |> Oc.iter (addAttribute control) (removeAttribute control)
                 
-                match event, prop with
-                | null, null -> printfn $"Property or event {pair.Key} was not found on type {controlType.FullName}"
-                | event, null -> setEvent event pair.Value
-                | _, prop -> setProp prop pair.Value
-                    
-            setChildren control children
+            children
+            |> setChildren control 
                  
             control 
         with e ->
             printfn $"{e}"
             reraise()
             
-    member this.RunWithChild (x: Node<_, _>) (setChild: 't -> obj -> unit) =
+    member this.RunWithChild (x: AvaloniaNode<'t>) (setChild: 't -> obj -> unit) =
         let setChildren (control: 't) (children: IReadOnlyObservableCollection<obj>) =
             let set () = 
                 children
@@ -64,31 +62,5 @@ type UiBuilder<'t> with
             
         this.RunWithChildren x setChildren
         
-    member this.RunChildless (x: Node<_, _>) =
+    member this.RunChildless (x: AvaloniaNode<'t>) =
         this.RunWithChildren x (fun _ _ -> ())
-
-// DSL Avalonia Elements
-
-    
-    
-
-
-
-type StackPanelBuilder() =
-    inherit UiBuilder<StackPanel>()
-    
-
-
-let StackPanel = StackPanelBuilder()
-    
-    
-    
-
-type TextBlockBuilder() =
-    inherit UiBuilder<TextBlock>()
-    member this.Run x =
-        this.RunWithChild x (fun textBlock text -> textBlock.Text <- string text)
-        
-let TextBlock = TextBlockBuilder()
-
-

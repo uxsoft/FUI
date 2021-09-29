@@ -9,9 +9,9 @@ type ListBoxItemBuilder<'t when 't :> ListBoxItem>() =
     inherit ContentControlBuilder<'t>()
 
     [<CustomOperation("isSelected")>] 
-    member _.isSelected<'t>(x: Node<_, _>, value: bool) =
-        Types.dependencyProperty<bool>(ListBoxItem.IsSelectedProperty, value, ValueNone) ]
+    member _.isSelected<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+        Types.dependencyProperty x<bool>(ListBoxItem.IsSelectedProperty, value, ValueNone) ]
 
     [<CustomOperation("onIsSelectedChanged")>] 
-    member _.onIsSelectedChanged<'t>(x: Node<_, _>, func: bool -> unit) =
+    member _.onIsSelectedChanged<'t>(x: Types.AvaloniaNode<'t>, func: bool -> unit) =
         x @@ [ AttrBuilder<'t>.CreateSubscription<bool>(ListBoxItem.IsSelectedProperty, func) ]

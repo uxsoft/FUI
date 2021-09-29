@@ -13,26 +13,26 @@
         /// Sets a value indicating whether to automatically scroll to newly selected items.
         /// </summary>
         [<CustomOperation("autoScrollToSelectedItem")>] 
-        member _.autoScrollToSelectedItem<'t>(x: Node<_, _>, value: bool) =
-            Types.dependencyProperty<bool>(TreeView.AutoScrollToSelectedItemProperty, value, ValueNone) ]
+        member _.autoScrollToSelectedItem<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+            Types.dependencyProperty x<bool>(TreeView.AutoScrollToSelectedItemProperty, value, ValueNone) ]
         
         /// <summary>
         /// Sets the selected items.
         /// </summary>
         [<CustomOperation("selectedItem")>] 
-        member _.selectedItem<'t>(x: Node<_, _>, value: obj) =
-            Types.dependencyProperty<obj>(TreeView.SelectedItemProperty, value, ValueNone) ]
+        member _.selectedItem<'t>(x: Types.AvaloniaNode<'t>, value: obj) =
+            Types.dependencyProperty x<obj>(TreeView.SelectedItemProperty, value, ValueNone) ]
          
         /// <summary>
         /// Sets the selected item.
         /// </summary>
         [<CustomOperation("selectedItems")>] 
-        member _.selectedItems<'t>(x: Node<_, _>, value: IList) =
-            Types.dependencyProperty<IList>(TreeView.SelectedItemsProperty, value, ValueNone) ]
+        member _.selectedItems<'t>(x: Types.AvaloniaNode<'t>, value: IList) =
+            Types.dependencyProperty x<IList>(TreeView.SelectedItemsProperty, value, ValueNone) ]
 
         /// <summary>
         /// Sets the selection mode.
         /// </summary>
         [<CustomOperation("selectionMode")>] 
-        member _.selectionMode<'t>(x: Node<_, _>, value: SelectionMode) =
-            Types.dependencyProperty<SelectionMode>(TreeView.SelectionModeProperty, value, ValueNone) ]
+        member _.selectionMode<'t>(x: Types.AvaloniaNode<'t>, value: SelectionMode) =
+            Types.dependencyProperty x<SelectionMode>(TreeView.SelectionModeProperty, value, ValueNone) ]

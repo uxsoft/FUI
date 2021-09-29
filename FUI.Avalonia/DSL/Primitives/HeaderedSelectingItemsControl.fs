@@ -10,7 +10,7 @@ type HeaderedSelectingItemsControlBuilder<'t when 't :> HeaderedSelectingItemsCo
     inherit SelectingItemsControlBuilder<'t>()
     
     [<CustomOperation("header")>] 
-    member _.header<'t, 'c when 't :> HeaderedSelectingItemsControl and 'c :> obj>(x: Node<_, _>, value: 'c) =
+    member _.header<'t, 'c when 't :> HeaderedSelectingItemsControl and 'c :> obj>(x: Types.AvaloniaNode<'t>, value: 'c) =
         let prop = 
             match box value with
             | :? IView as view -> AttrBuilder<'t>.CreateContentSingle(HeaderedSelectingItemsControl.HeaderProperty, Some view)

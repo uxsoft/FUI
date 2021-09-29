@@ -10,9 +10,9 @@ type LayoutTransformControlBuilder<'t when 't :> LayoutTransformControl>() =
     inherit DecoratorBuilder<'t>()
     
     [<CustomOperation("layoutTransform")>]
-    member _.layoutTransform<'t>(x: Node<_, _>, value: Transform) =
-        Types.dependencyProperty<Transform>(LayoutTransformControl.LayoutTransformProperty, value, ValueNone) ]
+    member _.layoutTransform<'t>(x: Types.AvaloniaNode<'t>, value: Transform) =
+        Types.dependencyProperty x<Transform>(LayoutTransformControl.LayoutTransformProperty, value, ValueNone) ]
         
     [<CustomOperation("useRenderTransform")>]
-    member _.useRenderTransform<'t>(x: Node<_, _>, value: bool) =
-        Types.dependencyProperty<bool>(LayoutTransformControl.UseRenderTransformProperty, value, ValueNone) ]
+    member _.useRenderTransform<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+        Types.dependencyProperty x<bool>(LayoutTransformControl.UseRenderTransformProperty, value, ValueNone) ]

@@ -1,7 +1,5 @@
-namespace FUI.Avalonia
+module FUI.Avalonia.DataValidationErrors
 
-[<AutoOpen>]
-module DataValidationErrors =
     open System.Collections.Generic
     open Avalonia.Controls.Templates
     open Avalonia.Controls

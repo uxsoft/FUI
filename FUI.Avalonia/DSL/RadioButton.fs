@@ -8,6 +8,6 @@ open Avalonia.FuncUI.Builder
 type RadioButtonBuilder<'t when 't :> RadioButton>() =
     inherit ToggleButtonBuilder<'t>()
 
-    member _.groupName<'t>(x: Node<_, _>, value: string) =
-        Types.dependencyProperty<string>(RadioButton.GroupNameProperty, value, ValueNone) ]
+    member _.groupName<'t>(x: Types.AvaloniaNode<'t>, value: string) =
+        Types.dependencyProperty x<string>(RadioButton.GroupNameProperty, value, ValueNone) ]
     

@@ -10,18 +10,18 @@ type ToggleSwitchBuilder<'t when 't :> ToggleSwitch>() =
     inherit ToggleButtonBuilder<'t>()
     
     [<CustomOperation("onContent")>] 
-    member _.onContent<'t>(x: Node<_, _>, value: obj) =
-        Types.dependencyProperty<obj>(ToggleSwitch.OnContentProperty, value, ValueNone) ]
+    member _.onContent<'t>(x: Types.AvaloniaNode<'t>, value: obj) =
+        Types.dependencyProperty x<obj>(ToggleSwitch.OnContentProperty, value, ValueNone) ]
     
     [<CustomOperation("onContentTemplate")>] 
-    member _.onContentTemplate<'t>(x: Node<_, _>, template: IDataTemplate) =
-        Types.dependencyProperty<IDataTemplate>(ToggleSwitch.OnContentTemplateProperty, template, ValueNone) ]
+    member _.onContentTemplate<'t>(x: Types.AvaloniaNode<'t>, template: IDataTemplate) =
+        Types.dependencyProperty x<IDataTemplate>(ToggleSwitch.OnContentTemplateProperty, template, ValueNone) ]
     
     [<CustomOperation("offContent")>] 
-    member _.offContent<'t>(x: Node<_, _>, value: obj) =
-        Types.dependencyProperty<obj>(ToggleSwitch.OffContentProperty, value, ValueNone) ]
+    member _.offContent<'t>(x: Types.AvaloniaNode<'t>, value: obj) =
+        Types.dependencyProperty x<obj>(ToggleSwitch.OffContentProperty, value, ValueNone) ]
 
     [<CustomOperation("offContentTemplate")>] 
-    member _.offContentTemplate<'t>(x: Node<_, _>, template: IDataTemplate) =
-        Types.dependencyProperty<IDataTemplate>(ToggleSwitch.OffContentTemplateProperty, template, ValueNone) ]
+    member _.offContentTemplate<'t>(x: Types.AvaloniaNode<'t>, template: IDataTemplate) =
+        Types.dependencyProperty x<IDataTemplate>(ToggleSwitch.OffContentTemplateProperty, template, ValueNone) ]
         

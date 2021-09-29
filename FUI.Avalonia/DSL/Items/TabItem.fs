@@ -9,13 +9,13 @@ type TabItemBuilder<'t when 't :> TabItem>() =
     inherit HeaderedContentControlBuilder<'t>()
 
     [<CustomOperation("tabStripPlacement")>] 
-    member _.tabStripPlacement<'t>(x: Node<_, _>, placement: Dock) =
-        Types.dependencyProperty<Dock>(TabItem.TabStripPlacementProperty, placement, ValueNone) ]
+    member _.tabStripPlacement<'t>(x: Types.AvaloniaNode<'t>, placement: Dock) =
+        Types.dependencyProperty x<Dock>(TabItem.TabStripPlacementProperty, placement, ValueNone) ]
     
     [<CustomOperation("isSelected")>] 
-    member _.isSelected<'t>(x: Node<_, _>, value: bool) =
-        Types.dependencyProperty<bool>(TabItem.IsSelectedProperty, value, ValueNone) ]
+    member _.isSelected<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+        Types.dependencyProperty x<bool>(TabItem.IsSelectedProperty, value, ValueNone) ]
         
     [<CustomOperation("onIsSelectedChanged")>] 
-    member _.onIsSelectedChanged<'t>(x: Node<_, _>, func: bool -> unit) =
+    member _.onIsSelectedChanged<'t>(x: Types.AvaloniaNode<'t>, func: bool -> unit) =
         x @@ [ AttrBuilder<'t>.CreateSubscription<bool>(TabItem.IsSelectedProperty, func) ]

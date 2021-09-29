@@ -6,77 +6,77 @@ open Avalonia.Interactivity
 open FUI.Avalonia
 open Avalonia.Input
 
-type InputElementBuilder<'t when 't :> InputElement>() =
+type InputElementBuilder<'t when 't :> InputElement and 't : equality>() =
     inherit LayoutableBuilder<'t>()
     
     [<CustomOperation("focusable")>]
-    member _.focusable<'t>(x: Node<_, _>, value: bool) =
-        Types.dependencyProperty InputElement.FocusableProperty value
+    member _.focusable<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+        Types.dependencyProperty x InputElement.FocusableProperty value
         
     [<CustomOperation("isEnabled")>]
-    member _.isEnabled<'t>(x: Node<_, _>, value: bool) =
-        Types.dependencyProperty InputElement.IsEnabledProperty value
+    member _.isEnabled<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+        Types.dependencyProperty x InputElement.IsEnabledProperty value
 
     [<CustomOperation("cursor")>]
-    member _.cursor<'t>(x: Node<_, _>, cursor: Cursor) =
-        Types.dependencyProperty InputElement.CursorProperty cursor
+    member _.cursor<'t>(x: Types.AvaloniaNode<'t>, cursor: Cursor) =
+        Types.dependencyProperty x InputElement.CursorProperty cursor
   
     [<CustomOperation("isHitTestVisible")>]
-    member _.isHitTestVisible<'t>(x: Node<_, _>, value: bool) =
-        Types.dependencyProperty InputElement.IsHitTestVisibleProperty value
+    member _.isHitTestVisible<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+        Types.dependencyProperty x InputElement.IsHitTestVisibleProperty value
         
     [<CustomOperation("onGotFocus")>]
-    member _.onGotFocus<'t>(x: Node<_, _>, func: GotFocusEventArgs -> unit) =
-        Types.routedEvent InputElement.GotFocusEvent func
+    member _.onGotFocus<'t>(x: Types.AvaloniaNode<'t>, func: GotFocusEventArgs -> unit) =
+        Types.routedEvent x InputElement.GotFocusEvent func
         
     [<CustomOperation("onLostFocus")>]
-    member _.onLostFocus<'t>(x: Node<_, _>, func: RoutedEventArgs -> unit) =
-        Types.routedEvent InputElement.LostFocusEvent func
+    member _.onLostFocus<'t>(x: Types.AvaloniaNode<'t>, func: RoutedEventArgs -> unit) =
+        Types.routedEvent x InputElement.LostFocusEvent func
         
     [<CustomOperation("onKeyDown")>]
-    member _.onKeyDown<'t>(x: Node<_, _>, func: KeyEventArgs -> unit) =
-        Types.routedEvent InputElement.KeyDownEvent func
+    member _.onKeyDown<'t>(x: Types.AvaloniaNode<'t>, func: KeyEventArgs -> unit) =
+        Types.routedEvent x InputElement.KeyDownEvent func
         
     [<CustomOperation("onKeyUp")>]
-    member _.onKeyUp<'t>(x: Node<_, _>, func: KeyEventArgs -> unit) =
-        Types.routedEvent InputElement.KeyUpEvent func
+    member _.onKeyUp<'t>(x: Types.AvaloniaNode<'t>, func: KeyEventArgs -> unit) =
+        Types.routedEvent x InputElement.KeyUpEvent func
         
     [<CustomOperation("onTextInput")>]
-    member _.onTextInput<'t>(x: Node<_, _>, func: TextInputEventArgs -> unit) =
-        Types.routedEvent InputElement.TextInputEvent func
+    member _.onTextInput<'t>(x: Types.AvaloniaNode<'t>, func: TextInputEventArgs -> unit) =
+        Types.routedEvent x InputElement.TextInputEvent func
         
     [<CustomOperation("onPointerEnter")>]
-    member _.onPointerEnter<'t>(x: Node<_, _>, func: PointerEventArgs -> unit) =
-        Types.routedEvent InputElement.PointerEnterEvent func
+    member _.onPointerEnter<'t>(x: Types.AvaloniaNode<'t>, func: PointerEventArgs -> unit) =
+        Types.routedEvent x InputElement.PointerEnterEvent func
         
     [<CustomOperation("onPointerLeave")>]
-    member _.onPointerLeave<'t>(x: Node<_, _>, func: PointerEventArgs -> unit) =
-        Types.routedEvent InputElement.PointerLeaveEvent func
+    member _.onPointerLeave<'t>(x: Types.AvaloniaNode<'t>, func: PointerEventArgs -> unit) =
+        Types.routedEvent x InputElement.PointerLeaveEvent func
         
     [<CustomOperation("onPointerMoved")>]
-    member _.onPointerMoved<'t>(x: Node<_, _>, func: PointerEventArgs -> unit) =
-        Types.routedEvent InputElement.PointerMovedEvent func
+    member _.onPointerMoved<'t>(x: Types.AvaloniaNode<'t>, func: PointerEventArgs -> unit) =
+        Types.routedEvent x InputElement.PointerMovedEvent func
         
     [<CustomOperation("onPointerPressed")>]
-    member _.onPointerPressed<'t>(x: Node<_, _>, func: PointerPressedEventArgs -> unit) =
-        Types.routedEvent InputElement.PointerPressedEvent func
+    member _.onPointerPressed<'t>(x: Types.AvaloniaNode<'t>, func: PointerPressedEventArgs -> unit) =
+        Types.routedEvent x InputElement.PointerPressedEvent func
         
     [<CustomOperation("onPointerReleased")>]
-    member _.onPointerReleased<'t>(x: Node<_, _>, func: PointerReleasedEventArgs -> unit) =
-        Types.routedEvent InputElement.PointerReleasedEvent func
+    member _.onPointerReleased<'t>(x: Types.AvaloniaNode<'t>, func: PointerReleasedEventArgs -> unit) =
+        Types.routedEvent x InputElement.PointerReleasedEvent func
         
     [<CustomOperation("onPointerCaptureLost")>]
-    member _.onPointerCaptureLost<'t>(x: Node<_, _>, func: PointerCaptureLostEventArgs -> unit) =
-        Types.routedEvent InputElement.PointerCaptureLostEvent func
+    member _.onPointerCaptureLost<'t>(x: Types.AvaloniaNode<'t>, func: PointerCaptureLostEventArgs -> unit) =
+        Types.routedEvent x InputElement.PointerCaptureLostEvent func
         
     [<CustomOperation("onPointerWheelChanged")>]
-    member _.onPointerWheelChanged<'t>(x: Node<_, _>, func: PointerWheelEventArgs -> unit) =
-        Types.routedEvent InputElement.PointerWheelChangedEvent func
+    member _.onPointerWheelChanged<'t>(x: Types.AvaloniaNode<'t>, func: PointerWheelEventArgs -> unit) =
+        Types.routedEvent x InputElement.PointerWheelChangedEvent func
         
     [<CustomOperation("onTapped")>]
-    member _.onTapped<'t>(x: Node<_, _>, func: RoutedEventArgs -> unit) =
-        Types.routedEvent InputElement.TappedEvent func
+    member _.onTapped<'t>(x: Types.AvaloniaNode<'t>, func: RoutedEventArgs -> unit) =
+        Types.routedEvent x InputElement.TappedEvent func
         
     [<CustomOperation("onDoubleTapped")>]
-    member _.onDoubleTapped<'t>(x: Node<_, _>, func: RoutedEventArgs -> unit) =
-        Types.routedEvent InputElement.DoubleTappedEvent func
+    member _.onDoubleTapped<'t>(x: Types.AvaloniaNode<'t>, func: RoutedEventArgs -> unit) =
+        Types.routedEvent x InputElement.DoubleTappedEvent func

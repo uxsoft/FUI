@@ -9,8 +9,8 @@ open Avalonia.FuncUI.Builder
 type CarouselBuilder<'t when 't :> Carousel>() =
     inherit SelectingItemsControlBuilder<'t>()
 
-    member _.isVirtualized<'t>(x: Node<_, _>, value: bool) =
-        Types.dependencyProperty<bool>(Carousel.IsVirtualizedProperty, value, ValueNone) ]
+    member _.isVirtualized<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+        Types.dependencyProperty x<bool>(Carousel.IsVirtualizedProperty, value, ValueNone) ]
     
-    member _.pageTransition<'t>(x: Node<_, _>, transition: IPageTransition) =
-        Types.dependencyProperty<IPageTransition>(Carousel.PageTransitionProperty, transition, ValueNone) ]
+    member _.pageTransition<'t>(x: Types.AvaloniaNode<'t>, transition: IPageTransition) =
+        Types.dependencyProperty x<IPageTransition>(Carousel.PageTransitionProperty, transition, ValueNone) ]

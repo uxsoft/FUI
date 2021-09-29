@@ -152,3 +152,11 @@ type FilteredReadOnlyObservableCollection<'t when 't : equality>(f: 't -> bool, 
     
 let filter f (col: IReadOnlyObservableCollection<'t>) =
     FilteredReadOnlyObservableCollection<'t>(f, col) :> IReadOnlyObservableCollection<'t>
+    
+let iter add remove (col: IReadOnlyObservableCollection<'t>) =
+    for item in col do
+        add item
+
+    col.OnChanged.Add(function
+        | Insert(_, item) -> add item
+        | Remove(_, item) -> remove item)

@@ -11,9 +11,9 @@ type ImageBuilder<'t when 't :> Image>() =
     inherit ControlBuilder<'t>()
     
     [<CustomOperation("source")>]
-    member _.source<'t>(x: Node<_, _>, value: IBitmap) =
-        Types.dependencyProperty<IBitmap>(Image.SourceProperty, value, ValueNone) ]
+    member _.source<'t>(x: Types.AvaloniaNode<'t>, value: IBitmap) =
+        Types.dependencyProperty x<IBitmap>(Image.SourceProperty, value, ValueNone) ]
         
     [<CustomOperation("stretch")>]
-    member _.stretch<'t>(x: Node<_, _>, value: Stretch) =
-        Types.dependencyProperty<Stretch>(Image.StretchProperty, value, ValueNone) ]
+    member _.stretch<'t>(x: Types.AvaloniaNode<'t>, value: Stretch) =
+        Types.dependencyProperty x<Stretch>(Image.StretchProperty, value, ValueNone) ]

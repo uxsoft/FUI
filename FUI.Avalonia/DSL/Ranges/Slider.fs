@@ -14,27 +14,27 @@ type SliderBuilder<'t when 't :> Slider>() =
     /// Sets the orientation of a <see cref="Slider"/>.
     /// </summary>
     [<CustomOperation("orientation")>]
-    member _.orientation<'t>(x: Node<_, _>, value: Orientation) =
-        Types.dependencyProperty<Orientation>(Slider.OrientationProperty, value, ValueNone) ]
+    member _.orientation<'t>(x: Types.AvaloniaNode<'t>, value: Orientation) =
+        Types.dependencyProperty x<Orientation>(Slider.OrientationProperty, value, ValueNone) ]
 
     /// <summary>
     /// Sets a value that indicates whether the <see cref="Slider"/> automatically moves the <see cref="Thumb"/> to the closest tick mark.
     /// </summary>
     [<CustomOperation("isSnapToTickEnabled")>]
-    member _.isSnapToTickEnabled<'t>(x: Node<_, _>, value: bool) =
-        Types.dependencyProperty<bool>(Slider.IsSnapToTickEnabledProperty, value, ValueNone) ]
+    member _.isSnapToTickEnabled<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+        Types.dependencyProperty x<bool>(Slider.IsSnapToTickEnabledProperty, value, ValueNone) ]
 
     /// <summary>
     /// Sets the interval between tick marks.
     /// </summary>
     [<CustomOperation("tickFrequency")>]
-    member _.tickFrequency<'t>(x: Node<_, _>, value: float) =
-        Types.dependencyProperty<float>(Slider.TickFrequencyProperty, value, ValueNone) ]
+    member _.tickFrequency<'t>(x: Types.AvaloniaNode<'t>, value: float) =
+        Types.dependencyProperty x<float>(Slider.TickFrequencyProperty, value, ValueNone) ]
 
     [<CustomOperation("tickPlacement")>]
-    member _.tickPlacement<'t>(x: Node<_, _>, value: TickPlacement) =
-        Types.dependencyProperty<TickPlacement>(Slider.TickPlacementProperty, value, ValueNone) ]
+    member _.tickPlacement<'t>(x: Types.AvaloniaNode<'t>, value: TickPlacement) =
+        Types.dependencyProperty x<TickPlacement>(Slider.TickPlacementProperty, value, ValueNone) ]
 
     [<CustomOperation("ticks")>]
-    member _.ticks<'t>(x: Node<_, _>, value: float seq) =
-        Types.dependencyProperty<float AvaloniaList>(Slider.TicksProperty, AvaloniaList value, ValueNone) ]
+    member _.ticks<'t>(x: Types.AvaloniaNode<'t>, value: float seq) =
+        Types.dependencyProperty x<float AvaloniaList>(Slider.TicksProperty, AvaloniaList value, ValueNone) ]

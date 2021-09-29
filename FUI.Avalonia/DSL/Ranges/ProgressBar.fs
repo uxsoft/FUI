@@ -10,13 +10,13 @@ type ProgressBarBuilder<'t when 't :> ProgressBar>() =
     inherit RangeBaseBuilder<'t>()
 
     [<CustomOperation("isIndeterminate")>]
-    member _.isIndeterminate<'t>(x: Node<_, _>, value: bool) =
-        Types.dependencyProperty<bool>(ProgressBar.IsIndeterminateProperty, value, ValueNone) ]
+    member _.isIndeterminate<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+        Types.dependencyProperty x<bool>(ProgressBar.IsIndeterminateProperty, value, ValueNone) ]
 
     [<CustomOperation("orientation")>]
-    member _.orientation<'t>(x: Node<_, _>, value: Orientation) =
-        Types.dependencyProperty<Orientation>(ProgressBar.OrientationProperty, value, ValueNone) ]
+    member _.orientation<'t>(x: Types.AvaloniaNode<'t>, value: Orientation) =
+        Types.dependencyProperty x<Orientation>(ProgressBar.OrientationProperty, value, ValueNone) ]
 
     [<CustomOperation("showProgressText")>]
-    member _.showProgressText<'t>(x: Node<_, _>, value: bool) =
-        Types.dependencyProperty<bool>(ProgressBar.ShowProgressTextProperty, value, ValueNone) ]
+    member _.showProgressText<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+        Types.dependencyProperty x<bool>(ProgressBar.ShowProgressTextProperty, value, ValueNone) ]

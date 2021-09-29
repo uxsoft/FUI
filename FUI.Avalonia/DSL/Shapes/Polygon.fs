@@ -11,5 +11,5 @@ type PolygonBuilder<'t when 't :> Polygon>() =
     inherit ShapeBuilder<'t>()
 
     [<CustomOperation("points")>]
-    member _.points<'t>(x: Node<_, _>, points: IList<Point>) =
-        Types.dependencyProperty<IList<Point>>(Polygon.PointsProperty, points, ValueNone) ]
+    member _.points<'t>(x: Types.AvaloniaNode<'t>, points: IList<Point>) =
+        Types.dependencyProperty x<IList<Point>>(Polygon.PointsProperty, points, ValueNone) ]
