@@ -1,7 +1,7 @@
-module Avalonia.FuncUI.Experiments.DSL.Ellipse
+module FUI.Avalonia.Ellipse
 
 open Avalonia.Controls.Shapes
-open Avalonia.FuncUI.Experiments.DSL.Shape
+open FUI.Avalonia.Shape
 
 type EllipseBuilder<'t when 't :> Ellipse>() =
     inherit ShapeBuilder<'t>()

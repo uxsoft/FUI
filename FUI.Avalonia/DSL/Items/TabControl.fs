@@ -1,9 +1,9 @@
-module Avalonia.FuncUI.Experiments.DSL.TabControl
+module FUI.Avalonia.TabControl
 
 open Avalonia.Controls
 open Avalonia.Controls.Templates
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.SelectingItemsControl
+open FUI.Avalonia.SelectingItemsControl
 open Avalonia.Layout
 open Avalonia.FuncUI.Builder
  

@@ -1,9 +1,9 @@
-module Avalonia.FuncUI.Experiments.DSL.Carousel
+module FUI.Avalonia.Carousel
 
 open Avalonia.Animation
 open Avalonia.Controls
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.SelectingItemsControl
+open FUI.Avalonia.SelectingItemsControl
 open Avalonia.FuncUI.Builder
  
 type CarouselBuilder<'t when 't :> Carousel>() =

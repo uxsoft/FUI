@@ -1,7 +1,7 @@
-module Avalonia.FuncUI.Experiments.DSL.TabStripItem
+module FUI.Avalonia.TabStripItem
 
 open Avalonia.Controls.Primitives
-open Avalonia.FuncUI.Experiments.DSL.ListBoxItem
+open FUI.Avalonia.ListBoxItem
 
 type TabStripItemBuilder<'t when 't :> TabStripItem>() =
     inherit ListBoxItemBuilder<'t>()

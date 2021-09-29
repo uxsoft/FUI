@@ -1,8 +1,8 @@
-module Avalonia.FuncUI.Experiments.DSL.MenuBase
+module FUI.Avalonia.MenuBase
 
 open Avalonia.Controls
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.SelectingItemsControl
+open FUI.Avalonia.SelectingItemsControl
 open Avalonia.Interactivity
 open Avalonia.FuncUI.Builder
  

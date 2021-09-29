@@ -1,10 +1,10 @@
-﻿module Avalonia.FuncUI.Experiments.DSL.TimePicker
+﻿module FUI.Avalonia.TimePicker
 
 open System
 open Avalonia.Controls
 open Avalonia.Controls.Templates
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.TemplatedControl
+open FUI.Avalonia.TemplatedControl
 open Avalonia.FuncUI.Builder
  
 type TimePickerBuilder<'t when 't :> TimePicker>() =

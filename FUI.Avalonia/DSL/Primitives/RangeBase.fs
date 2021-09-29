@@ -1,8 +1,8 @@
-module Avalonia.FuncUI.Experiments.DSL.RangeBase
+module FUI.Avalonia.RangeBase
 
 open Avalonia.Controls.Primitives
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.TemplatedControl
+open FUI.Avalonia.TemplatedControl
 open Avalonia.FuncUI.Builder
  
 type RangeBaseBuilder<'t when 't :> RangeBase>() =

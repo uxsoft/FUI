@@ -1,8 +1,8 @@
-module Avalonia.FuncUI.Experiments.DSL.Shape
+module FUI.Avalonia.Shape
 
 open Avalonia.Collections
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.Control
+open FUI.Avalonia.Control
 open Avalonia.Controls.Shapes
 open Avalonia.Media
 open Avalonia.FuncUI.Builder

@@ -1,10 +1,10 @@
-﻿namespace Avalonia.FuncUI.Experiments.DSL.TickBar
+﻿namespace FUI.Avalonia.TickBar
 
 open Avalonia
 open Avalonia.Collections
 open Avalonia.Controls
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.Control
+open FUI.Avalonia.Control
 open Avalonia.Media
 open Avalonia.Layout
 open Avalonia.FuncUI.Builder

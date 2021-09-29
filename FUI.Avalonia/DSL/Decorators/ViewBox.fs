@@ -1,8 +1,8 @@
-﻿module Avalonia.FuncUI.Experiments.DSL.ViewBox
+﻿module FUI.Avalonia.ViewBox
 
 open Avalonia.Controls
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.Decorator
+open FUI.Avalonia.Decorator
 open Avalonia.Media
 open Avalonia.FuncUI.Builder
 

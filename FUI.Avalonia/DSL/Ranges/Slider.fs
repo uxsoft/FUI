@@ -1,9 +1,9 @@
-﻿module Avalonia.FuncUI.Experiments.DSL.Slider
+﻿module FUI.Avalonia.Slider
 
 open Avalonia.Collections
 open Avalonia.Controls
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.RangeBase
+open FUI.Avalonia.RangeBase
 open Avalonia.Layout
 open Avalonia.FuncUI.Builder
 

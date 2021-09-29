@@ -1,8 +1,8 @@
-module Avalonia.FuncUI.Experiments.DSL.StackPanel
+module FUI.Avalonia.StackPanel
 
 open Avalonia.Controls
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.Panel
+open FUI.Avalonia.Panel
 open Avalonia.Layout
 open Avalonia.FuncUI.Builder
 

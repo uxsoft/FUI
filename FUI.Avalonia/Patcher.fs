@@ -1,4 +1,4 @@
-module FUI.Avalonia.DSL
+module FUI.Avalonia
 
 open System
 open System.Collections.Generic
@@ -14,7 +14,7 @@ open FUI.UiBuilder
 
 // DSL Avalonia Platform
 type UiBuilder<'t> with
-    member _.RunAvaloniaWithChildren (x: Node<_, _>) (setChildren: 't -> IReadOnlyObservableCollection<obj> -> unit) =
+    member _.RunWithChildren (x: Node<_, _>) (setChildren: 't -> IReadOnlyObservableCollection<obj> -> unit) =
         try
             let control = Activator.CreateInstance<'t>()
             let controlType = typeof<'t>
@@ -49,7 +49,7 @@ type UiBuilder<'t> with
             printfn $"{e}"
             reraise()
             
-    member this.RunAvaloniaWithChild (x: Node<_, _>) (setChild: 't -> obj -> unit) =
+    member this.RunWithChild (x: Node<_, _>) (setChild: 't -> obj -> unit) =
         let setChildren (control: 't) (children: IReadOnlyObservableCollection<obj>) =
             let set () = 
                 children
@@ -60,41 +60,24 @@ type UiBuilder<'t> with
                         Ov.iter' (setChild control) ov
                     | _ -> setChild control child)
             
-            set()
             children.OnChanged.Add (fun _ -> set())
             
-        this.RunAvaloniaWithChildren x setChildren
+        this.RunWithChildren x setChildren
         
-    member this.RunAvaloniaChildless (x: Node<_, _>) =
-        this.RunAvaloniaWithChildren x (fun _ _ -> ())
+    member this.RunChildless (x: Node<_, _>) =
+        this.RunWithChildren x (fun _ _ -> ())
 
 // DSL Avalonia Elements
-type WindowBuilder() =
-    inherit UiBuilder<Window>()
-    member inline this.Run x =            
-        this.RunAvaloniaWithChild x (fun window child -> window.Content <- child)
-        
-    [<CustomOperation("title")>] member inline _.Title(x: Node<_, _>, v: string) = x.attr "Title" v
-    [<CustomOperation("height")>] member inline _.Height(x: Node<_, _>, v: float) = x.attr "Height" v
-    [<CustomOperation("width")>] member inline _.Width(x: Node<_, _>, v: float) = x.attr "Width" v
+
     
     
-let Window = WindowBuilder()
 
 
 
 type StackPanelBuilder() =
     inherit UiBuilder<StackPanel>()
     
-    member this.Run x =
-        this.RunAvaloniaWithChildren x (fun panel (children: IReadOnlyObservableCollection<obj>) ->
-            let list = 
-                children
-                |> Oc.filter (fun i -> i :? IControl)
-                |> Oc.map (fun i -> i :?> IControl)
-            
-            panel.Children.AddRange list
-            list.OnChanged.Add(Change.commit panel.Children))
+
 
 let StackPanel = StackPanelBuilder()
     
@@ -104,17 +87,8 @@ let StackPanel = StackPanelBuilder()
 type TextBlockBuilder() =
     inherit UiBuilder<TextBlock>()
     member this.Run x =
-        this.RunAvaloniaWithChild x (fun textBlock text -> textBlock.Text <- string text)
+        this.RunWithChild x (fun textBlock text -> textBlock.Text <- string text)
         
 let TextBlock = TextBlockBuilder()
 
 
-
-type ButtonBuilder() =
-    inherit UiBuilder<Button>()
-    member this.Run x =
-        this.RunAvaloniaWithChild x (fun button child -> button.Content <- string child)
-        
-    [<CustomOperation("onClick")>] member inline _.onClick (x: Node<_, _>, v: EventHandler<RoutedEventArgs>) = x.attr "Click" v
-        
-let Button = ButtonBuilder()

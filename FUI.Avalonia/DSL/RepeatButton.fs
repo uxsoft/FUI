@@ -1,7 +1,7 @@
-﻿module Avalonia.FuncUI.Experiments.DSL.RepeatButton
+﻿module FUI.Avalonia.RepeatButton
 
 open Avalonia.Controls
-open Avalonia.FuncUI.Experiments.DSL.Button
+open FUI.Avalonia.Button
 open FUI.UiBuilder
 open Avalonia.FuncUI.Builder
 

@@ -1,10 +1,10 @@
-﻿namespace Avalonia.FuncUI.Experiments.DSL.DatePicker
+﻿namespace FUI.Avalonia.DatePicker
 
 open System
 open Avalonia.Controls
 open Avalonia.Controls.Templates
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.TemplatedControl
+open FUI.Avalonia.TemplatedControl
 open Avalonia.FuncUI.Builder
  
 type DatePickerBuilder<'t when 't :> DatePicker>() =

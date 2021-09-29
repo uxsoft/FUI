@@ -1,8 +1,8 @@
-module Avalonia.FuncUI.Experiments.DSL.ComboBox
+module FUI.Avalonia.ComboBox
 
 open Avalonia.Controls
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.SelectingItemsControl
+open FUI.Avalonia.SelectingItemsControl
 open Avalonia.Layout
 open Avalonia.FuncUI.Builder
 open Avalonia.Media

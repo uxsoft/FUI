@@ -1,7 +1,7 @@
-module Avalonia.FuncUI.Experiments.DSL.Canvas
+module FUI.Avalonia.Canvas
 
 open Avalonia.Controls
-open Avalonia.FuncUI.Experiments.DSL.Panel
+open FUI.Avalonia.Panel
    
 type CanvasBuilder<'t when 't :> Canvas>() =
     inherit PanelBuilder<'t>()     

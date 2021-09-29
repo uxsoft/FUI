@@ -1,22 +1,26 @@
-module Avalonia.FuncUI.Experiments.DSL.Panel
+module FUI.Avalonia.Panel
 
 open Avalonia.Controls
+open FUI
+open FUI.ObservableCollection
 open FUI.UiBuilder
-open Avalonia.FuncUI.Types
-open Avalonia.FuncUI.Builder
 open Avalonia.Media
-open Avalonia.FuncUI.Experiments.DSL.Control
+open FUI.Avalonia.Control
 
 type PanelBuilder<'t when 't :> Panel>() =
     inherit ControlBuilder<'t>()
-    
-    override _.Flatten x =
-        let views = x.Children |> List.choose (function | :? IView as view -> Some view | _ -> None)
-        let getter : ('t -> obj) = (fun control -> control.Children :> obj)
-        let childrenProp = AttrBuilder<'t>.CreateContentMultiple("Children", ValueSome getter, ValueNone, views)
-        x.Attributes @ [ childrenProp ]
+            
+    member this.Run x =
+        this.RunWithChildren x (fun panel (children: IReadOnlyObservableCollection<obj>) ->
+            //TODO optimise to filter and cast on the Change level not on Oc
+            let list = 
+                children
+                |> Oc.filter (fun i -> i :? IControl)
+                |> Oc.map (fun i -> i :?> IControl)
+            
+            panel.Children.AddRange list
+            list.OnChanged.Add(Change.commit panel.Children))
             
     [<CustomOperation("background")>]
     member _.background<'t>(x: Node<_, _>, value: IBrush) =
-        Types.dependencyProperty<IBrush>(Panel.BackgroundProperty, value, ValueNone) ]
-        
+        Types.dependencyProperty Panel.BackgroundProperty value

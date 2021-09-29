@@ -1,4 +1,4 @@
-module Avalonia.FuncUI.Experiments.DSL.Animatable
+module FUI.Avalonia.Animatable
 
 open Avalonia.Animation
 open FUI.UiBuilder

@@ -1,7 +1,7 @@
-﻿module Avalonia.FuncUI.Experiments.DSL.TreeViewItem
+﻿module FUI.Avalonia.TreeViewItem
 
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.HeaderedItemsControl
+open FUI.Avalonia.HeaderedItemsControl
 
 open Avalonia.Controls
 open Avalonia.FuncUI.Builder

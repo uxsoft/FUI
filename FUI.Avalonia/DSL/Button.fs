@@ -1,9 +1,9 @@
-module Avalonia.FuncUI.Experiments.DSL.Button
+module FUI.Avalonia.Button
 
 open System.Windows.Input 
 open Avalonia.Controls
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.ContentControl
+open FUI.Avalonia.ContentControl
 open Avalonia.Interactivity
 open Avalonia.Input
 open Avalonia.FuncUI.Builder

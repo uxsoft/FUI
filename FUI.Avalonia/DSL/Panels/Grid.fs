@@ -1,8 +1,8 @@
-namespace Avalonia.FuncUI.Experiments.DSL.Grid
+namespace FUI.Avalonia.Grid
   
 open Avalonia.Controls
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.Panel
+open FUI.Avalonia.Panel
 open Avalonia.FuncUI.Builder
     
 module private Internals =

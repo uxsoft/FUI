@@ -1,7 +1,7 @@
-module Avalonia.FuncUI.Experiments.DSL.CheckBox
+module FUI.Avalonia.CheckBox
 
 open Avalonia.Controls
-open Avalonia.FuncUI.Experiments.DSL.ToggleButton
+open FUI.Avalonia.ToggleButton
 
 type CheckBoxBuilder<'t when 't :> CheckBox>() = 
     inherit ToggleButtonBuilder<'t>()

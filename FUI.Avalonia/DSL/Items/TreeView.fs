@@ -1,9 +1,9 @@
-﻿module Avalonia.FuncUI.Experiments.DSL.TreeView
+﻿module FUI.Avalonia.TreeView
 
     open System.Collections
     open Avalonia.Controls
     open FUI.UiBuilder
-    open Avalonia.FuncUI.Experiments.DSL.ItemsControl
+    open FUI.Avalonia.ItemsControl
     open Avalonia.FuncUI.Builder
 
     type TreeViewBuilder<'t when 't :> TreeView>() =

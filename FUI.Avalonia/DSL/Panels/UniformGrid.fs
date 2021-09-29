@@ -1,8 +1,8 @@
-﻿module Avalonia.FuncUI.Experiments.DSL.UniformGrid
+﻿module FUI.Avalonia.UniformGrid
 
 open Avalonia.Controls.Primitives
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.Panel
+open FUI.Avalonia.Panel
 open Avalonia.FuncUI.Builder
 
 type UniformGridBuilder<'t when 't :> UniformGrid>() =

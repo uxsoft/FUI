@@ -1,59 +1,59 @@
-module Avalonia.FuncUI.Experiments.DSL.ContentPresenter
+module FUI.Avalonia.ContentPresenter
 
 open Avalonia
 open Avalonia.Controls.Templates
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.Control
+open FUI.Avalonia.Control
 open Avalonia.Layout    
 open Avalonia.Controls.Presenters
-open Avalonia.FuncUI.Types
-open Avalonia.FuncUI.Builder
 open Avalonia.Media
 
 type ContentPresenterBuilder<'t when 't :> ContentPresenter>() =
     inherit ControlBuilder<'t>()
     
+    member this.Run x =
+        this.RunWithChild x (fun control child -> control.Content <- child)
+    
     [<CustomOperation("background")>]
     member _.background<'t>(x: Node<_, _>, brush: IBrush) =
-        x @@ [  AttrBuilder<'t>.CreateProperty<IBrush>(ContentPresenter.BackgroundProperty, brush, ValueNone) ]
+        Types.dependencyProperty ContentPresenter.BackgroundProperty brush
 
     [<CustomOperation("borderBrush")>]
     member _.borderBrush<'t>(x: Node<_, _>, brush: IBrush) =
-        x @@ [  AttrBuilder<'t>.CreateProperty<IBrush>(ContentPresenter.BorderBrushProperty, brush, ValueNone) ]
+        Types.dependencyProperty ContentPresenter.BorderBrushProperty brush
         
     [<CustomOperation("borderThickness")>]
     member _.borderThickness<'t>(x: Node<_, _>, value: Thickness) =
-        x @@ [  AttrBuilder<'t>.CreateProperty<Thickness>(ContentPresenter.BorderThicknessProperty, value, ValueNone) ]
+        Types.dependencyProperty ContentPresenter.BorderThicknessProperty value
     
     [<CustomOperation("boxShadows")>]
     member _.boxShadows<'t>(x: Node<_, _>, value: BoxShadows) =
-        x @@ [  AttrBuilder<'t>.CreateProperty(ContentPresenter.BoxShadowProperty, value, ValueNone) ]
+        Types.dependencyProperty ContentPresenter.BoxShadowProperty value
         
     [<CustomOperation("cornerRadius")>]
     member _.cornerRadius<'t>(x: Node<_, _>, value: CornerRadius) =
-        x @@ [  AttrBuilder<'t>.CreateProperty<CornerRadius>(ContentPresenter.CornerRadiusProperty, value, ValueNone) ]
+        Types.dependencyProperty ContentPresenter.CornerRadiusProperty value
         
     [<CustomOperation("child")>]
-    member _.child<'t>(x: Node<_, _>, value: IView) =
-        x @@ [  AttrBuilder<'t>.CreateContentSingle(ContentPresenter.ChildProperty, Some value) ]
+    member _.child<'t>(x: Node<_, _>, value: 'c) =
+        Types.dependencyProperty ContentPresenter.ChildProperty value
 
     [<CustomOperation("content")>]
-    member _.content<'t>(x: Node<_, _>, value: IView) =
-        x @@ [  AttrBuilder<'t>.CreateContentSingle(ContentPresenter.ContentProperty, Some value) ]
+    member _.content<'t>(x: Node<_, _>, value: 'c) =
+        Types.dependencyProperty ContentPresenter.ContentProperty value
 
     [<CustomOperation("contentTemplate")>]
     member _.contentTemplate<'t>(x: Node<_, _>, template: IDataTemplate) =
-        x @@ [  AttrBuilder<'t>.CreateProperty<IDataTemplate>(ContentPresenter.ContentTemplateProperty, template, ValueNone) ]
+        Types.dependencyProperty ContentPresenter.ContentTemplateProperty template
         
     [<CustomOperation("horizontalContentAlignment")>]
     member _.horizontalContentAlignment<'t>(x: Node<_, _>, value: HorizontalAlignment) =
-        x @@ [  AttrBuilder<'t>.CreateProperty<HorizontalAlignment>(ContentPresenter.HorizontalContentAlignmentProperty, value, ValueNone) ]
+        Types.dependencyProperty ContentPresenter.HorizontalContentAlignmentProperty value
         
     [<CustomOperation("verticalContentAlignment")>]
     member _.verticalContentAlignment<'t>(x: Node<_, _>, value: VerticalAlignment) =
-        x @@ [  AttrBuilder<'t>.CreateProperty<VerticalAlignment>(ContentPresenter.VerticalContentAlignmentProperty, value, ValueNone) ]
+        Types.dependencyProperty ContentPresenter.VerticalContentAlignmentProperty value
         
     [<CustomOperation("padding")>]
     member _.padding<'t>(x: Node<_, _>, value: Thickness) =
-        x @@ [  AttrBuilder<'t>.CreateProperty<Thickness>(ContentPresenter.PaddingProperty, value, ValueNone) ]
-        
+        Types.dependencyProperty ContentPresenter.PaddingProperty value

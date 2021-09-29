@@ -1,7 +1,7 @@
-module Avalonia.FuncUI.Experiments.DSL.Thumb
+module FUI.Avalonia.Thumb
 
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.TemplatedControl
+open FUI.Avalonia.TemplatedControl
 open Avalonia.Input
 open Avalonia.Controls.Primitives
 open Avalonia.FuncUI.Builder

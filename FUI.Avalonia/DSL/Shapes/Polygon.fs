@@ -1,11 +1,11 @@
-module Avalonia.FuncUI.Experiments.DSL.Polygon
+module FUI.Avalonia.Polygon
 
 open System.Collections.Generic
 open Avalonia
 open Avalonia.Controls.Shapes
 open Avalonia.FuncUI.Builder
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.Shape
+open FUI.Avalonia.Shape
  
 type PolygonBuilder<'t when 't :> Polygon>() =
     inherit ShapeBuilder<'t>()

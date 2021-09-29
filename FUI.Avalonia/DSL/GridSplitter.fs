@@ -1,7 +1,7 @@
-module Avalonia.FuncUI.Experiments.DSL.GridSplitter
+module FUI.Avalonia.GridSplitter
 
 open Avalonia.Controls
-open Avalonia.FuncUI.Experiments.DSL.Thumb
+open FUI.Avalonia.Thumb
  
 type GridSplitterBuilder<'t when 't :> GridSplitter>() =
     inherit ThumbBuilder<'t>()

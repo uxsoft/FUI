@@ -1,8 +1,8 @@
-module Avalonia.FuncUI.Experiments.DSL.ToggleButton
+module FUI.Avalonia.ToggleButton
 
 open System
 open Avalonia.Controls.Primitives
-open Avalonia.FuncUI.Experiments.DSL.Button
+open FUI.Avalonia.Button
 open FUI.UiBuilder
 open Avalonia.Interactivity
 open Avalonia.FuncUI.Builder

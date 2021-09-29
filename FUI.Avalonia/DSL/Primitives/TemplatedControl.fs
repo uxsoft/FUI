@@ -1,9 +1,8 @@
-module Avalonia.FuncUI.Experiments.DSL.TemplatedControl
+module FUI.Avalonia.TemplatedControl
 
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.Control
+open FUI.Avalonia.Control
 open Avalonia
-open Avalonia.FuncUI.Builder
 open Avalonia.Media
 open Avalonia.Controls.Primitives
 open Avalonia.Controls.Templates
@@ -13,44 +12,44 @@ type TemplatedControlBuilder<'t when 't :> TemplatedControl>() =
     
     [<CustomOperation("background")>] 
     member _.background<'t>(x: Node<_, _>, value: IBrush) =
-        Types.dependencyProperty<IBrush>(TemplatedControl.BackgroundProperty, value, ValueNone) ]
+        Types.dependencyProperty TemplatedControl.BackgroundProperty value
 
     [<CustomOperation("borderBrush")>] 
     member _.borderBrush<'t>(x: Node<_, _>, value: IBrush) =
-        Types.dependencyProperty<IBrush>(TemplatedControl.BorderBrushProperty, value, ValueNone) ]
+        Types.dependencyProperty TemplatedControl.BorderBrushProperty value
         
     [<CustomOperation("borderThickness")>] 
     member _.borderThickness<'t>(x: Node<_, _>, value: Thickness) =
-        Types.dependencyProperty<Thickness>(TemplatedControl.BorderThicknessProperty, value, ValueNone) ]
+        Types.dependencyProperty TemplatedControl.BorderThicknessProperty value
         
     [<CustomOperation("fontFamily")>] 
     member _.fontFamily<'t>(x: Node<_, _>, value: FontFamily) =
-        Types.dependencyProperty<FontFamily>(TemplatedControl.FontFamilyProperty, value, ValueNone) ]
+        Types.dependencyProperty TemplatedControl.FontFamilyProperty value
         
     [<CustomOperation("fontSize")>] 
     member _.fontSize<'t>(x: Node<_, _>, value: double) =
-        Types.dependencyProperty<double>(TemplatedControl.FontSizeProperty, value, ValueNone) ]
+        Types.dependencyProperty TemplatedControl.FontSizeProperty value
         
     [<CustomOperation("fontStyle")>] 
     member _.fontStyle<'t>(x: Node<_, _>, value: FontStyle) =
-        Types.dependencyProperty<FontStyle>(TemplatedControl.FontStyleProperty, value, ValueNone) ]
+        Types.dependencyProperty TemplatedControl.FontStyleProperty value
 
     [<CustomOperation("fontWeight")>] 
     member _.fontWeight<'t>(x: Node<_, _>, value: FontWeight) =
-        Types.dependencyProperty<FontWeight>(TemplatedControl.FontWeightProperty, value, ValueNone) ]
+        Types.dependencyProperty TemplatedControl.FontWeightProperty value
         
     [<CustomOperation("foreground")>] 
     member _.foreground<'t>(x: Node<_, _>, value: IBrush) =
-        Types.dependencyProperty<IBrush>(TemplatedControl.ForegroundProperty, value, ValueNone) ]
+        Types.dependencyProperty TemplatedControl.ForegroundProperty value
         
     [<CustomOperation("padding")>] 
     member _.padding<'t>(x: Node<_, _>, value: Thickness) =
-        Types.dependencyProperty<Thickness>(TemplatedControl.PaddingProperty, value, ValueNone) ]
+        Types.dependencyProperty TemplatedControl.PaddingProperty value
 
     [<CustomOperation("template")>] 
     member _.template<'t>(x: Node<_, _>, value: IControlTemplate) =
-        Types.dependencyProperty<IControlTemplate>(TemplatedControl.TemplateProperty, value, ValueNone) ]  
+        Types.dependencyProperty TemplatedControl.TemplateProperty value
     
     [<CustomOperation("isTemplateFocusTarget")>] 
     member _.isTemplateFocusTarget<'t>(x: Node<_, _>, value: bool) =
-        Types.dependencyProperty<bool>(TemplatedControl.IsTemplateFocusTargetProperty, value, ValueNone) ]  
+        Types.dependencyProperty TemplatedControl.IsTemplateFocusTargetProperty value

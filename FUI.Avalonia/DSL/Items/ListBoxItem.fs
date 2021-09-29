@@ -1,8 +1,8 @@
-module Avalonia.FuncUI.Experiments.DSL.ListBoxItem
+module FUI.Avalonia.ListBoxItem
 
 open Avalonia.Controls
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.ContentControl
+open FUI.Avalonia.ContentControl
 open Avalonia.FuncUI.Builder
  
 type ListBoxItemBuilder<'t when 't :> ListBoxItem>() =

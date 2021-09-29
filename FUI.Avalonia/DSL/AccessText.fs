@@ -1,7 +1,7 @@
-module Avalonia.FuncUI.Experiments.DSL.AccessText
+module FUI.Avalonia.AccessText
 
 open Avalonia.Controls.Primitives
-open Avalonia.FuncUI.Experiments.DSL.TextBlock
+open FUI.Avalonia.TextBlock
 
 type AccessTextBuilder<'t when 't :> AccessText>() =
     inherit TextBlockBuilder<'t>()

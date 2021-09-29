@@ -1,8 +1,8 @@
-﻿module Avalonia.FuncUI.Experiments.DSL.Calendar
+﻿module FUI.Avalonia.Calendar
 
 open System
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.TemplatedControl
+open FUI.Avalonia.TemplatedControl
 open Avalonia.Media
 open Avalonia.Controls
 open Avalonia.FuncUI.Builder

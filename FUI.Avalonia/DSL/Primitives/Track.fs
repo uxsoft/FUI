@@ -1,7 +1,7 @@
-module Avalonia.FuncUI.Experiments.DSL.Track
+module FUI.Avalonia.Track
 
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.Control
+open FUI.Avalonia.Control
 open Avalonia.Layout
 open Avalonia.Controls.Primitives
 open Avalonia.FuncUI.Types

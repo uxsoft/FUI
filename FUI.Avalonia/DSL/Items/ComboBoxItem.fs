@@ -1,7 +1,7 @@
-module Avalonia.FuncUI.Experiments.DSL.ComboBoxItem
+module FUI.Avalonia.ComboBoxItem
 
 open Avalonia.Controls
-open Avalonia.FuncUI.Experiments.DSL.ListBoxItem
+open FUI.Avalonia.ListBoxItem
 
 type ComboBoxItemBuilder<'t when 't :> ComboBoxItem>() =
     inherit ListBoxItemBuilder<'t>()

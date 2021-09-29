@@ -1,8 +1,8 @@
-module Avalonia.FuncUI.Experiments.DSL.HeaderedContentControl
+module FUI.Avalonia.HeaderedContentControl
 
 open Avalonia.Controls.Primitives
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.ContentControl
+open FUI.Avalonia.ContentControl
 open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
 open Avalonia.Controls.Templates

@@ -1,9 +1,9 @@
-module Avalonia.FuncUI.Experiments.DSL.HeaderedSelectingItemsControl
+module FUI.Avalonia.HeaderedSelectingItemsControl
 
 open Avalonia.Controls.Primitives
 open Avalonia.FuncUI.Builder
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.SelectingItemsControl
+open FUI.Avalonia.SelectingItemsControl
 open Avalonia.FuncUI.Types
     
 type HeaderedSelectingItemsControlBuilder<'t when 't :> HeaderedSelectingItemsControl>() =

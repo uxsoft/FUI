@@ -1,9 +1,9 @@
-﻿module Avalonia.FuncUI.Experiments.DSL.Expander
+﻿module FUI.Avalonia.Expander
 
 open Avalonia.Animation
 open Avalonia.Controls
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.HeaderedContentControl
+open FUI.Avalonia.HeaderedContentControl
 open Avalonia.FuncUI.Builder
 
 type ExpanderBuilder<'t when 't :> Expander>() =

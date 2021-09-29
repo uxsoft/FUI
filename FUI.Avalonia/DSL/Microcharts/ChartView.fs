@@ -1,4 +1,4 @@
-module Avalonia.FuncUI.Experiments.DSL.Microcharts.ChartView
+module FUI.Avalonia.Microcharts.ChartView
 
 open Avalonia
 open Avalonia.Controls

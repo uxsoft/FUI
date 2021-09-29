@@ -1,4 +1,4 @@
-namespace Avalonia.FuncUI.Experiments.DSL
+namespace FUI.Avalonia
 
 [<AutoOpen>]
 module DataValidationErrors =

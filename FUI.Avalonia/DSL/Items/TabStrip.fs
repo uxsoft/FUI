@@ -1,7 +1,7 @@
-module Avalonia.FuncUI.Experiments.DSL.TabStrip
+module FUI.Avalonia.TabStrip
 
 open Avalonia.Controls.Primitives
-open Avalonia.FuncUI.Experiments.DSL.SelectingItemsControl
+open FUI.Avalonia.SelectingItemsControl
 
 type TabStripBuilder<'t when 't :> TabStrip>() =
     inherit SelectingItemsControlBuilder<'t>()
