@@ -1,9 +1,9 @@
-﻿module Avalonia.FuncUI.Experiments.DSL.ToggleSwitch
+﻿module FUI.Avalonia.ToggleSwitch
 
 open Avalonia.Controls
 open Avalonia.Controls.Templates
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.ToggleButton
+open FUI.Avalonia.ToggleButton
 open Avalonia.FuncUI.Builder
 
 type ToggleSwitchBuilder<'t when 't :> ToggleSwitch>() =

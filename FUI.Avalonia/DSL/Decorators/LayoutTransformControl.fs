@@ -1,7 +1,7 @@
-﻿module Avalonia.FuncUI.Experiments.DSL.LayoutTransformControl
+﻿module FUI.Avalonia.LayoutTransformControl
 
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.Decorator
+open FUI.Avalonia.Decorator
 open Avalonia.Media
 open Avalonia.Controls
 open Avalonia.FuncUI.Builder

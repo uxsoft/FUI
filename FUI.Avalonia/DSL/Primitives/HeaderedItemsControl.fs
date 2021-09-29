@@ -1,9 +1,9 @@
-﻿module Avalonia.FuncUI.Experiments.DSL.HeaderedItemsControl
+﻿module FUI.Avalonia.HeaderedItemsControl
 
 
 open Avalonia.Controls.Primitives
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.ItemsControl
+open FUI.Avalonia.ItemsControl
 open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
 

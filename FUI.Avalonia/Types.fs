@@ -1,19 +1,20 @@
 module FUI.Avalonia.Types
 
+open System.Threading
 open Avalonia.Controls
+open Avalonia.Interactivity
 
 type PropertyMeta<'t> =
     { Getter: 't -> obj
       Setter: 't * obj -> unit }
   
-type EventMeta =
-    { Subscribe: unit -> unit
-      Unsubscribe: unit -> unit }
+type EventMeta  =
+    { Subcribe: 't -> }
 
 type AttributeMeta<'t> =
     | Property of PropertyMeta<'t>
     | DependencyProperty of Avalonia.AvaloniaProperty
-    | Event of IEvent<obj>
+    | RoutedEvent of EventMeta
     
 type Attribute<'t> =
     { Name: string
@@ -25,14 +26,23 @@ let dependencyProperty (dp: Avalonia.AvaloniaProperty) v =
       Value = v
       Meta = DependencyProperty dp }
    
-let property<'t> name value getter setter factory =
+let property<'t> (name: string) (value: obj) (getter: 't -> obj) (setter: 't * obj -> unit) (factory: unit -> obj) =
     { Name = name
       Value = value
       Meta = Property
           { Getter = getter
             Setter = setter } }
     
-let event =
-    ()
+let routedEvent (routedEvent: RoutedEvent<'e>) (handler: 'e -> unit) =
+    let subscribeFunc (control: IControl, _handler: 'h) =
+        let cts = new CancellationTokenSource()
+        control
+            .GetObservable(routedEvent)
+            .Subscribe(func, cts.Token)
+        cts
+     
+    { Name = routedEvent.Name
+      Value = ()
+      Meta = RoutedEvent (Action<_>(subscribeFunc)) }
     
-type AvaloniaNode<'t> = 
+type AvaloniaNode<'t> = Node<'t, Attribute<'t>>

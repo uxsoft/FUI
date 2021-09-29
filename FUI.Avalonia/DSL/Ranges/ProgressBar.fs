@@ -1,7 +1,7 @@
-﻿module Avalonia.FuncUI.Experiments.DSL.ProgressBar
+﻿module FUI.Avalonia.ProgressBar
 
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.RangeBase
+open FUI.Avalonia.RangeBase
 open Avalonia.Layout
 open Avalonia.Controls
 open Avalonia.FuncUI.Builder

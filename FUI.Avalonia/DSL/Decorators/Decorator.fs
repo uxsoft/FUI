@@ -1,9 +1,9 @@
-module Avalonia.FuncUI.Experiments.DSL.Decorator
+module FUI.Avalonia.Decorator
 
 open Avalonia
 open Avalonia.Controls
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.Control
+open FUI.Avalonia.Control
 open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
 

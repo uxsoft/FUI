@@ -1,50 +1,49 @@
-module Avalonia.FuncUI.Experiments.DSL.Layoutable
+module FUI.Avalonia.Layoutable
 
-open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.Visual
-open Avalonia.FuncUI.Builder
 open Avalonia
+open FUI.UiBuilder
+open FUI.Avalonia
 open Avalonia.Layout
           
 type LayoutableBuilder<'t when 't :> Layoutable>() =
-    inherit VisualBuilder<'t>()
+    inherit Visual.VisualBuilder<'t>()
     
     [<CustomOperation("width")>]
     member _.width<'t>(x: Node<_, _>, value: double) =
-        x @@ [  AttrBuilder<'t>.CreateProperty<double>(Layoutable.WidthProperty, value, ValueNone) ]
+        Types.dependencyProperty Layoutable.WidthProperty value
         
     [<CustomOperation("height")>]
     member _.height<'t>(x: Node<_, _>, value: double) =
-        x @@ [  AttrBuilder<'t>.CreateProperty<double>(Layoutable.HeightProperty, value, ValueNone) ]
+        Types.dependencyProperty Layoutable.HeightProperty value
         
     [<CustomOperation("minWidth")>]
     member _.minWidth<'t>(x: Node<_, _>, value: double) =
-        x @@ [  AttrBuilder<'t>.CreateProperty<double>(Layoutable.MinWidthProperty, value, ValueNone) ]
+        Types.dependencyProperty Layoutable.MinWidthProperty value
         
     [<CustomOperation("minHeight")>]
     member _.minHeight<'t>(x: Node<_, _>, value: double) =
-        x @@ [  AttrBuilder<'t>.CreateProperty<double>(Layoutable.MinHeightProperty, value, ValueNone) ]
+        Types.dependencyProperty Layoutable.MinHeightProperty value
   
     [<CustomOperation("maxWidth")>]
     member _.maxWidth<'t>(x: Node<_, _>, value: double) =
-        x @@ [  AttrBuilder<'t>.CreateProperty<double>(Layoutable.MaxWidthProperty, value, ValueNone) ]
+        Types.dependencyProperty Layoutable.MaxWidthProperty value
         
     [<CustomOperation("maxHeight")>]
     member _.maxHeight<'t>(x: Node<_, _>, value: double) =
-        x @@ [  AttrBuilder<'t>.CreateProperty<double>(Layoutable.MaxHeightProperty, value, ValueNone) ]
+        Types.dependencyProperty Layoutable.MaxHeightProperty value
         
     [<CustomOperation("margin")>]
     member _.margin<'t>(x: Node<_, _>, margin: Thickness) =
-        x @@ [  AttrBuilder<'t>.CreateProperty<Thickness>(Layoutable.MarginProperty, margin, ValueNone) ]
+        Types.dependencyProperty Layoutable.MarginProperty margin
         
     [<CustomOperation("horizontalAlignment")>]
     member _.horizontalAlignment<'t>(x: Node<_, _>, value: HorizontalAlignment) =
-        x @@ [  AttrBuilder<'t>.CreateProperty<HorizontalAlignment>(Layoutable.HorizontalAlignmentProperty, value, ValueNone) ]
+        Types.dependencyProperty Layoutable.HorizontalAlignmentProperty value
 
     [<CustomOperation("verticalAlignment")>]
     member _.verticalAlignment<'t>(x: Node<_, _>, value: VerticalAlignment) =
-        x @@ [  AttrBuilder<'t>.CreateProperty<VerticalAlignment>(Layoutable.VerticalAlignmentProperty, value, ValueNone) ]
+        Types.dependencyProperty Layoutable.VerticalAlignmentProperty value
        
     [<CustomOperation("useLayoutRounding")>]
     member _.useLayoutRounding<'t>(x: Node<_, _>, value: bool) =
-        x @@ [  AttrBuilder<'t>.CreateProperty<bool>(Layoutable.UseLayoutRoundingProperty, value, ValueNone) ]
+        Types.dependencyProperty Layoutable.UseLayoutRoundingProperty value

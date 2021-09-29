@@ -1,10 +1,10 @@
-module Avalonia.FuncUI.Experiments.DSL.SelectingItemsControl
+module FUI.Avalonia.SelectingItemsControl
 
 open Avalonia.Controls.Primitives
 open Avalonia.Controls
 open Avalonia.FuncUI.Builder
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.ItemsControl
+open FUI.Avalonia.ItemsControl
  
 type SelectingItemsControlBuilder<'t when 't :> SelectingItemsControl>() =
     inherit ItemsControlBuilder<'t>()

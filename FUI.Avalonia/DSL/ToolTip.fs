@@ -1,7 +1,7 @@
-﻿module Avalonia.FuncUI.Experiments.DSL.ToolTip 
+﻿module FUI.Avalonia.ToolTip 
 
 open Avalonia.Controls
-open Avalonia.FuncUI.Experiments.DSL.ContentControl
+open FUI.Avalonia.ContentControl
 
 type ToolTipBuilder<'t when 't :> ToolTip>() =
     inherit ContentControlBuilder<'t>()

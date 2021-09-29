@@ -1,4 +1,4 @@
-module Avalonia.FuncUI.Experiments.DSL.Popup
+module FUI.Avalonia.Popup
 
 open Avalonia
 open Avalonia.Controls
@@ -6,7 +6,7 @@ open Avalonia.Controls.Primitives
 open Avalonia.Controls.Primitives.PopupPositioning
 open Avalonia.FuncUI.Builder
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.Control
+open FUI.Avalonia.Control
 open Avalonia.FuncUI.Types
 open System
 

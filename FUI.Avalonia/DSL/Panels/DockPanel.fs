@@ -1,8 +1,8 @@
-module Avalonia.FuncUI.Experiments.DSL.DockPanel
+module FUI.Avalonia.DockPanel
 
 open Avalonia.Controls
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.Panel
+open FUI.Avalonia.Panel
 open Avalonia.FuncUI.Builder
 
 type DockPanelBuilder<'t when 't :> DockPanel>() =

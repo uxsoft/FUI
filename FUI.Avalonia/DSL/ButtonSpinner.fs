@@ -1,8 +1,8 @@
-﻿module Avalonia.FuncUI.Experiments.DSL.ButtonSpinner
+﻿module FUI.Avalonia.ButtonSpinner
 
 open Avalonia.Controls
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.Spinner
+open FUI.Avalonia.Spinner
 open Avalonia.FuncUI.Builder
 
 type ButtonSpinnerBuilder<'t when 't :> ButtonSpinner>() =

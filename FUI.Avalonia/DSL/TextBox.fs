@@ -1,8 +1,8 @@
-module Avalonia.FuncUI.Experiments.DSL.TextBox
+module FUI.Avalonia.TextBox
 
 open Avalonia.Controls
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.TemplatedControl
+open FUI.Avalonia.TemplatedControl
 open Avalonia.Layout
 open Avalonia.Media
 open Avalonia.FuncUI.Builder

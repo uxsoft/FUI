@@ -8,6 +8,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FUI.Tests", "FUI.Tests\FUI.
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FUI.Benchmarks", "FUI.Benchmarks\FUI.Benchmarks.fsproj", "{49A9AE67-3863-4674-B3BE-7BED5CD3BEA9}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FUI.Avalonia.Examples", "FUI.Avalonia.Examples\FUI.Avalonia.Examples.fsproj", "{CBA4ED31-2493-49A1-9C70-4BEB170316A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{49A9AE67-3863-4674-B3BE-7BED5CD3BEA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49A9AE67-3863-4674-B3BE-7BED5CD3BEA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49A9AE67-3863-4674-B3BE-7BED5CD3BEA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBA4ED31-2493-49A1-9C70-4BEB170316A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBA4ED31-2493-49A1-9C70-4BEB170316A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBA4ED31-2493-49A1-9C70-4BEB170316A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBA4ED31-2493-49A1-9C70-4BEB170316A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

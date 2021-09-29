@@ -1,6 +1,6 @@
-module Avalonia.FuncUI.Experiments.DSL.TextBlock
+module FUI.Avalonia.TextBlock
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.Control
+open FUI.Avalonia.Control
 
 open Avalonia
 open Avalonia.Controls

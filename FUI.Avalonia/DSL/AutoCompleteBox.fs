@@ -1,9 +1,9 @@
-module Avalonia.FuncUI.Experiments.DSL.AutoCompleteBox
+module FUI.Avalonia.AutoCompleteBox
 
 open System
 open System.Collections
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.TemplatedControl
+open FUI.Avalonia.TemplatedControl
 open Avalonia.Controls
 open Avalonia.Controls.Templates    
 open Avalonia.FuncUI.Types

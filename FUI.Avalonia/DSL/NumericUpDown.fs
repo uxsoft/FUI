@@ -1,10 +1,10 @@
-﻿module Avalonia.FuncUI.Experiments.DSL.NumericUpDown
+﻿module FUI.Avalonia.NumericUpDown
 
 open System.Globalization
 
 open Avalonia.Controls
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.TemplatedControl
+open FUI.Avalonia.TemplatedControl
 open Avalonia.FuncUI.Builder
 
 type NumericUpDownBuilder<'t when 't :> NumericUpDown>() =

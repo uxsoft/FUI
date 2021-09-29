@@ -1,9 +1,9 @@
-module Avalonia.FuncUI.Experiments.DSL.ListBox
+module FUI.Avalonia.ListBox
 
 open System.Collections
 open Avalonia.Controls
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.SelectingItemsControl
+open FUI.Avalonia.SelectingItemsControl
 open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder
 

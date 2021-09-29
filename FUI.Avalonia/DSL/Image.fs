@@ -1,9 +1,9 @@
-module Avalonia.FuncUI.Experiments.DSL.Image
+module FUI.Avalonia.Image
 
 open Avalonia.Controls
 open Avalonia.FuncUI.Builder
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.Control
+open FUI.Avalonia.Control
 open Avalonia.Media
 open Avalonia.Media.Imaging
 

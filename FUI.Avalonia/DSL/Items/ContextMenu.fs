@@ -1,7 +1,7 @@
-module Avalonia.FuncUI.Experiments.DSL.ContextMenu
+module FUI.Avalonia.ContextMenu
 
 open Avalonia.Controls
-open Avalonia.FuncUI.Experiments.DSL.MenuBase
+open FUI.Avalonia.MenuBase
  
 type ContextMenuBuilder<'t when 't :> ContextMenu>() =
     inherit MenuBaseBuilder<'t>()

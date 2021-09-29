@@ -1,9 +1,9 @@
-﻿module Avalonia.FuncUI.Experiments.DSL.CalendarDatePicker
+﻿module FUI.Avalonia.CalendarDatePicker
 
 open System
 open Avalonia.Controls
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.TemplatedControl
+open FUI.Avalonia.TemplatedControl
 open Avalonia.FuncUI.Builder
 
 type CalendarDatePickerBuilder<'t when 't :> CalendarDatePicker>() =

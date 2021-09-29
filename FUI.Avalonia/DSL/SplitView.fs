@@ -1,8 +1,8 @@
-﻿module Avalonia.FuncUI.Experiments.DSL.SplitView
+﻿module FUI.Avalonia.SplitView
 
 open Avalonia.Controls
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.ContentControl
+open FUI.Avalonia.ContentControl
 open Avalonia.Media
 open Avalonia.FuncUI.Types
 open Avalonia.FuncUI.Builder

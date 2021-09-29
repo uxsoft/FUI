@@ -8,6 +8,7 @@
     <ItemGroup>
         <Compile Include="Types.fs" />
         <Compile Include="Helpers.fs" />
+        <Compile Include="Patcher.fs" />
         <Compile Include="DSL\Base\Animatable.fs" />
         <Compile Include="DSL\Base\StyledElement.fs" />
         <Compile Include="DSL\Base\Visual.fs" />
@@ -91,10 +92,11 @@
         <Compile Include="DSL\TextBox.fs" />
         <Compile Include="DSL\AccessText.fs" />
         <Compile Include="DSL\ToolTip.fs" />
+        <Compile Include="DSL\TopLevel.fs" />
+        <Compile Include="DSL\Window.fs" />
         <Compile Include="DSL\Microcharts\ChartView.fs" />
         <Compile Include="DSL\Microcharts\Chart.fs" />
         <Compile Include="DSL\DSL.fs" />
-        <Compile Include="DSL.fs" />
         <Compile Include="Counter.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>

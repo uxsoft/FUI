@@ -1,10 +1,10 @@
-module Avalonia.FuncUI.Experiments.DSL.ScrollBar
+module FUI.Avalonia.ScrollBar
 
 open FUI.UiBuilder
 open Avalonia.Layout
 open Avalonia.Controls.Primitives
 open Avalonia.FuncUI.Builder
-open Avalonia.FuncUI.Experiments.DSL.RangeBase
+open FUI.Avalonia.RangeBase
 
 type ScrollBarBuilder<'t when 't :> ScrollBar>() =
     inherit RangeBaseBuilder<'t>()

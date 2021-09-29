@@ -1,10 +1,10 @@
-module Avalonia.FuncUI.Experiments.DSL.AcrylicBorder
+module FUI.Avalonia.AcrylicBorder
 
 open Avalonia
 open Avalonia.Controls
 open Avalonia.FuncUI.Builder
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.Decorator
+open FUI.Avalonia.Decorator
 open Avalonia.Media
 
 type AcrylicBorderBuilder<'t when 't :> ExperimentalAcrylicBorder>() =

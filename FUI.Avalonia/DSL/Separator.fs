@@ -1,7 +1,7 @@
-﻿module Avalonia.FuncUI.Experiments.DSL.Separator
+﻿module FUI.Avalonia.Separator
 
 open Avalonia.Controls
-open Avalonia.FuncUI.Experiments.DSL.TemplatedControl
+open FUI.Avalonia.TemplatedControl
 
 type SeparatorBuilder<'t when 't :> Separator>() =
     inherit TemplatedControlBuilder<'t>()

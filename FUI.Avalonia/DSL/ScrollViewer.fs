@@ -1,9 +1,9 @@
-﻿module Avalonia.FuncUI.Experiments.DSL.ScrollViewer
+﻿module FUI.Avalonia.ScrollViewer
 
 open Avalonia
 open Avalonia.Controls
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.ContentControl
+open FUI.Avalonia.ContentControl
 open Avalonia.FuncUI.Builder
 
 type ScrollViewerBuilder<'t when 't :> ScrollViewer>() =

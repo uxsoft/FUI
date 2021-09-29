@@ -1,8 +1,8 @@
-﻿module Avalonia.FuncUI.Experiments.DSL.RadioButton
+﻿module FUI.Avalonia.RadioButton
 
 open Avalonia.Controls
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.ToggleButton
+open FUI.Avalonia.ToggleButton
 open Avalonia.FuncUI.Builder
 
 type RadioButtonBuilder<'t when 't :> RadioButton>() =

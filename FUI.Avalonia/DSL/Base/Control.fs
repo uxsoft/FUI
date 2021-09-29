@@ -1,11 +1,10 @@
-module Avalonia.FuncUI.Experiments.DSL.Control
+module FUI.Avalonia.Control
   
 open Avalonia.Controls
 open Avalonia.Controls.Primitives
+open FUI.Avalonia.InputElement
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.InputElement
-open Avalonia.FuncUI.Builder
-open Avalonia.FuncUI.Types
+open FUI.Avalonia
 open Avalonia.Visuals.Media.Imaging
 
 type ControlBuilder<'t when 't :> Control>() =
@@ -13,74 +12,74 @@ type ControlBuilder<'t when 't :> Control>() =
     
     [<CustomOperation("focusAdorner")>] 
     member _.focusAdorner<'t, 'c when 'c :> IControl>(x: Node<_, _>, value: ITemplate<'c>) =
-        x @@ [  AttrBuilder<'t>.CreateProperty<ITemplate<'c>>(Control.FocusAdornerProperty, value, ValueNone) ]
+        Types.dependencyProperty Control.FocusAdornerProperty value
                                                       
     [<CustomOperation("tag")>]
     member _.tag<'t>(x: Node<_, _>, value: obj) =
-        x @@ [  AttrBuilder<'t>.CreateProperty<obj>(Control.TagProperty, value, ValueNone) ]
+        Types.dependencyProperty Control.TagProperty value
     
     [<CustomOperation("contextMenu")>] 
     member _.contextMenu<'t>(x: Node<_, _>, menu: ContextMenu) =
-        x @@ [  AttrBuilder<'t>.CreateProperty<ContextMenu>(Control.ContextMenuProperty, menu, ValueNone) ]
+        Types.dependencyProperty Control.ContextMenuProperty menu
     
     [<CustomOperation("bitmapInterpolationMode")>]
     member _.bitmapInterpolationMode<'t>(x: Node<_, _>, mode: BitmapInterpolationMode) =
-        x @@ [  AttrBuilder<'t>.CreateProperty<BitmapInterpolationMode>(Avalonia.Media.RenderOptions.BitmapInterpolationModeProperty, mode, ValueNone) ]
+        Types.dependencyProperty Avalonia.Media.RenderOptions.BitmapInterpolationModeProperty mode
     
     [<CustomOperation("dock")>]
     member _.dock<'t>(x: Node<_, _>, dock: Dock) =
-        Types.dependencyProperty<Dock>(DockPanel.DockProperty, dock, ValueNone) ]
+        Types.dependencyProperty DockPanel.DockProperty dock 
         
     [<CustomOperation("left")>] 
     member _.left<'t>(x: Node<_, _>, value: double) =
-        Types.dependencyProperty<double>(Canvas.LeftProperty, value, ValueNone) ]
+        Types.dependencyProperty Canvas.LeftProperty value 
         
     [<CustomOperation("top")>] 
     member _.top<'t>(x: Node<_, _>, value: double) =
-        Types.dependencyProperty<double>(Canvas.TopProperty, value, ValueNone) ]
+        Types.dependencyProperty Canvas.TopProperty value 
         
     [<CustomOperation("right")>] 
     member _.right<'t>(x: Node<_, _>, value: double) =
-        Types.dependencyProperty<double>(Canvas.RightProperty, value, ValueNone) ]
+        Types.dependencyProperty Canvas.RightProperty value 
         
     [<CustomOperation("bottom")>] 
     member _.bottom<'t>(x: Node<_, _>, value: double) =
-        Types.dependencyProperty<double>(Canvas.BottomProperty, value, ValueNone) ]
+        Types.dependencyProperty Canvas.BottomProperty value 
         
     [<CustomOperation("row")>] 
     member _.row<'t>(x: Node<_, _>, row: int) =
-        Types.dependencyProperty<int>(Grid.RowProperty, row, ValueNone) ]
+        Types.dependencyProperty Grid.RowProperty row 
         
     [<CustomOperation("rowSpan")>] 
     member _.rowSpan<'t>(x: Node<_, _>, span: int) =
-        Types.dependencyProperty<int>(Grid.RowSpanProperty, span, ValueNone) ]
+        Types.dependencyProperty Grid.RowSpanProperty span 
         
     [<CustomOperation("column")>] 
     member _.column<'t>(x: Node<_, _>, column: int) =
-        Types.dependencyProperty<int>(Grid.ColumnProperty, column, ValueNone) ]
+        Types.dependencyProperty Grid.ColumnProperty column 
         
     [<CustomOperation("columnSpan")>] 
     member _.columnSpan<'t>(x: Node<_, _>, span: int) =
-        Types.dependencyProperty<int>(Grid.ColumnSpanProperty, span, ValueNone) ]
+        Types.dependencyProperty Grid.ColumnSpanProperty span 
         
     [<CustomOperation("isSharedSizeScope")>] 
     member _.isSharedSizeScope<'t>(x: Node<_, _>, value: bool) =
-        Types.dependencyProperty<bool>(Grid.IsSharedSizeScopeProperty, value, ValueNone) ]
+        Types.dependencyProperty Grid.IsSharedSizeScopeProperty value 
         
     [<CustomOperation("showAccessKey")>]
     member _.showAccessKey<'t>(x: Node<_, _>, value: bool) =
-        Types.dependencyProperty(AccessText.ShowAccessKeyProperty, value, ValueNone) ]
+        Types.dependencyProperty AccessText.ShowAccessKeyProperty value 
         
     [<CustomOperation("verticalScrollBarVisibility")>]
     member _.verticalScrollBarVisibility<'t>(x: Node<_, _>, value: ScrollBarVisibility) =
-        Types.dependencyProperty<ScrollBarVisibility>(ScrollViewer.VerticalScrollBarVisibilityProperty, value, ValueNone) ]
+        Types.dependencyProperty ScrollViewer.VerticalScrollBarVisibilityProperty value 
 
     /// <summary>
     /// Sets the horizontal scrollbar visibility.
     /// </summary>
     [<CustomOperation("horizontalScrollBarVisibility")>]
     member _.horizontalScrollBarVisibility<'t>(x: Node<_, _>, value: ScrollBarVisibility) =
-        Types.dependencyProperty<ScrollBarVisibility>(ScrollViewer.HorizontalScrollBarVisibilityProperty, value, ValueNone) ]
+        Types.dependencyProperty ScrollViewer.HorizontalScrollBarVisibilityProperty value 
 
 
     /// <summary>
@@ -88,45 +87,39 @@ type ControlBuilder<'t when 't :> Control>() =
     /// </summary>
     [<CustomOperation("toolTipIsOpen")>]
     member _.toolTipIsOpen<'t>(x: Node<_, _>, value: bool) =
-        Types.dependencyProperty<bool>(ToolTip.IsOpenProperty, value, ValueNone) ]
+        Types.dependencyProperty ToolTip.IsOpenProperty value 
 
     /// <summary>
     /// The content to be displayed in the control's tooltip.
     /// </summary>
     [<CustomOperation("tip")>] 
     member _.tip<'t, 'c when 't :> Control and 'c :> obj>(x: Node<_, _>, value: 'c) =
-        let prop = 
-            match box value with
-            | :? IView as view -> AttrBuilder<'t>.CreateContentSingle(ToolTip.TipProperty, Some view)
-            | :? string as text -> AttrBuilder<'t>.CreateProperty<string>(ToolTip.TipProperty, text, ValueNone)
-            | _ -> AttrBuilder<'t>.CreateProperty<obj>(ToolTip.TipProperty, value, ValueNone)
-        
-        x @@ [ prop ]
+        Types.dependencyProperty ToolTip.TipProperty value
 
     /// <summary>
     /// A value indicating how the tool tip is positioned.
     /// </summary>
     [<CustomOperation("toolTipPlacement")>]
     member _.toolTipPlacement<'t>(x: Node<_, _>, value: PlacementMode) =
-        Types.dependencyProperty<PlacementMode>(ToolTip.PlacementProperty, value, ValueNone) ]
+        Types.dependencyProperty ToolTip.PlacementProperty value 
 
     /// <summary>
     /// A value indicating how the tool tip is positioned.
     /// </summary>
     [<CustomOperation("toolTipHorizontalOffset")>]
     member _.toolTipHorizontalOffset<'t>(x: Node<_, _>, value: float) =
-        Types.dependencyProperty<float>(ToolTip.HorizontalOffsetProperty, value, ValueNone) ]
+        Types.dependencyProperty ToolTip.HorizontalOffsetProperty value 
 
     /// <summary>
     /// A value indicating how the tool tip is positioned.
     /// </summary>
     [<CustomOperation("toolTipVerticalOffset")>]
     member _.toolTipVerticalOffset<'t>(x: Node<_, _>, value: float) =
-        Types.dependencyProperty<float>(ToolTip.VerticalOffsetProperty, value, ValueNone) ]
+        Types.dependencyProperty ToolTip.VerticalOffsetProperty value 
 
     /// <summary>
     /// A value indicating the time, in milliseconds, before a tool tip opens.
     /// </summary>
     [<CustomOperation("toolTipShowDelay")>]
     member _.toolTipShowDelay<'t>(x: Node<_, _>, value: int) =
-        Types.dependencyProperty<int>(ToolTip.ShowDelayProperty, value, ValueNone) ]
+        Types.dependencyProperty ToolTip.ShowDelayProperty value 

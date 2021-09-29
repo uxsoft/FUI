@@ -1,10 +1,10 @@
-module Avalonia.FuncUI.Experiments.DSL.Line
+module FUI.Avalonia.Line
 
 open Avalonia
 open Avalonia.Controls.Shapes
 open Avalonia.FuncUI.Builder
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.Shape
+open FUI.Avalonia.Shape
    
 type LineBuilder<'t when 't :> Line>() =
     inherit ShapeBuilder<'t>()

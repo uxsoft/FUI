@@ -1,7 +1,7 @@
-module Avalonia.FuncUI.Experiments.DSL.MenuItem
+module FUI.Avalonia.MenuItem
 
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.HeaderedSelectingItemsControl
+open FUI.Avalonia.HeaderedSelectingItemsControl
 open Avalonia.Input
 open Avalonia.Interactivity
 open System.Windows.Input

@@ -1,11 +1,9 @@
-module Avalonia.FuncUI.Experiments.DSL.DSL
+module FUI.Avalonia.DSL
 
-open Avalonia.Controls
 open Avalonia.Controls
 open Avalonia.Controls.Primitives
 open Avalonia.Controls.Shapes
-open Avalonia.FuncUI.Experiments.DSL
-open Avalonia.FuncUI.Experiments.DSL.ProgressBar
+open FUI.Avalonia
 
 let Panel = Panel.PanelBuilder<Panel>()
 let Canvas = Canvas.CanvasBuilder<Canvas>()
@@ -72,5 +70,6 @@ let Label = TextBlock.TextBlockBuilder<TextBlock>()
 let TextInput = TextBox.TextBoxBuilder<TextBox>()
 let AccessText = AccessText.AccessTextBuilder<AccessText>()
 let ToolTip = ToolTip.ToolTipBuilder<ToolTip>()
+let Window = Window.WindowBuilder<Window>()
 
 let Chart = Microcharts.Chart.ChartBuilder<Microcharts.ChartView.ChartView>()

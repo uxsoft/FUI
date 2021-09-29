@@ -1,15 +1,13 @@
-namespace Avalonia.FuncUI.Experiments.DSL.StyledElement
+namespace FUI.Avalonia.StyledElement
 
 open Avalonia
 open FUI.Avalonia
 open FUI.UiBuilder
-open Avalonia.FuncUI.Builder
 open Avalonia.Styling
 open Avalonia.Controls
-open Avalonia.FuncUI.Experiments.DSL.Animatable
         
 type StyledElementBuilder<'t when 't :> StyledElement>() =
-    inherit AnimatableBuilder<'t>()
+    inherit Animatable.AnimatableBuilder<'t>()
     
     [<CustomOperation("dataContext")>]
     member _.dataContext<'t>(x: Node<_, _>, dataContext: obj) =
@@ -25,26 +23,26 @@ type StyledElementBuilder<'t when 't :> StyledElement>() =
         
     [<CustomOperation("classes")>]
     member _.classes<'t>(x: Node<_, _>, value: string list) =
-        let getter : ('t -> obj) = (fun control -> control.Classes :> obj)
-        let setter : ('t * obj -> unit) = (fun (control, value) -> control.Classes <- (value :?> Classes))
+        let getter : ('t -> obj) = (fun control -> box control.Classes)
+        let setter : ('t * obj -> unit) = (fun (control, value) -> control.Classes <- (unbox<Classes> value))
         
-        Types.property<'t> "Classes" (Classes value) getter setter (fun () -> Classes())
+        Types.property<'t> "Classes" (Classes value) getter setter (fun () -> Classes() |> box)
 
     /// Use 'classes' instead when possible.
     [<CustomOperation("styles")>]
     member _.styles<'t>(x: Node<_, _>, value: Styles) =
-        let getter : ('t -> Styles) = (fun control -> control.Styles)
-        let setter : ('t * Styles -> unit) = 
+        let getter : ('t -> obj) = (fun control -> box control.Styles)
+        let setter : ('t * obj -> unit) = 
             (fun (control, value) -> 
                  control.Styles.Clear()
-                 control.Styles.AddRange(value))
+                 control.Styles.AddRange(unbox<Styles> value))
 
-        Types.property "Styles" value getter setter (fun () -> Styles())
+        Types.property "Styles" value getter setter (fun () -> Styles() |> box)
 
     [<CustomOperation("resources")>]
     member _.resources<'t>(x: Node<_, _>, value: IResourceDictionary) =
-        let getter : ('t -> IResourceDictionary) = (fun control -> control.Resources)
-        let setter : ('t * IResourceDictionary -> unit) = (fun (control, value) -> control.Resources <- value)
-        let factory = fun () -> ResourceDictionary() :> IResourceDictionary
+        let getter : ('t -> obj) = (fun control -> box control.Resources)
+        let setter : ('t * obj -> unit) = (fun (control, value) -> control.Resources <- unbox<IResourceDictionary> value)
+        let factory = fun () -> ResourceDictionary() |> box
         
         Types.property "Resources" value getter setter factory

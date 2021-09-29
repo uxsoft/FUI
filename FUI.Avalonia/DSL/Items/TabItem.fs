@@ -1,8 +1,8 @@
-module Avalonia.FuncUI.Experiments.DSL.TabItem
+module FUI.Avalonia.TabItem
 
 open Avalonia.Controls
 open FUI.UiBuilder
-open Avalonia.FuncUI.Experiments.DSL.HeaderedContentControl
+open FUI.Avalonia.HeaderedContentControl
 open Avalonia.FuncUI.Builder
  
 type TabItemBuilder<'t when 't :> TabItem>() =
