@@ -1,77 +1,69 @@
 module FUI.Avalonia.TextBlock
-open FUI.UiBuilder
+open Avalonia
+open Avalonia.Media
+open FUI.Avalonia.Patcher
 open FUI.Avalonia.Control
 
-open Avalonia
 open Avalonia.Controls
-open Avalonia.Media    
-open Avalonia.FuncUI.Builder
-open Avalonia.FuncUI.Types
 
-let create (attrs: IAttr<TextBlock> list): IView<TextBlock> =
-    ViewBuilder.Create<TextBlock>(attrs)
-
-type TextBlockBuilder<'t when 't :> TextBlock>() =
+type TextBlockBuilder<'t when 't :> TextBlock and 't : equality>() =
     inherit ControlBuilder<'t>()
     
-    override _.Flatten x =
-        match x.Children |> List.tryLast with
-        | None -> x.Attributes
-        | Some lastChild ->
-            x.Attributes @ [ AttrBuilder<'t>.CreateProperty(TextBlock.TextProperty, lastChild.ToString(), ValueNone) ]
+    member this.Run x =
+        this.RunWithChild x (fun textBlock text -> textBlock.Text <- string text)
         
     [<CustomOperation("text")>] 
-    member _.text<'t>(x: Node<_, _>, value: string) =
-        Types.dependencyProperty<string>(TextBlock.TextProperty, value, ValueNone) ]
+    member _.text<'t>(x: Types.AvaloniaNode<'t>, value: string) =
+        Types.dependencyProperty x TextBlock.TextProperty value
         
     [<CustomOperation("background")>] 
-    member _.background<'t>(x: Node<_, _>, value: IBrush) =
-        Types.dependencyProperty<IBrush>(TextBlock.BackgroundProperty, value, ValueNone) ]
+    member _.background<'t>(x: Types.AvaloniaNode<'t>, value: IBrush) =
+        Types.dependencyProperty x TextBlock.BackgroundProperty value
     
     [<CustomOperation("fontFamily")>] 
-    member _.fontFamily<'t>(x: Node<_, _>, value: FontFamily) =
-        Types.dependencyProperty<FontFamily>(TextBlock.FontFamilyProperty, value, ValueNone) ]
+    member _.fontFamily<'t>(x: Types.AvaloniaNode<'t>, value: FontFamily) =
+        Types.dependencyProperty x TextBlock.FontFamilyProperty value
         
     [<CustomOperation("fontSize")>] 
-    member _.fontSize<'t>(x: Node<_, _>, value: double) =
-        Types.dependencyProperty<double>(TextBlock.FontSizeProperty, value, ValueNone) ]
+    member _.fontSize<'t>(x: Types.AvaloniaNode<'t>, value: double) =
+        Types.dependencyProperty x TextBlock.FontSizeProperty value
         
     [<CustomOperation("fontStyle")>] 
-    member _.fontStyle<'t>(x: Node<_, _>, value: FontStyle) =
-        Types.dependencyProperty<FontStyle>(TextBlock.FontStyleProperty, value, ValueNone) ]
+    member _.fontStyle<'t>(x: Types.AvaloniaNode<'t>, value: FontStyle) =
+        Types.dependencyProperty x TextBlock.FontStyleProperty value
         
     [<CustomOperation("fontWeight")>] 
-    member _.fontWeight<'t>(x: Node<_, _>, value: FontWeight) =
-        Types.dependencyProperty<FontWeight>(TextBlock.FontWeightProperty, value, ValueNone) ]
+    member _.fontWeight<'t>(x: Types.AvaloniaNode<'t>, value: FontWeight) =
+        Types.dependencyProperty x TextBlock.FontWeightProperty value
         
     [<CustomOperation("foreground")>] 
-    member _.foreground<'t>(x: Node<_, _>, value: IBrush) =
-        Types.dependencyProperty<IBrush>(TextBlock.ForegroundProperty, value, ValueNone) ]
+    member _.foreground<'t>(x: Types.AvaloniaNode<'t>, value: IBrush) =
+        Types.dependencyProperty x TextBlock.ForegroundProperty value
 
     [<CustomOperation("lineHeight")>] 
-    member _.lineHeight<'t>(x: Node<_, _>, value: float) =
-        Types.dependencyProperty<float>(TextBlock.LineHeightProperty, value, ValueNone) ]
+    member _.lineHeight<'t>(x: Types.AvaloniaNode<'t>, value: float) =
+        Types.dependencyProperty x TextBlock.LineHeightProperty value
         
     [<CustomOperation("maxLines")>] 
-    member _.maxLines<'t>(x: Node<_, _>, value: int) =
-        Types.dependencyProperty<int>(TextBlock.MaxLinesProperty, value, ValueNone) ]
+    member _.maxLines<'t>(x: Types.AvaloniaNode<'t>, value: int) =
+        Types.dependencyProperty x TextBlock.MaxLinesProperty value
 
     [<CustomOperation("padding")>] 
-    member _.padding<'t>(x: Node<_, _>, value: Thickness) =
-        Types.dependencyProperty<Thickness>(TextBlock.PaddingProperty, value, ValueNone) ]
+    member _.padding<'t>(x: Types.AvaloniaNode<'t>, value: Thickness) =
+        Types.dependencyProperty x TextBlock.PaddingProperty value
 
     [<CustomOperation("textAlignment")>] 
-    member _.textAlignment<'t>(x: Node<_, _>, alignment: TextAlignment) =
-        Types.dependencyProperty<TextAlignment>(TextBlock.TextAlignmentProperty, alignment, ValueNone) ]
+    member _.textAlignment<'t>(x: Types.AvaloniaNode<'t>, alignment: TextAlignment) =
+        Types.dependencyProperty x TextBlock.TextAlignmentProperty alignment
 
     [<CustomOperation("textDecorations")>] 
-    member _.textDecorations<'t>(x: Node<_, _>, value: TextDecorationCollection) =
-        Types.dependencyProperty<TextDecorationCollection>(TextBlock.TextDecorationsProperty, value, ValueNone) ]
+    member _.textDecorations<'t>(x: Types.AvaloniaNode<'t>, value: TextDecorationCollection) =
+        Types.dependencyProperty x TextBlock.TextDecorationsProperty value
 
     [<CustomOperation("textTrimming")>] 
-    member _.textTrimming<'t>(x: Node<_, _>, value: TextTrimming) =
-        Types.dependencyProperty<TextTrimming>(TextBlock.TextTrimmingProperty, value, ValueNone) ]
+    member _.textTrimming<'t>(x: Types.AvaloniaNode<'t>, value: TextTrimming) =
+        Types.dependencyProperty x TextBlock.TextTrimmingProperty value
         
     [<CustomOperation("textWrapping")>] 
-    member _.textWrapping<'t>(x: Node<_, _>, value: TextWrapping) =
-        Types.dependencyProperty<TextWrapping>(TextBlock.TextWrappingProperty, value, ValueNone) ]
+    member _.textWrapping<'t>(x: Types.AvaloniaNode<'t>, value: TextWrapping) =
+        Types.dependencyProperty x TextBlock.TextWrappingProperty value

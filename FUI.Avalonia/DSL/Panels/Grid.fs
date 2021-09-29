@@ -51,11 +51,11 @@ type GridBuilder<'t when 't :> Grid>() =
     inherit PanelBuilder<'t>()
     
     [<CustomOperation("showGridLines")>] 
-    member _.showGridLines<'t>(x: Node<_, _>, value: bool) =
-        Types.dependencyProperty<bool>(Grid.ShowGridLinesProperty, value, ValueNone) ]
+    member _.showGridLines<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+        Types.dependencyProperty x Grid.ShowGridLinesProperty value
 
     [<CustomOperation("columnDefinitions")>] 
-    member _.columnDefinitions<'t>(x: Node<_, _>, value: string) =
+    member _.columnDefinitions<'t>(x: Types.AvaloniaNode<'t>, value: string) =
         let columnDefinitions = ColumnDefinitions.Parse value        
         let getter : 't -> ColumnDefinitions = fun view -> view.ColumnDefinitions
         let setter : 't * ColumnDefinitions -> unit = fun (view, value) -> view.ColumnDefinitions <- value
@@ -71,7 +71,7 @@ type GridBuilder<'t when 't :> Grid>() =
         x @@ [ attr ]
 
     [<CustomOperation("rowDefinitions")>] 
-    member _.rowDefinitions<'t>(x: Node<_, _>, value: string) =
+    member _.rowDefinitions<'t>(x: Types.AvaloniaNode<'t>, value: string) =
         let rowDefinitions = RowDefinitions.Parse value
         let getter : 't -> RowDefinitions = fun view -> view.RowDefinitions
         let setter : 't * RowDefinitions -> unit = fun (view, value) -> view.RowDefinitions <- value

@@ -7,7 +7,7 @@ type Node<'child, 'attr> =
     { Attributes: Builder.Builder<'attr>
       Children: Builder.Builder<'child> }
 
-type UiBuilder<'t>() =
+type UiBuilder<'t when 't : equality>() =
     member inline _.Zero() =
         { Attributes = Builder.empty
           Children = Builder.empty }
@@ -45,6 +45,7 @@ type UiBuilder<'t>() =
         x.Combine(s, f ())
         
     member x.For(list: IReadOnlyObservableCollection<'a>, f: 'a -> Node<_, _>) =
+        // TODO create an optimised (unzip?) operation in Oc module and use it
         let elements = list |> Oc.map f
         let attributes =
             elements
@@ -65,3 +66,6 @@ type UiBuilder<'t>() =
         let elements = Seq.map f list
         { Attributes = elements |> Seq.map (fun i -> i.Attributes) |> Builder.concat
           Children =  elements |> Seq.map (fun i -> i.Children) |> Builder.concat }
+        
+let attr prop (node: Node<_, _>) =
+    { node with Attributes = node.Attributes |> Builder.appendStatic prop }

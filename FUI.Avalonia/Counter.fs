@@ -18,24 +18,24 @@ let view () =
     let model = init ()
     
     StackPanel {
-        TextBlock {
+        Label {
             let txt = (model.Counter |> Ov.map string)
             txt
         }
         Button {
-            onClick (fun _ _ ->
+            onClick (fun _ ->
                 model.Items.Add (model.Items.Count + 1)
                 model.Counter.Update (fun v -> v + 1))
             "+"
         }
         Button {
-            onClick (fun _ _ ->
+            onClick (fun _ ->
                 model.Items.Remove (model.Items.Count - 1)
                 model.Counter.Update (fun v -> v - 1)) 
             "-"
         }
         Button {
-            onClick (fun _ _ ->
+            onClick (fun _ ->
                 model.Items.Clear()
                 model.Counter.Update (fun _ -> 0)) 
             "reset"
@@ -44,14 +44,14 @@ let view () =
         
         let isEven = model.Counter |> Ov.map (fun i -> (i % 2) = 0)
         If (isEven) {
-            TextBlock { "even" }
+            Label { "even" }
         }
         Else (isEven) {
-            TextBlock { "odd" }
+            Label { "odd" }
         }
         
         for i in model.Items do
             for j in model.Items do
-            TextBlock { $"item-{i}-{j}" }
+            Label { $"item-{i}-{j}" }
     }
     

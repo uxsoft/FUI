@@ -6,39 +6,38 @@ open FUI.UiBuilder
 open FUI.Avalonia.ContentControl
 open Avalonia.Interactivity
 open Avalonia.Input
-open Avalonia.FuncUI.Builder
  
-type ButtonBuilder<'t when 't :> Button>() =
+type ButtonBuilder<'t when 't :> Button and 't : equality>() =
     inherit ContentControlBuilder<'t>()
     
     [<CustomOperation("clickMode")>] 
-    member _.clickMode<'t>(x: Node<_, _>, value: ClickMode) =
-        Types.dependencyProperty<ClickMode>(Button.ClickModeProperty, value, ValueNone) ]
+    member _.clickMode<'t>(x: Types.AvaloniaNode<'t>, value: ClickMode) =
+        Types.dependencyProperty x Button.ClickModeProperty value
         
     [<CustomOperation("command")>] 
-    member _.command<'t>(x: Node<_, _>, value: ICommand) =
-        Types.dependencyProperty<ICommand>(Button.CommandProperty, value, ValueNone) ]
+    member _.command<'t>(x: Types.AvaloniaNode<'t>, value: ICommand) =
+        Types.dependencyProperty x Button.CommandProperty, value
         
     [<CustomOperation("hotKey")>] 
-    member _.hotKey<'t>(x: Node<_, _>, value: KeyGesture) =
-        Types.dependencyProperty<KeyGesture>(Button.HotKeyProperty, value, ValueNone) ]
+    member _.hotKey<'t>(x: Types.AvaloniaNode<'t>, value: KeyGesture) =
+        Types.dependencyProperty x Button.HotKeyProperty, value
         
     [<CustomOperation("commandParameter")>] 
-    member _.commandParameter<'t>(x: Node<_, _>, value: obj) =
-        Types.dependencyProperty<obj>(Button.CommandParameterProperty, value, ValueNone) ]
+    member _.commandParameter<'t>(x: Types.AvaloniaNode<'t>, value: obj) =
+        Types.dependencyProperty x Button.CommandParameterProperty, value
         
     [<CustomOperation("isDefault")>] 
-    member _.isDefault<'t>(x: Node<_, _>, value: bool) =
-        Types.dependencyProperty<bool>(Button.IsDefaultProperty, value, ValueNone) ]
+    member _.isDefault<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+        Types.dependencyProperty x Button.IsDefaultProperty, value
         
     [<CustomOperation("isPressed")>] 
-    member _.isPressed<'t>(x: Node<_, _>, value: bool) =
-        Types.dependencyProperty<bool>(Button.IsPressedProperty, value, ValueNone) ]
+    member _.isPressed<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+        Types.dependencyProperty x Button.IsPressedProperty, value
         
-    [<CustomOperation("onIsPressedChanged")>] 
-    member _.onIsPressedChanged<'t>(x: Node<_, _>, func: bool -> unit) =
-        x @@ [ AttrBuilder<'t>.CreateSubscription<bool>(Button.IsPressedProperty, func) ]
+//    [<CustomOperation("onIsPressedChanged")>] 
+//    member _.onIsPressedChanged<'t>(x: Types.AvaloniaNode<'t>, func: bool -> unit) =
+//        x @@ [ AttrBuilder<'t>.CreateSubscription<bool>(Button.IsPressedProperty, func) ]
         
     [<CustomOperation("onClick")>] 
-    member _.onClick<'t>(x: Node<_, _>, func: RoutedEventArgs -> unit) =
-        x @@ [ AttrBuilder<'t>.CreateSubscription<RoutedEventArgs>(Button.ClickEvent, func) ]
+    member _.onClick<'t>(x: Types.AvaloniaNode<'t>, func: RoutedEventArgs -> unit) =
+        Types.routedEvent x Button.ClickEvent func

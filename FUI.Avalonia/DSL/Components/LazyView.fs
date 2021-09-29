@@ -1,7 +1,5 @@
-namespace FUI.Avalonia
+module FUI.Avalonia.LazyView
 
-[<AutoOpen>]
-module LazyView =  
     open Avalonia.FuncUI.Types
     open Avalonia.FuncUI.Components
     open Avalonia.FuncUI.Builder

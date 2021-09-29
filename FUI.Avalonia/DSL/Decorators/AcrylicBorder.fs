@@ -11,9 +11,9 @@ type AcrylicBorderBuilder<'t when 't :> ExperimentalAcrylicBorder>() =
     inherit DecoratorBuilder<'t>()
     
     [<CustomOperation("cornerRadius")>] 
-    member _.cornerRadius<'t>(x: Node<_, _>, value: CornerRadius) =
-        Types.dependencyProperty<CornerRadius>(ExperimentalAcrylicBorder.CornerRadiusProperty, value, ValueNone) ]
+    member _.cornerRadius<'t>(x: Types.AvaloniaNode<'t>, value: CornerRadius) =
+        Types.dependencyProperty x<CornerRadius>(ExperimentalAcrylicBorder.CornerRadiusProperty, value, ValueNone) ]
         
     [<CustomOperation("material")>] 
-    member _.material<'t>(x: Node<_, _>, value: ExperimentalAcrylicMaterial) =
-        Types.dependencyProperty<ExperimentalAcrylicMaterial>(ExperimentalAcrylicBorder.MaterialProperty, value, ValueNone) ]
+    member _.material<'t>(x: Types.AvaloniaNode<'t>, value: ExperimentalAcrylicMaterial) =
+        Types.dependencyProperty x<ExperimentalAcrylicMaterial>(ExperimentalAcrylicBorder.MaterialProperty, value, ValueNone) ]

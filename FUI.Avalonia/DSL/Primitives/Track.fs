@@ -11,35 +11,35 @@ type TrackBuilder<'t when 't :> Track>() =
     inherit ControlBuilder<'t>()
     
     [<CustomOperation("minimum")>]
-    member _.minimum<'t>(x: Node<_, _>, value: double) =
-        Types.dependencyProperty<double>(Track.MinimumProperty, value, ValueNone) ]
+    member _.minimum<'t>(x: Types.AvaloniaNode<'t>, value: double) =
+        Types.dependencyProperty x<double>(Track.MinimumProperty, value, ValueNone) ]
         
     [<CustomOperation("maximum")>]
-    member _.maximum<'t>(x: Node<_, _>, value: double) =
-        Types.dependencyProperty<double>(Track.MaximumProperty, value, ValueNone) ]
+    member _.maximum<'t>(x: Types.AvaloniaNode<'t>, value: double) =
+        Types.dependencyProperty x<double>(Track.MaximumProperty, value, ValueNone) ]
         
     [<CustomOperation("value")>]
-    member _.value<'t>(x: Node<_, _>, value: double) =
-        Types.dependencyProperty<double>(Track.ValueProperty, value, ValueNone) ]
+    member _.value<'t>(x: Types.AvaloniaNode<'t>, value: double) =
+        Types.dependencyProperty x<double>(Track.ValueProperty, value, ValueNone) ]
         
     [<CustomOperation("onValueChanged")>]
-    member _.onValueChanged<'t>(x: Node<_, _>, func: double -> unit) =
+    member _.onValueChanged<'t>(x: Types.AvaloniaNode<'t>, func: double -> unit) =
         x @@ [ AttrBuilder<'t>.CreateSubscription<double>(Track.ValueProperty, func) ]
 
     [<CustomOperation("viewportSize")>]
-    member _.viewportSize<'t>(x: Node<_, _>, value: double) =
-        Types.dependencyProperty<double>(Track.ViewportSizeProperty, value, ValueNone) ]
+    member _.viewportSize<'t>(x: Types.AvaloniaNode<'t>, value: double) =
+        Types.dependencyProperty x<double>(Track.ViewportSizeProperty, value, ValueNone) ]
         
     [<CustomOperation("orientation")>]
-    member _.orientation<'t>(x: Node<_, _>, orientation: Orientation) =
-        Types.dependencyProperty<Orientation>(Track.OrientationProperty, orientation, ValueNone) ]
+    member _.orientation<'t>(x: Types.AvaloniaNode<'t>, orientation: Orientation) =
+        Types.dependencyProperty x<Orientation>(Track.OrientationProperty, orientation, ValueNone) ]
         
     [<CustomOperation("isDirectionReversed")>]
-    member _.isDirectionReversed<'t>(x: Node<_, _>, value: bool) =
-        Types.dependencyProperty<bool>(Track.IsDirectionReversedProperty, value, ValueNone) ]
+    member _.isDirectionReversed<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+        Types.dependencyProperty x<bool>(Track.IsDirectionReversedProperty, value, ValueNone) ]
         
     [<CustomOperation("thumb")>] 
-    member _.thumb<'t, 'c when 't :> Track and 'c :> obj>(x: Node<_, _>, value: 'c) =
+    member _.thumb<'t, 'c when 't :> Track and 'c :> obj>(x: Types.AvaloniaNode<'t>, value: 'c) =
         let prop = 
             match box value with
             | :? IView as view -> AttrBuilder<'t>.CreateContentSingle(Track.ThumbProperty, Some view)
@@ -49,11 +49,11 @@ type TrackBuilder<'t when 't :> Track>() =
         x @@ [ prop ]
     
     [<CustomOperation("ignoreThumbDragProperty")>]
-    member _.ignoreThumbDragProperty<'t>(x: Node<_, _>, value: bool) =
-        Types.dependencyProperty<bool>(Track.IgnoreThumbDragProperty, value, ValueNone) ]
+    member _.ignoreThumbDragProperty<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+        Types.dependencyProperty x<bool>(Track.IgnoreThumbDragProperty, value, ValueNone) ]
     
     [<CustomOperation("increaseButton")>] 
-    member _.increaseButton<'t, 'c when 't :> Track and 'c :> obj>(x: Node<_, _>, value: 'c) =
+    member _.increaseButton<'t, 'c when 't :> Track and 'c :> obj>(x: Types.AvaloniaNode<'t>, value: 'c) =
         let prop = 
             match box value with
             | :? IView as view -> AttrBuilder<'t>.CreateContentSingle(Track.IncreaseButtonProperty, Some view)
@@ -63,7 +63,7 @@ type TrackBuilder<'t when 't :> Track>() =
         x @@ [ prop ]
         
     [<CustomOperation("decreaseButton")>] 
-    member _.decreaseButton<'t, 'c when 't :> Track and 'c :> obj>(x: Node<_, _>, value: 'c) =
+    member _.decreaseButton<'t, 'c when 't :> Track and 'c :> obj>(x: Types.AvaloniaNode<'t>, value: 'c) =
         let prop = 
             match box value with
             | :? IView as view -> AttrBuilder<'t>.CreateContentSingle(Track.DecreaseButtonProperty, Some view)

@@ -10,5 +10,5 @@ type PathBuilder<'t when 't :> Path>() =
     inherit ShapeBuilder<'t>()
     
     [<CustomOperation("data")>]
-    member _.data<'t>(x: Node<_, _>, geometry: Geometry) =
-        Types.dependencyProperty<Geometry>(Path.DataProperty, geometry, ValueNone) ]
+    member _.data<'t>(x: Types.AvaloniaNode<'t>, geometry: Geometry) =
+        Types.dependencyProperty x<Geometry>(Path.DataProperty, geometry, ValueNone) ]

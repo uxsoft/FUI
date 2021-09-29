@@ -5,7 +5,7 @@ open FUI.ObservableCollection
 open FUI.UiBuilder
 open FUI.ObservableValue
 
-type IfBuilder<'t>(q: IObservableValue<bool>) =
+type IfBuilder<'t when 't : equality>(q: IObservableValue<bool>) =
     inherit UiBuilder<'t>()
     
     member _.Run (x: Node<_, _>) =

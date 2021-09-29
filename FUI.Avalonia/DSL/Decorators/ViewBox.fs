@@ -13,5 +13,5 @@ type ViewBoxBuilder<'t when 't :> Viewbox>() =
     /// Sets the stretch mode, which determines how child fits into the available space.
     /// </summary>
     [<CustomOperation("stretch")>]
-    member _.stretch<'t>(x: Node<_, _>, value: Stretch) =
-        Types.dependencyProperty<Stretch>(Viewbox.StretchProperty, value, ValueNone) ]
+    member _.stretch<'t>(x: Types.AvaloniaNode<'t>, value: Stretch) =
+        Types.dependencyProperty x<Stretch>(Viewbox.StretchProperty, value, ValueNone) ]

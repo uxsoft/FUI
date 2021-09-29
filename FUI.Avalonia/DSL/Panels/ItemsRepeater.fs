@@ -12,13 +12,13 @@ type ItemsRepeaterBuilder<'t when 't :> ItemsRepeater>() =
     inherit Panel.PanelBuilder<'t>()
     
     [<CustomOperation("viewItems")>] 
-    member _.viewItems<'t>(x: Node<_, _>, views: List<IView>) =
+    member _.viewItems<'t>(x: Types.AvaloniaNode<'t>, views: List<IView>) =
         x @@ [ AttrBuilder<'t>.CreateContentMultiple(ItemsRepeater.ItemsProperty, views) 
     
     [<CustomOperation("dataItems")>] 
-    member _.dataItems<'t>(x: Node<_, _>, data : IEnumerable) =
-        Types.dependencyProperty<IEnumerable>(ItemsRepeater.ItemsProperty, data, ValueNone) 
+    member _.dataItems<'t>(x: Types.AvaloniaNode<'t>, data : IEnumerable) =
+        Types.dependencyProperty x<IEnumerable>(ItemsRepeater.ItemsProperty, data, ValueNone) 
         
     [<CustomOperation("itemTemplate")>] 
-    member _.itemTemplate<'t>(x: Node<_, _>, value : IDataTemplate) =
-        Types.dependencyProperty<IDataTemplate>(ItemsRepeater.ItemTemplateProperty, value, ValueNone) 
+    member _.itemTemplate<'t>(x: Types.AvaloniaNode<'t>, value : IDataTemplate) =
+        Types.dependencyProperty x<IDataTemplate>(ItemsRepeater.ItemTemplateProperty, value, ValueNone) 

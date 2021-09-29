@@ -11,7 +11,7 @@ type HeaderedItemsControlBuilder<'t when 't :> HeaderedItemsControl>() =
     inherit ItemsControlBuilder<'t>()
     
     [<CustomOperation("header")>] 
-    member _.header<'t, 'c when 't :> HeaderedItemsControl and 'c :> obj>(x: Node<_, _>, value: 'c) =
+    member _.header<'t, 'c when 't :> HeaderedItemsControl and 'c :> obj>(x: Types.AvaloniaNode<'t>, value: 'c) =
         let prop = 
             match box value with
             | :? IView as view -> AttrBuilder<'t>.CreateContentSingle(HeaderedItemsControl.HeaderProperty, Some view)

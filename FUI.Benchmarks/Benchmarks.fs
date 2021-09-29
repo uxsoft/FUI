@@ -34,30 +34,30 @@ type Benchmarks() =
             
         let view () =
             StackPanel {
-                TextBlock {
+                Label {
                     let txt = (model.Counter |> Ov.map string)
                     txt
                 }
                 Button {
-                    onClick (fun _ _ -> ())
+                    onClick (fun _ -> ())
                     "+"
                 }
                 Button {
-                    onClick (fun _ _ -> ()) 
+                    onClick (fun _ -> ()) 
                     "-"
                 }
                 
                 let isEven = model.Counter |> Ov.map (fun i -> (i % 2) = 0)
                 If (isEven) {
-                    TextBlock { "even" }
+                    Label { "even" }
                 }
                 Else (isEven) {
-                    TextBlock { "odd" }
+                    Label { "odd" }
                 }
         
                 for i in model.Items do
                     for j in model.Items do
-                    TextBlock { $"item-{i}-{j}" }
+                        Label { $"item-{i}-{j}" }
             }
         
         let control = view ()

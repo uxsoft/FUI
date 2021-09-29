@@ -26,5 +26,5 @@ type DecoratorBuilder<'t when 't :> Decorator>() =
             x.Attributes @ [ contentProp ]
         
     [<CustomOperation("padding")>]
-    member _.padding<'t>(x: Node<_, _>, value: Thickness) =
-        Types.dependencyProperty<Thickness>(Decorator.PaddingProperty, value, ValueNone) ]
+    member _.padding<'t>(x: Types.AvaloniaNode<'t>, value: Thickness) =
+        Types.dependencyProperty x<Thickness>(Decorator.PaddingProperty, value, ValueNone) ]

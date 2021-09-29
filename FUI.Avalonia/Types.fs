@@ -1,48 +1,66 @@
 module FUI.Avalonia.Types
 
+open System
 open System.Threading
 open Avalonia.Controls
 open Avalonia.Interactivity
+open FUI.UiBuilder
 
-type PropertyMeta<'t> =
+type PropertyMeta<'t when 't : equality> =
     { Getter: 't -> obj
       Setter: 't * obj -> unit }
   
-type EventMeta  =
-    { Subcribe: 't -> }
+type RoutedEventMeta<'t when 't : equality>  =
+    { Subscribe: 't -> CancellationTokenSource }
 
-type AttributeMeta<'t> =
+type AttributeMeta<'t when 't : equality> =
     | Property of PropertyMeta<'t>
     | DependencyProperty of Avalonia.AvaloniaProperty
-    | RoutedEvent of EventMeta
-    
-type Attribute<'t> =
+    | RoutedEvent of RoutedEventMeta<'t>
+
+[<CustomEquality; NoComparison>]
+type Attribute<'t when 't : equality> =
     { Name: string
       Value: obj
       Meta: AttributeMeta<'t> }
     
-let dependencyProperty (dp: Avalonia.AvaloniaProperty) v =
-    { Name = dp.Name
-      Value = v
-      Meta = DependencyProperty dp }
-   
-let property<'t> (name: string) (value: obj) (getter: 't -> obj) (setter: 't * obj -> unit) (factory: unit -> obj) =
-    { Name = name
-      Value = value
-      Meta = Property
-          { Getter = getter
-            Setter = setter } }
+    override this.Equals (other: obj) : bool =
+        this.Name.Equals other
+            
+    override this.GetHashCode () =
+        this.Name.GetHashCode()
     
-let routedEvent (routedEvent: RoutedEvent<'e>) (handler: 'e -> unit) =
-    let subscribeFunc (control: IControl, _handler: 'h) =
+type AvaloniaNode<'t when 't : equality> = Node<obj, Attribute<'t>>
+    
+let dependencyProperty (x: AvaloniaNode<'t>) (dp: Avalonia.AvaloniaProperty) v =
+    let prop = 
+        { Name = dp.Name
+          Value = v
+          Meta = DependencyProperty dp }
+    
+    attr prop x
+   
+let property (x: AvaloniaNode<'t>) (name: string) (value: obj) (getter: 't -> obj) (setter: 't * obj -> unit) (factory: unit -> obj) =
+    let prop = 
+        { Name = name
+          Value = value
+          Meta = Property
+              { Getter = getter
+                Setter = setter } }
+    attr prop x
+    
+let routedEvent<'t, 'e when 't : equality and 't :> IInteractive and 'e :> RoutedEventArgs> (x: AvaloniaNode<'t>) (routedEvent: RoutedEvent<'e>) (handler: 'e -> unit) =
+    let subscribeFunc (control: 't) =
         let cts = new CancellationTokenSource()
         control
             .GetObservable(routedEvent)
-            .Subscribe(func, cts.Token)
+            .Subscribe(handler, cts.Token)
         cts
-     
-    { Name = routedEvent.Name
-      Value = ()
-      Meta = RoutedEvent (Action<_>(subscribeFunc)) }
+        
+    let prop = 
+        { Name = routedEvent.Name
+          Value = ()
+          Meta = RoutedEvent
+            { Subscribe = subscribeFunc } }
+    attr prop x
     
-type AvaloniaNode<'t> = Node<'t, Attribute<'t>>

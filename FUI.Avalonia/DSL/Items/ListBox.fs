@@ -13,14 +13,14 @@ let create (attrs: IAttr<ListBox> list): IView<ListBox> =
 type ListBoxBuilder<'t when 't :> ListBox>() =
     inherit SelectingItemsControlBuilder<'t>()
 
-    member _.selectedItems<'t>(x: Node<_, _>, items: IList) =
+    member _.selectedItems<'t>(x: Types.AvaloniaNode<'t>, items: IList) =
         x @@ [AttrBuilder<'t>.CreateProperty<IList>(ListBox.SelectedItemsProperty, items, ValueNone) ]
 
-    member _.onSelectedItemsChanged<'t>(x: Node<_, _>, func: IList -> unit) =
+    member _.onSelectedItemsChanged<'t>(x: Types.AvaloniaNode<'t>, func: IList -> unit) =
         x @@ [AttrBuilder<'t>.CreateSubscription<IList>(ListBox.SelectedItemsProperty, func) ]
     
-    member _.selectionMode<'t>(x: Node<_, _>, mode: SelectionMode) =
+    member _.selectionMode<'t>(x: Types.AvaloniaNode<'t>, mode: SelectionMode) =
         x @@ [AttrBuilder<'t>.CreateProperty<SelectionMode>(ListBox.SelectionModeProperty, mode, ValueNone) ]
     
-    member _.virtualizationMode<'t>(x: Node<_, _>, mode: ItemVirtualizationMode) =
+    member _.virtualizationMode<'t>(x: Types.AvaloniaNode<'t>, mode: ItemVirtualizationMode) =
         x @@ [AttrBuilder<'t>.CreateProperty<ItemVirtualizationMode>(ListBox.VirtualizationModeProperty, mode, ValueNone) ]

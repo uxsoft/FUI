@@ -4,10 +4,10 @@ open Avalonia.Controls.Templates
 open Avalonia.Controls
 open FUI
 open FUI.ObservableCollection
-open FUI.UiBuilder
+open FUI.Avalonia.Patcher
 open FUI.Avalonia.TemplatedControl
  
-type ItemsControlBuilder<'t when 't :> ItemsControl>() =
+type ItemsControlBuilder<'t when 't :> ItemsControl and 't : equality>() =
     inherit TemplatedControlBuilder<'t>()
 
     member this.Run x =
@@ -18,13 +18,13 @@ type ItemsControlBuilder<'t when 't :> ItemsControl>() =
             children.OnChanged.Add(Change.commit items))
         
     [<CustomOperation("items")>] 
-    member _.items<'t, 'i when 'i :> obj>(x: Node<_, _>, views: 'i list) =
-        Types.dependencyProperty ItemsControl.ItemsProperty views
+    member _.items<'t, 'i when 'i :> obj>(x: Types.AvaloniaNode<'t>, views: 'i list) =
+        Types.dependencyProperty x ItemsControl.ItemsProperty views
         
     [<CustomOperation("itemsPanel")>] 
-    member _.itemsPanel<'t>(x: Node<_, _>, value: ITemplate<IPanel>) =
-        Types.dependencyProperty ItemsControl.ItemsPanelProperty value
+    member _.itemsPanel<'t>(x: Types.AvaloniaNode<'t>, value: ITemplate<IPanel>) =
+        Types.dependencyProperty x ItemsControl.ItemsPanelProperty value
         
     [<CustomOperation("itemTemplate")>] 
-    member _.itemTemplate<'t>(x: Node<_, _>, value: IDataTemplate) =
-        Types.dependencyProperty ItemsControl.ItemTemplateProperty value
+    member _.itemTemplate<'t>(x: Types.AvaloniaNode<'t>, value: IDataTemplate) =
+        Types.dependencyProperty x ItemsControl.ItemTemplateProperty value

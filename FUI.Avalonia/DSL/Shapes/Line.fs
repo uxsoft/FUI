@@ -10,10 +10,10 @@ type LineBuilder<'t when 't :> Line>() =
     inherit ShapeBuilder<'t>()
 
     [<CustomOperation("startPoint")>] 
-    member _.startPoint<'t>(x: Node<_, _>, value: Point) =
-        Types.dependencyProperty<Point>(Line.StartPointProperty, value, ValueNone) ]
+    member _.startPoint<'t>(x: Types.AvaloniaNode<'t>, value: Point) =
+        Types.dependencyProperty x<Point>(Line.StartPointProperty, value, ValueNone) ]
         
     [<CustomOperation("endPoint")>] 
-    member _.endPoint<'t>(x: Node<_, _>, value: Point) =
-        Types.dependencyProperty<Point>(Line.EndPointProperty, value, ValueNone) ]
+    member _.endPoint<'t>(x: Types.AvaloniaNode<'t>, value: Point) =
+        Types.dependencyProperty x<Point>(Line.EndPointProperty, value, ValueNone) ]
       

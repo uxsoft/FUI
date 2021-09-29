@@ -16,12 +16,12 @@ type SpinnerBuilder<'t when 't :> Spinner>() =
     /// Sets <see cref="ValidSpinDirections"/> allowed for this control.
     /// </summary>
     [<CustomOperation("validSpinDirection")>] 
-    member _.validSpinDirection<'t>(x: Node<_, _>, value: ValidSpinDirections) =
-        Types.dependencyProperty<ValidSpinDirections>(Spinner.ValidSpinDirectionProperty, value, ValueNone) ]
+    member _.validSpinDirection<'t>(x: Types.AvaloniaNode<'t>, value: ValidSpinDirections) =
+        Types.dependencyProperty x<ValidSpinDirections>(Spinner.ValidSpinDirectionProperty, value, ValueNone) ]
     
     /// <summary>
     /// Occurs when spinning is initiated by the end-user.
     /// </summary>
     [<CustomOperation("onSpin")>] 
-    member _.onSpin<'t>(x: Node<_, _>, func: SpinEventArgs -> unit) =
+    member _.onSpin<'t>(x: Types.AvaloniaNode<'t>, func: SpinEventArgs -> unit) =
         x @@ [ AttrBuilder<'t>.CreateSubscription<SpinEventArgs>(Spinner.SpinEvent, func) ]

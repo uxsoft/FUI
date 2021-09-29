@@ -2,12 +2,12 @@ module FUI.Avalonia.Panel
 
 open Avalonia.Controls
 open FUI
-open FUI.ObservableCollection
-open FUI.UiBuilder
+open FUI.Avalonia.Patcher
 open Avalonia.Media
 open FUI.Avalonia.Control
+open FUI.ObservableCollection
 
-type PanelBuilder<'t when 't :> Panel>() =
+type PanelBuilder<'t when 't :> Panel and 't : equality>() =
     inherit ControlBuilder<'t>()
             
     member this.Run x =
@@ -22,5 +22,5 @@ type PanelBuilder<'t when 't :> Panel>() =
             list.OnChanged.Add(Change.commit panel.Children))
             
     [<CustomOperation("background")>]
-    member _.background<'t>(x: Node<_, _>, value: IBrush) =
-        Types.dependencyProperty Panel.BackgroundProperty value
+    member _.background<'t>(x: Types.AvaloniaNode<'t>, value: IBrush) =
+        Types.dependencyProperty x Panel.BackgroundProperty value
