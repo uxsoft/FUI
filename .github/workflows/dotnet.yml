@@ -51,3 +51,17 @@ jobs:
         comment-on-alert: true
         fail-on-alert: false
         alert-comment-cc-users: '@uxsoft'
+        
+    - name: Set version in project file
+      uses: roryprimrose/set-vs-sdk-project-version@v1
+      with:
+        version: 1.${{ github.run_number }}.0
+        
+    - name: Publish NuGet
+      uses: rohith/publish-nuget@v2
+      with:
+        PROJECT_FILE_PATH: ./FUI.Avalonia/FUI.Avalonia.fsproj
+        VERSION_STATIC: 1.${{ github.run_number }}.0
+        TAG_COMMIT: true
+        NUGET_KEY: ${{ secrets.NUGET_KEY }}
+        INCLUDE_SYMBOLS: false   
