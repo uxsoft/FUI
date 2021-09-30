@@ -1,13 +1,11 @@
 ﻿module FUI.Avalonia.RadioButton
 
 open Avalonia.Controls
-open FUI.UiBuilder
 open FUI.Avalonia.ToggleButton
-open Avalonia.FuncUI.Builder
 
-type RadioButtonBuilder<'t when 't :> RadioButton>() =
+type RadioButtonBuilder<'t when 't :> RadioButton and 't : equality>() =
     inherit ToggleButtonBuilder<'t>()
 
     member _.groupName<'t>(x: Types.AvaloniaNode<'t>, value: string) =
-        Types.dependencyProperty x<string>(RadioButton.GroupNameProperty, value, ValueNone) ]
+        Types.dependencyProperty x RadioButton.GroupNameProperty value
     

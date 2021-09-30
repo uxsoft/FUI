@@ -72,28 +72,28 @@
         <Compile Include="DSL\TickBar.fs" />
         <Compile Include="DSL\AutoCompleteBox.fs" />
         <Compile Include="DSL\Button.fs" />
-<!--        <Compile Include="DSL\ToggleButton.fs" />-->
-<!--        <Compile Include="DSL\ToggleSwitch.fs" />-->
-<!--        <Compile Include="DSL\Spinner.fs" />-->
-<!--        <Compile Include="DSL\ButtonSpinner.fs" />-->
-<!--        <Compile Include="DSL\NumericUpDown.fs" />-->
-<!--        <Compile Include="DSL\CheckBox.fs" />-->
-<!--        <Compile Include="DSL\Image.fs" />-->
-<!--        <Compile Include="DSL\GridSplitter.fs" />-->
-<!--        <Compile Include="DSL\RadioButton.fs" />-->
-<!--        <Compile Include="DSL\RepeatButton.fs" />-->
-<!--        <Compile Include="DSL\ScrollViewer.fs" />-->
-<!--        <Compile Include="DSL\Separator.fs" />-->
-<!--        <Compile Include="DSL\SplitView.fs" />-->
-<!--        <Compile Include="DSL\Expander.fs" />-->
+        <Compile Include="DSL\ToggleButton.fs" />
+        <Compile Include="DSL\ToggleSwitch.fs" />
+        <Compile Include="DSL\Spinner.fs" />
+        <Compile Include="DSL\ButtonSpinner.fs" />
+        <Compile Include="DSL\NumericUpDown.fs" />
+        <Compile Include="DSL\CheckBox.fs" />
+        <Compile Include="DSL\Image.fs" />
+        <Compile Include="DSL\GridSplitter.fs" />
+        <Compile Include="DSL\RadioButton.fs" />
+        <Compile Include="DSL\RepeatButton.fs" />
+        <Compile Include="DSL\ScrollViewer.fs" />
+        <Compile Include="DSL\Separator.fs" />
+        <Compile Include="DSL\SplitView.fs" />
+        <Compile Include="DSL\Expander.fs" />
         <Compile Include="DSL\TextBlock.fs" />
-<!--        <Compile Include="DSL\TextBox.fs" />-->
-<!--        <Compile Include="DSL\AccessText.fs" />-->
-<!--        <Compile Include="DSL\ToolTip.fs" />-->
+        <Compile Include="DSL\TextBox.fs" />
+        <Compile Include="DSL\AccessText.fs" />
+        <Compile Include="DSL\ToolTip.fs" />
         <Compile Include="DSL\TopLevel.fs" />
         <Compile Include="DSL\Window.fs" />
-<!--        <Compile Include="DSL\Microcharts\ChartView.fs" />-->
-<!--        <Compile Include="DSL\Microcharts\Chart.fs" />-->
+        <Compile Include="DSL\Microcharts\ChartView.fs" />
+        <Compile Include="DSL\Microcharts\Chart.fs" />
         <Compile Include="DSL\DSL.fs" />
     </ItemGroup>
 
@@ -103,6 +103,7 @@
 
     <ItemGroup>
       <PackageReference Include="Avalonia.Desktop" Version="0.10.7" />
+      <PackageReference Include="Microcharts" Version="0.9.5.9" />
       <PackageReference Include="System.Reactive.Linq" Version="5.0.0" />
     </ItemGroup>
 </Project>
