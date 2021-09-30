@@ -8,7 +8,8 @@ open FUI.UiBuilder
 
 type PropertyMeta<'t when 't : equality> =
     { Getter: 't -> obj
-      Setter: 't * obj -> unit }
+      Setter: 't * obj -> unit
+      DefaultValueFactory: unit -> obj }
   
 type RoutedEventMeta<'t when 't : equality>  =
     { Subscribe: 't -> CancellationTokenSource }
@@ -46,7 +47,8 @@ let property (x: AvaloniaNode<'t>) (name: string) (value: obj) (getter: 't -> ob
           Value = value
           Meta = Property
               { Getter = getter
-                Setter = setter } }
+                Setter = setter
+                DefaultValueFactory = factory } }
     attr prop x
     
 let routedEvent<'t, 'e when 't : equality and 't :> IInteractive and 'e :> RoutedEventArgs> (x: AvaloniaNode<'t>) (routedEvent: RoutedEvent<'e>) (handler: 'e -> unit) =

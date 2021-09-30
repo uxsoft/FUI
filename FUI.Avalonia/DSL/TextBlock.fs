@@ -10,7 +10,8 @@ type TextBlockBuilder<'t when 't :> TextBlock and 't : equality>() =
     inherit ControlBuilder<'t>()
     
     member this.Run x =
-        this.RunWithChild x (fun textBlock text -> textBlock.Text <- string text)
+        this.RunWithChild x (fun textBlock text ->
+            textBlock.Text <- string text)
         
     [<CustomOperation("text")>] 
     member _.text<'t>(x: Types.AvaloniaNode<'t>, value: string) =

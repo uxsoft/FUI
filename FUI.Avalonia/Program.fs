@@ -11,7 +11,8 @@ let createMainWindow () =
         height 400.
         width 400.
         
-        Counter.view ()
+        let content = Counter.view ()
+        content
     }
         
 type App() =
