@@ -1,24 +1,22 @@
 ﻿module FUI.Avalonia.ItemsRepeater
 
-open System.Collections
+open FUI
+open FUI.Avalonia.Patcher
 open Avalonia.Controls
-open FUI.UiBuilder
 open FUI.Avalonia.Panel
-open Avalonia.FuncUI.Types
-open Avalonia.FuncUI.Builder
 open Avalonia.Controls.Templates
+open FUI.ObservableCollection
 
-type ItemsRepeaterBuilder<'t when 't :> ItemsRepeater>() =
+type ItemsRepeaterBuilder<'t when 't :> ItemsRepeater and 't : equality>() =
     inherit Panel.PanelBuilder<'t>()
     
-    [<CustomOperation("viewItems")>] 
-    member _.viewItems<'t>(x: Types.AvaloniaNode<'t>, views: List<IView>) =
-        x @@ [ AttrBuilder<'t>.CreateContentMultiple(ItemsRepeater.ItemsProperty, views) 
-    
-    [<CustomOperation("dataItems")>] 
-    member _.dataItems<'t>(x: Types.AvaloniaNode<'t>, data : IEnumerable) =
-        Types.dependencyProperty x<IEnumerable>(ItemsRepeater.ItemsProperty, data, ValueNone) 
+    member this.Run x =
+        this.RunWithChildren x (fun panel (children: IReadOnlyObservableCollection<obj>) ->
+            //TODO optimise by implementing INotifyCollectionChanged
+            let items = System.Collections.ObjectModel.ObservableCollection(children)
+            panel.Items <- items
+            children.OnChanged.Add(Change.commit items))
         
     [<CustomOperation("itemTemplate")>] 
     member _.itemTemplate<'t>(x: Types.AvaloniaNode<'t>, value : IDataTemplate) =
-        Types.dependencyProperty x<IDataTemplate>(ItemsRepeater.ItemTemplateProperty, value, ValueNone) 
+        Types.dependencyProperty x ItemsRepeater.ItemTemplateProperty value

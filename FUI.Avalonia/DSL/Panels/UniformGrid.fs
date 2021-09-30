@@ -1,11 +1,9 @@
 ﻿module FUI.Avalonia.UniformGrid
 
 open Avalonia.Controls.Primitives
-open FUI.UiBuilder
 open FUI.Avalonia.Panel
-open Avalonia.FuncUI.Builder
 
-type UniformGridBuilder<'t when 't :> UniformGrid>() =
+type UniformGridBuilder<'t when 't :> UniformGrid and 't : equality>() =
     inherit PanelBuilder<'t>() 
 
     /// <summary>
@@ -13,18 +11,18 @@ type UniformGridBuilder<'t when 't :> UniformGrid>() =
     /// </summary>
     [<CustomOperation("columns")>] 
     member _.columns<'t>(x: Types.AvaloniaNode<'t>, value: int) =
-        Types.dependencyProperty x<int>(UniformGrid.ColumnsProperty, value, ValueNone) ]
+        Types.dependencyProperty x UniformGrid.ColumnsProperty value
 
     /// <summary>
     /// Specifies the row count. If set to 0, row count will be calculated automatically.
     /// </summary>
     [<CustomOperation("rows")>] 
     member _.rows<'t>(x: Types.AvaloniaNode<'t>, value: int) =
-        Types.dependencyProperty x<int>(UniformGrid.RowsProperty, value, ValueNone) ]
+        Types.dependencyProperty x UniformGrid.RowsProperty value
        
     /// <summary>
     /// Specifies, for the first row, the column where the items should start.
     /// </summary>
     [<CustomOperation("firstColumn")>] 
     member _.firstColumn<'t>(x: Types.AvaloniaNode<'t>, value: int) =
-        Types.dependencyProperty x<int>(UniformGrid.FirstColumnProperty, value, ValueNone) ]
+        Types.dependencyProperty x UniformGrid.FirstColumnProperty value
