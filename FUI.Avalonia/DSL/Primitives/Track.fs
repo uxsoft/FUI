@@ -1,73 +1,52 @@
 module FUI.Avalonia.Track
 
-open FUI.UiBuilder
 open FUI.Avalonia.Control
 open Avalonia.Layout
 open Avalonia.Controls.Primitives
-open Avalonia.FuncUI.Types
-open Avalonia.FuncUI.Builder
  
-type TrackBuilder<'t when 't :> Track>() =
+type TrackBuilder<'t when 't :> Track and 't : equality>() =
     inherit ControlBuilder<'t>()
     
     [<CustomOperation("minimum")>]
     member _.minimum<'t>(x: Types.AvaloniaNode<'t>, value: double) =
-        Types.dependencyProperty x<double>(Track.MinimumProperty, value, ValueNone) ]
+        Types.dependencyProperty x Track.MinimumProperty value
         
     [<CustomOperation("maximum")>]
     member _.maximum<'t>(x: Types.AvaloniaNode<'t>, value: double) =
-        Types.dependencyProperty x<double>(Track.MaximumProperty, value, ValueNone) ]
+        Types.dependencyProperty x Track.MaximumProperty value
         
     [<CustomOperation("value")>]
     member _.value<'t>(x: Types.AvaloniaNode<'t>, value: double) =
-        Types.dependencyProperty x<double>(Track.ValueProperty, value, ValueNone) ]
+        Types.dependencyProperty x Track.ValueProperty value
         
     [<CustomOperation("onValueChanged")>]
     member _.onValueChanged<'t>(x: Types.AvaloniaNode<'t>, func: double -> unit) =
-        x @@ [ AttrBuilder<'t>.CreateSubscription<double>(Track.ValueProperty, func) ]
+        Types.dependencyPropertyEvent x Track.ValueProperty func
 
     [<CustomOperation("viewportSize")>]
     member _.viewportSize<'t>(x: Types.AvaloniaNode<'t>, value: double) =
-        Types.dependencyProperty x<double>(Track.ViewportSizeProperty, value, ValueNone) ]
+        Types.dependencyProperty x Track.ViewportSizeProperty value
         
     [<CustomOperation("orientation")>]
     member _.orientation<'t>(x: Types.AvaloniaNode<'t>, orientation: Orientation) =
-        Types.dependencyProperty x<Orientation>(Track.OrientationProperty, orientation, ValueNone) ]
+        Types.dependencyProperty x Track.OrientationProperty orientation
         
     [<CustomOperation("isDirectionReversed")>]
     member _.isDirectionReversed<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
-        Types.dependencyProperty x<bool>(Track.IsDirectionReversedProperty, value, ValueNone) ]
+        Types.dependencyProperty x Track.IsDirectionReversedProperty value
         
     [<CustomOperation("thumb")>] 
     member _.thumb<'t, 'c when 't :> Track and 'c :> obj>(x: Types.AvaloniaNode<'t>, value: 'c) =
-        let prop = 
-            match box value with
-            | :? IView as view -> AttrBuilder<'t>.CreateContentSingle(Track.ThumbProperty, Some view)
-            | :? string as text -> AttrBuilder<'t>.CreateProperty<string>(Track.ThumbProperty, text, ValueNone)
-            | _ -> AttrBuilder<'t>.CreateProperty<obj>(Track.ThumbProperty, value, ValueNone)
-        
-        x @@ [ prop ]
+        Types.dependencyProperty x Track.ThumbProperty value
     
     [<CustomOperation("ignoreThumbDragProperty")>]
     member _.ignoreThumbDragProperty<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
-        Types.dependencyProperty x<bool>(Track.IgnoreThumbDragProperty, value, ValueNone) ]
+        Types.dependencyProperty x Track.IgnoreThumbDragProperty value
     
     [<CustomOperation("increaseButton")>] 
     member _.increaseButton<'t, 'c when 't :> Track and 'c :> obj>(x: Types.AvaloniaNode<'t>, value: 'c) =
-        let prop = 
-            match box value with
-            | :? IView as view -> AttrBuilder<'t>.CreateContentSingle(Track.IncreaseButtonProperty, Some view)
-            | :? string as text -> AttrBuilder<'t>.CreateProperty<string>(Track.IncreaseButtonProperty, text, ValueNone)
-            | _ -> AttrBuilder<'t>.CreateProperty<obj>(Track.IncreaseButtonProperty, value, ValueNone)
-        
-        x @@ [ prop ]
+        Types.dependencyProperty x Track.IncreaseButtonProperty value
         
     [<CustomOperation("decreaseButton")>] 
     member _.decreaseButton<'t, 'c when 't :> Track and 'c :> obj>(x: Types.AvaloniaNode<'t>, value: 'c) =
-        let prop = 
-            match box value with
-            | :? IView as view -> AttrBuilder<'t>.CreateContentSingle(Track.DecreaseButtonProperty, Some view)
-            | :? string as text -> AttrBuilder<'t>.CreateProperty<string>(Track.DecreaseButtonProperty, text, ValueNone)
-            | _ -> AttrBuilder<'t>.CreateProperty<obj>(Track.DecreaseButtonProperty, value, ValueNone)
-        
-        x @@ [ prop ]
+        Types.dependencyProperty x Track.DecreaseButtonProperty value

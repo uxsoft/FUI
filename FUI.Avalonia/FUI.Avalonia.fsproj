@@ -2,7 +2,6 @@
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <OutputType>WinExe</OutputType>
     </PropertyGroup>
 
     <ItemGroup>
@@ -21,14 +20,14 @@
         <Compile Include="DSL\Primitives\ItemsControl.fs" />
         <Compile Include="DSL\Primitives\HeaderedContentControl.fs" />
         
-<!--        <Compile Include="DSL\Primitives\SelectingItemsControl.fs" />-->
-<!--        <Compile Include="DSL\Primitives\HeaderedItemsControl.fs" />-->
-<!--        <Compile Include="DSL\Primitives\HeaderedSelectingItemsControl.fs" />-->
-<!--        <Compile Include="DSL\Primitives\Track.fs" />-->
-<!--        <Compile Include="DSL\Primitives\Popup.fs" />-->
-<!--        <Compile Include="DSL\Primitives\Thumb.fs" />-->
-<!--        <Compile Include="DSL\Primitives\RangeBase.fs" />-->
-<!--        <Compile Include="DSL\Primitives\ScrollBar.fs" />-->
+        <Compile Include="DSL\Primitives\SelectingItemsControl.fs" />
+        <Compile Include="DSL\Primitives\HeaderedItemsControl.fs" />
+        <Compile Include="DSL\Primitives\HeaderedSelectingItemsControl.fs" />
+        <Compile Include="DSL\Primitives\Track.fs" />
+        <Compile Include="DSL\Primitives\Popup.fs" />
+        <Compile Include="DSL\Primitives\Thumb.fs" />
+        <Compile Include="DSL\Primitives\RangeBase.fs" />
+        <Compile Include="DSL\Primitives\ScrollBar.fs" />
 <!--        <Compile Include="DSL\Panels\Canvas.fs" />-->
 <!--        <Compile Include="DSL\Panels\DockPanel.fs" />-->
 <!--        <Compile Include="DSL\Panels\Grid.fs" />-->
@@ -97,8 +96,6 @@
 <!--        <Compile Include="DSL\Microcharts\ChartView.fs" />-->
 <!--        <Compile Include="DSL\Microcharts\Chart.fs" />-->
         <Compile Include="DSL\DSL.fs" />
-        <Compile Include="Counter.fs" />
-        <Compile Include="Program.fs" />
     </ItemGroup>
 
     <ItemGroup>

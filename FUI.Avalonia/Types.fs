@@ -2,6 +2,7 @@ module FUI.Avalonia.Types
 
 open System
 open System.Threading
+open Avalonia
 open Avalonia.Controls
 open Avalonia.Interactivity
 open FUI.UiBuilder
@@ -10,14 +11,11 @@ type PropertyMeta<'t when 't : equality> =
     { Getter: 't -> obj
       Setter: 't * obj -> unit
       DefaultValueFactory: unit -> obj }
-  
-type RoutedEventMeta<'t when 't : equality>  =
-    { Subscribe: 't -> CancellationTokenSource }
 
 type AttributeMeta<'t when 't : equality> =
     | Property of PropertyMeta<'t>
     | DependencyProperty of Avalonia.AvaloniaProperty
-    | RoutedEvent of RoutedEventMeta<'t>
+    | RoutedEvent of ('t -> CancellationTokenSource)
 
 [<CustomEquality; NoComparison>]
 type Attribute<'t when 't : equality> =
@@ -62,7 +60,21 @@ let routedEvent<'t, 'e when 't : equality and 't :> IInteractive and 'e :> Route
     let prop = 
         { Name = routedEvent.Name
           Value = ()
-          Meta = RoutedEvent
-            { Subscribe = subscribeFunc } }
+          Meta = RoutedEvent subscribeFunc }
+        
     attr prop x
     
+let dependencyPropertyEvent<'t, 'a when 't : equality and 't :> IAvaloniaObject> (x: AvaloniaNode<'t>) (dp: AvaloniaProperty<'a>) (handler: 'a -> unit) =
+    let subscribeFunc (control: 't) =
+        let cts = new CancellationTokenSource()
+        control
+            .GetObservable(dp)
+            .Subscribe(handler, cts.Token)
+        cts
+        
+    let prop = 
+        { Name = dp.Name
+          Value = ()
+          Meta = RoutedEvent subscribeFunc }
+        
+    attr prop x
