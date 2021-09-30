@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1633019128096,
+  "lastUpdate": 1633019497836,
   "repoUrl": "https://github.com/uxsoft/FUI",
   "entries": {
     "Benchmark.Net Benchmark": [
@@ -840,6 +840,54 @@ window.BENCHMARK_DATA = {
             "value": 1292753.8493333333,
             "unit": "ns",
             "range": "± 38321.209468198045"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "me@uxsoft.cz",
+            "name": "Jan Dryk",
+            "username": "uxsoft"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "86008f622873b89efdf9afe049038dd230ffc138",
+          "message": "Update dotnet.yml",
+          "timestamp": "2021-09-30T18:29:43+02:00",
+          "tree_id": "3da01f01e6867b821bd6ee869790238aa0d68dbd",
+          "url": "https://github.com/uxsoft/FUI/commit/86008f622873b89efdf9afe049038dd230ffc138"
+        },
+        "date": 1633019497360,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "FUI.Benchmarks.CartesianProduct",
+            "value": 12564.440590994698,
+            "unit": "ns",
+            "range": "± 106.07268232524328"
+          },
+          {
+            "name": "FUI.Benchmarks.CounterUI",
+            "value": 1026901.8928385417,
+            "unit": "ns",
+            "range": "± 7353.285113932368"
+          },
+          {
+            "name": "FUI.Benchmarks.CartesianProduct",
+            "value": 16968.124666666667,
+            "unit": "ns",
+            "range": "± 79.91297962396953"
+          },
+          {
+            "name": "FUI.Benchmarks.CounterUI",
+            "value": 1009812.3093333333,
+            "unit": "ns",
+            "range": "± 7975.247507343727"
           }
         ]
       }
