@@ -123,3 +123,11 @@ type ControlBuilder<'t when 't :> Control and 't : equality>() =
     [<CustomOperation("toolTipShowDelay")>]
     member _.toolTipShowDelay<'t>(x: Types.AvaloniaNode<'t>, value: int) =
         Types.dependencyProperty x ToolTip.ShowDelayProperty value 
+
+    [<CustomOperation("errors")>]
+    member _.errors<'t>(x: Types.AvaloniaNode<'t>, errors: seq<obj>) =
+        Types.dependencyProperty x DataValidationErrors.ErrorsProperty errors
+        
+    [<CustomOperation("hasErrors")>]
+    member _.hasErrors<'t>(x: Types.AvaloniaNode<'t>, hasErrors: bool) =
+        Types.dependencyProperty x DataValidationErrors.HasErrorsProperty hasErrors

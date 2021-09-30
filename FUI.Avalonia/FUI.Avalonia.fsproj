@@ -62,12 +62,11 @@
         <Compile Include="DSL\Items\Menu.fs" />
         <Compile Include="DSL\Items\MenuItem.fs" />
         <Compile Include="DSL\Items\ContextMenu.fs" />
-<!--        <Compile Include="DSL\Ranges\Slider.fs" />-->
-<!--        <Compile Include="DSL\Ranges\ProgressBar.fs" />-->
-<!--        <Compile Include="DSL\Components\LazyView.fs" />-->
-<!--        <Compile Include="DSL\Components\DataValidationErrors.fs" />-->
-<!--        <Compile Include="DSL\Calendar\Calendar.fs" />-->
-<!--        <Compile Include="DSL\Calendar\CalendarDatePicker.fs" />-->
+        <Compile Include="DSL\Ranges\Slider.fs" />
+        <Compile Include="DSL\Ranges\ProgressBar.fs" />
+        <Compile Include="DSL\Components\DataValidationErrors.fs" />
+        <Compile Include="DSL\Calendar\Calendar.fs" />
+        <Compile Include="DSL\Calendar\CalendarDatePicker.fs" />
 <!--        <Compile Include="DSL\DatePicker.fs" />-->
 <!--        <Compile Include="DSL\TimePicker.fs" />-->
 <!--        <Compile Include="DSL\TickBar.fs" />-->
