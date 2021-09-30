@@ -1,12 +1,10 @@
 ﻿module FUI.Avalonia.ViewBox
 
 open Avalonia.Controls
-open FUI.UiBuilder
 open FUI.Avalonia.Decorator
 open Avalonia.Media
-open Avalonia.FuncUI.Builder
 
-type ViewBoxBuilder<'t when 't :> Viewbox>() =
+type ViewBoxBuilder<'t when 't :> Viewbox and 't : equality>() =
     inherit DecoratorBuilder<'t>()
 
     /// <summary>
@@ -14,4 +12,4 @@ type ViewBoxBuilder<'t when 't :> Viewbox>() =
     /// </summary>
     [<CustomOperation("stretch")>]
     member _.stretch<'t>(x: Types.AvaloniaNode<'t>, value: Stretch) =
-        Types.dependencyProperty x<Stretch>(Viewbox.StretchProperty, value, ValueNone) ]
+        Types.dependencyProperty x Viewbox.StretchProperty value

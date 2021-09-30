@@ -2,29 +2,18 @@ module FUI.Avalonia.Decorator
 
 open Avalonia
 open Avalonia.Controls
-open FUI.UiBuilder
+open FUI.Avalonia.Patcher
 open FUI.Avalonia.Control
-open Avalonia.FuncUI.Types
-open Avalonia.FuncUI.Builder
 
-type DecoratorBuilder<'t when 't :> Decorator>() =
+type DecoratorBuilder<'t when 't :> Decorator and 't : equality>() =
     inherit ControlBuilder<'t>()
         
-    override _.Flatten x =
-        match x.Children |> List.tryLast with
-        | None -> x.Attributes
-        | Some lastChild -> 
-            let contentProp =
-                match lastChild with
-                | :? string as text ->
-                    AttrBuilder<'t>.CreateProperty(Decorator.ChildProperty, text, ValueNone)
-                | :? IView as view ->
-                    AttrBuilder<'t>.CreateContentSingle(Decorator.ChildProperty, Some view)
-                | other ->
-                    AttrBuilder<'t>.CreateProperty(Decorator.ChildProperty, other, ValueNone)
-        
-            x.Attributes @ [ contentProp ]
+    member this.Run x =
+        this.RunWithChild x (fun control child ->
+            match child with
+            | :? IControl as child -> control.Child <- child
+            | _ -> printfn "Child of Decorator must be of type IControl")
         
     [<CustomOperation("padding")>]
     member _.padding<'t>(x: Types.AvaloniaNode<'t>, value: Thickness) =
-        Types.dependencyProperty x<Thickness>(Decorator.PaddingProperty, value, ValueNone) ]
+        Types.dependencyProperty x Decorator.PaddingProperty value

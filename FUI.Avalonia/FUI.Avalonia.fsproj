@@ -42,11 +42,11 @@
         <Compile Include="DSL\Shapes\Polyline.fs" />
         <Compile Include="DSL\Shapes\Polygon.fs" />
         <Compile Include="DSL\Shapes\Path.fs" />
-<!--        <Compile Include="DSL\Decorators\Decorator.fs" />-->
-<!--        <Compile Include="DSL\Decorators\LayoutTransformControl.fs" />-->
-<!--        <Compile Include="DSL\Decorators\ViewBox.fs" />-->
-<!--        <Compile Include="DSL\Decorators\Border.fs" />-->
-<!--        <Compile Include="DSL\Decorators\AcrylicBorder.fs" />-->
+        <Compile Include="DSL\Decorators\Decorator.fs" />
+        <Compile Include="DSL\Decorators\LayoutTransformControl.fs" />
+        <Compile Include="DSL\Decorators\ViewBox.fs" />
+        <Compile Include="DSL\Decorators\Border.fs" />
+        <Compile Include="DSL\Decorators\AcrylicBorder.fs" />
 <!--        <Compile Include="DSL\Items\ListBoxItem.fs" />-->
 <!--        <Compile Include="DSL\Items\ListBox.fs" />-->
 <!--        <Compile Include="DSL\Items\TabStrip.fs" />-->
