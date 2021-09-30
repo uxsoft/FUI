@@ -1,53 +1,10 @@
-namespace FUI.Avalonia.Grid
+module FUI.Avalonia.Grid
   
 open Avalonia.Controls
-open FUI.UiBuilder
+open FUI.Avalonia
 open FUI.Avalonia.Panel
-open Avalonia.FuncUI.Builder
-    
-module private Internals =
-    open System.Collections.Generic
-    open System.Linq
-    
-    let compareColumnDefinitions (a: obj, b: obj): bool =
-        let a = a :?> ColumnDefinitions
-        let b = b :?> ColumnDefinitions
-            
-        let comparer =
-            {
-                new IEqualityComparer<ColumnDefinition> with
-                    member this.Equals (a, b) : bool =
-                        a.Width = b.Width &&
-                        a.MinWidth = b.MinWidth &&
-                        a.MaxWidth = b.MaxWidth &&
-                        a.SharedSizeGroup = b.SharedSizeGroup
-                        
-                    member this.GetHashCode (a) =
-                        (a.Width, a.MinWidth, a.MaxWidth, a.SharedSizeGroup).GetHashCode()
-            }
-        
-        Enumerable.SequenceEqual(a, b, comparer);
-        
-    let compareRowDefinitions (a: obj, b: obj): bool =
-        let a = a :?> RowDefinitions
-        let b = b :?> RowDefinitions
-            
-        let comparer =
-            {
-                new IEqualityComparer<RowDefinition> with
-                    member this.Equals (a, b) : bool =
-                        a.Height = b.Height &&
-                        a.MinHeight = b.MinHeight &&
-                        a.MaxHeight = b.MaxHeight &&
-                        a.SharedSizeGroup = b.SharedSizeGroup
 
-                    member this.GetHashCode (a) =
-                        (a.Height, a.MinHeight, a.MaxHeight, a.SharedSizeGroup).GetHashCode()
-            }
-        
-        Enumerable.SequenceEqual(a, b, comparer);
-
-type GridBuilder<'t when 't :> Grid>() =
+type GridBuilder<'t when 't :> Grid and 't : equality>() =
     inherit PanelBuilder<'t>()
     
     [<CustomOperation("showGridLines")>] 
@@ -56,32 +13,14 @@ type GridBuilder<'t when 't :> Grid>() =
 
     [<CustomOperation("columnDefinitions")>] 
     member _.columnDefinitions<'t>(x: Types.AvaloniaNode<'t>, value: string) =
-        let columnDefinitions = ColumnDefinitions.Parse value        
-        let getter : 't -> ColumnDefinitions = fun view -> view.ColumnDefinitions
-        let setter : 't * ColumnDefinitions -> unit = fun (view, value) -> view.ColumnDefinitions <- value
+        let getter : 't -> obj = fun view -> box view.ColumnDefinitions
+        let setter : 't * obj -> unit = fun (view, value) -> view.ColumnDefinitions <- unbox<ColumnDefinitions> value
         
-        let attr =
-            AttrBuilder<'t>.CreateProperty<_>(
-                "ColumnDefinitions",
-                columnDefinitions,
-                ValueSome getter,
-                ValueSome setter,
-                ValueSome Internals.compareColumnDefinitions,
-                (fun () -> ColumnDefinitions()))
-        x @@ [ attr ]
+        Types.property x "ColumnDefinitions" (ColumnDefinitions.Parse value) getter setter (fun () -> ColumnDefinitions() :> obj)
 
     [<CustomOperation("rowDefinitions")>] 
     member _.rowDefinitions<'t>(x: Types.AvaloniaNode<'t>, value: string) =
-        let rowDefinitions = RowDefinitions.Parse value
-        let getter : 't -> RowDefinitions = fun view -> view.RowDefinitions
-        let setter : 't * RowDefinitions -> unit = fun (view, value) -> view.RowDefinitions <- value
+        let getter : 't -> obj = fun view -> box view.RowDefinitions
+        let setter : 't * obj -> unit = fun (view, value) -> view.RowDefinitions <- unbox<RowDefinitions> value
         
-        let attr =
-            AttrBuilder<'t>.CreateProperty<_>(
-                "RowDefinitions",
-                rowDefinitions,
-                ValueSome getter,
-                ValueSome setter,
-                ValueSome Internals.compareRowDefinitions,
-                (fun () -> RowDefinitions()))
-        x @@ [ attr ]
+        Types.property x "ColumnDefinitions" (RowDefinitions.Parse value) getter setter (fun () -> RowDefinitions() :> obj)
