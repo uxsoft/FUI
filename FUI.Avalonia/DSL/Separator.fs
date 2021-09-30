@@ -3,5 +3,5 @@
 open Avalonia.Controls
 open FUI.Avalonia.TemplatedControl
 
-type SeparatorBuilder<'t when 't :> Separator>() =
+type SeparatorBuilder<'t when 't :> Separator and 't : equality>() =
     inherit TemplatedControlBuilder<'t>()

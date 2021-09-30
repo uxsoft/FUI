@@ -2,10 +2,8 @@
 
 open Avalonia.Controls
 open FUI.Avalonia.Button
-open FUI.UiBuilder
-open Avalonia.FuncUI.Builder
 
-type RepeatButtonBuilder<'t when 't :> RepeatButton>() =
+type RepeatButtonBuilder<'t when 't :> RepeatButton and 't : equality>() =
     inherit ButtonBuilder<'t>()
 
     /// <summary>
@@ -13,11 +11,11 @@ type RepeatButtonBuilder<'t when 't :> RepeatButton>() =
     /// </summary>
     [<CustomOperation("interval")>]
     member _.interval<'t>(x: Types.AvaloniaNode<'t>, value: int) =
-        Types.dependencyProperty x<int>(RepeatButton.IntervalProperty, value, ValueNone) ]
+        Types.dependencyProperty x RepeatButton.IntervalProperty value
     
     /// <summary>
     /// Sets the amount of time, in milliseconds, to wait before repeating begins.
     /// </summary>
     [<CustomOperation("delay")>]
     member _.delay<'t>(x: Types.AvaloniaNode<'t>, value: int) =
-        Types.dependencyProperty x<int>(RepeatButton.DelayProperty, value, ValueNone) ]
+        Types.dependencyProperty x RepeatButton.DelayProperty value
