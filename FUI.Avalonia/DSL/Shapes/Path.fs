@@ -4,11 +4,10 @@ open FUI.UiBuilder
 open FUI.Avalonia.Shape
 open Avalonia.Media
 open Avalonia.Controls.Shapes
-open Avalonia.FuncUI.Builder
  
-type PathBuilder<'t when 't :> Path>() =
+type PathBuilder<'t when 't :> Path and 't : equality>() =
     inherit ShapeBuilder<'t>()
     
     [<CustomOperation("data")>]
     member _.data<'t>(x: Types.AvaloniaNode<'t>, geometry: Geometry) =
-        Types.dependencyProperty x<Geometry>(Path.DataProperty, geometry, ValueNone) ]
+        Types.dependencyProperty x Path.DataProperty geometry
