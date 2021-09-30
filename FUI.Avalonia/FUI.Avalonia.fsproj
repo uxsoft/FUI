@@ -104,6 +104,13 @@
     </ItemGroup>
 
     <ItemGroup>
+        <None Include=".\icon.png">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+    </ItemGroup>
+    
+    <ItemGroup>
       <ProjectReference Include="..\FUI\FUI.fsproj" />
     </ItemGroup>
 
