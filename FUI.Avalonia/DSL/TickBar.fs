@@ -3,47 +3,46 @@
 open Avalonia
 open Avalonia.Collections
 open Avalonia.Controls
-open FUI.UiBuilder
+open FUI.Avalonia
 open FUI.Avalonia.Control
 open Avalonia.Media
 open Avalonia.Layout
-open Avalonia.FuncUI.Builder
  
-type TickBarBuilder<'t when 't :> TickBar>() =
+type TickBarBuilder<'t when 't :> TickBar and 't : equality>() =
     inherit ControlBuilder<'t>()
     
     [<CustomOperation("fill")>] 
     member _.fill<'t>(x: Types.AvaloniaNode<'t>, value: IBrush) =
-        Types.dependencyProperty x<IBrush>(TickBar.FillProperty, value, ValueNone) ]
+        Types.dependencyProperty x TickBar.FillProperty value
 
     [<CustomOperation("isDirectionReversed")>] 
     member _.isDirectionReversed<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
-        Types.dependencyProperty x<bool>(TickBar.IsDirectionReversedProperty, value, ValueNone) ]
+        Types.dependencyProperty x TickBar.IsDirectionReversedProperty value
 
     [<CustomOperation("maximum")>] 
     member _.maximum<'t>(x: Types.AvaloniaNode<'t>, value: float) =
-        Types.dependencyProperty x<float>(TickBar.MaximumProperty, value, ValueNone) ]
+        Types.dependencyProperty x TickBar.MaximumProperty value
 
     [<CustomOperation("minimum")>] 
     member _.minimum<'t>(x: Types.AvaloniaNode<'t>, value: float) =
-        Types.dependencyProperty x<float>(TickBar.MinimumProperty, value, ValueNone) ]
+        Types.dependencyProperty x TickBar.MinimumProperty value
 
     [<CustomOperation("orientation")>] 
     member _.orientation<'t>(x: Types.AvaloniaNode<'t>, value: Orientation) =
-        Types.dependencyProperty x<Orientation>(TickBar.OrientationProperty, value, ValueNone) ]
+        Types.dependencyProperty x TickBar.OrientationProperty value
 
     [<CustomOperation("placement")>] 
     member _.placement<'t>(x: Types.AvaloniaNode<'t>, value: TickBarPlacement) =
-        Types.dependencyProperty x<TickBarPlacement>(TickBar.PlacementProperty, value, ValueNone) ]
+        Types.dependencyProperty x TickBar.PlacementProperty value
 
     [<CustomOperation("reservedSpace")>] 
     member _.reservedSpace<'t>(x: Types.AvaloniaNode<'t>, value: Rect) =
-        Types.dependencyProperty x<Rect>(TickBar.ReservedSpaceProperty, value, ValueNone) ]
+        Types.dependencyProperty x TickBar.ReservedSpaceProperty value
 
     [<CustomOperation("tickFrequency")>] 
     member _.tickFrequency<'t>(x: Types.AvaloniaNode<'t>, value: float) =
-        Types.dependencyProperty x<float>(TickBar.TickFrequencyProperty, value, ValueNone) ]
+        Types.dependencyProperty x TickBar.TickFrequencyProperty value
 
     [<CustomOperation("ticks")>] 
     member _.ticks<'t>(x: Types.AvaloniaNode<'t>, value: float seq) =
-        Types.dependencyProperty x<float AvaloniaList>(TickBar.TicksProperty, AvaloniaList value, ValueNone) ]
+        Types.dependencyProperty x TickBar.TicksProperty (AvaloniaList value)

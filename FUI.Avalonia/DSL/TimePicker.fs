@@ -3,33 +3,31 @@
 open System
 open Avalonia.Controls
 open Avalonia.Controls.Templates
-open FUI.UiBuilder
 open FUI.Avalonia.TemplatedControl
-open Avalonia.FuncUI.Builder
  
-type TimePickerBuilder<'t when 't :> TimePicker>() =
+type TimePickerBuilder<'t when 't :> TimePicker and 't : equality>() =
     inherit TemplatedControlBuilder<'t>()
 
     [<CustomOperation("clockIdentifier")>] 
     member _.clockIdentifier<'t>(x: Types.AvaloniaNode<'t>, value: string) =
-        Types.dependencyProperty x<string>(TimePicker.ClockIdentifierProperty, value, ValueNone) ]
+        Types.dependencyProperty x TimePicker.ClockIdentifierProperty value
     
     [<CustomOperation("header")>] 
     member _.header<'t>(x: Types.AvaloniaNode<'t>, value: obj) =
-        Types.dependencyProperty x<obj>(TimePicker.HeaderProperty, value, ValueNone) ]
+        Types.dependencyProperty x TimePicker.HeaderProperty value
     
     [<CustomOperation("headerTemplate")>] 
     member _.headerTemplate<'t>(x: Types.AvaloniaNode<'t>, template: IDataTemplate) =
-        Types.dependencyProperty x<IDataTemplate>(TimePicker.HeaderTemplateProperty, template, ValueNone) ]
+        Types.dependencyProperty x TimePicker.HeaderTemplateProperty template
     
     [<CustomOperation("minuteIncrement")>] 
     member _.minuteIncrement<'t>(x: Types.AvaloniaNode<'t>, value: int) =
-        Types.dependencyProperty x<int>(TimePicker.MinuteIncrementProperty, value, ValueNone) ]
+        Types.dependencyProperty x TimePicker.MinuteIncrementProperty value
     
     [<CustomOperation("selectedTime")>] 
     member _.selectedTime<'t>(x: Types.AvaloniaNode<'t>, value: Nullable<TimeSpan>) =
-        Types.dependencyProperty x<TimeSpan Nullable>(TimePicker.SelectedTimeProperty, value, ValueNone) ]
+        Types.dependencyProperty x TimePicker.SelectedTimeProperty value
     
     [<CustomOperation("onSelectedTimeChanged")>] 
     member _.onSelectedTimeChanged<'t>(x: Types.AvaloniaNode<'t>, func: Nullable<TimeSpan> -> unit) =
-        x @@ [ AttrBuilder<'t>.CreateSubscription<TimeSpan Nullable>(TimePicker.SelectedTimeProperty, func) ]
+        Types.dependencyPropertyEvent x TimePicker.SelectedTimeProperty func

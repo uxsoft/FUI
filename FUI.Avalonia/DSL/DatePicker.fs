@@ -3,58 +3,57 @@
 open System
 open Avalonia.Controls
 open Avalonia.Controls.Templates
-open FUI.UiBuilder
+open FUI.Avalonia
 open FUI.Avalonia.TemplatedControl
-open Avalonia.FuncUI.Builder
  
-type DatePickerBuilder<'t when 't :> DatePicker>() =
+type DatePickerBuilder<'t when 't :> DatePicker and 't : equality>() =
     inherit TemplatedControlBuilder<'t>()
 
      [<CustomOperation("selectedDate")>] 
      member _.selectedDate<'t>(x: Types.AvaloniaNode<'t>, value: DateTimeOffset) =
-        Types.dependencyProperty x<DateTimeOffset Nullable>(DatePicker.SelectedDateProperty, Nullable value, ValueNone) ]
+        Types.dependencyProperty x DatePicker.SelectedDateProperty (Nullable value)
 
      [<CustomOperation("onSelectedDateChanged")>] 
      member _.onSelectedDateChanged<'t>(x: Types.AvaloniaNode<'t>, func: Nullable<DateTimeOffset> -> unit) =
-        x @@ [ AttrBuilder<'t>.CreateSubscription<DateTimeOffset Nullable>(DatePicker.SelectedDateProperty, func) ]
+        Types.dependencyPropertyEvent x DatePicker.SelectedDateProperty func
 
      [<CustomOperation("dayVisible")>] 
      member _.dayVisible<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
-        Types.dependencyProperty x<bool>(DatePicker.DayVisibleProperty, value, ValueNone) ]
+        Types.dependencyProperty x DatePicker.DayVisibleProperty value
 
      [<CustomOperation("monthVisible")>] 
      member _.monthVisible<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
-        Types.dependencyProperty x<bool>(DatePicker.MonthVisibleProperty, value, ValueNone) ]
+        Types.dependencyProperty x DatePicker.MonthVisibleProperty value
 
      [<CustomOperation("yearVisible")>] 
      member _.yearVisible<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
-        Types.dependencyProperty x<bool>(DatePicker.YearVisibleProperty, value, ValueNone) ]
+        Types.dependencyProperty x DatePicker.YearVisibleProperty value
 
      [<CustomOperation("dayFormat")>] 
      member _.dayFormat<'t>(x: Types.AvaloniaNode<'t>, value: string) =
-        Types.dependencyProperty x<string>(DatePicker.DayFormatProperty, value, ValueNone) ]
+        Types.dependencyProperty x DatePicker.DayFormatProperty value
 
      [<CustomOperation("monthFormat")>] 
      member _.monthFormat<'t>(x: Types.AvaloniaNode<'t>, value: string) =
-        Types.dependencyProperty x<string>(DatePicker.MonthFormatProperty, value, ValueNone) ]
+        Types.dependencyProperty x DatePicker.MonthFormatProperty value
 
      [<CustomOperation("yearFormat")>] 
      member _.yearFormat<'t>(x: Types.AvaloniaNode<'t>, value: string) =
-        Types.dependencyProperty x<string>(DatePicker.YearFormatProperty, value, ValueNone) ]
+        Types.dependencyProperty x DatePicker.YearFormatProperty value
 
      [<CustomOperation("minYear")>] 
      member _.minYear<'t>(x: Types.AvaloniaNode<'t>, value: DateTimeOffset) =
-        Types.dependencyProperty x<DateTimeOffset>(DatePicker.MinYearProperty, value, ValueNone) ]
+        Types.dependencyProperty x DatePicker.MinYearProperty value
         
      [<CustomOperation("maxYear")>] 
      member _.maxYear<'t>(x: Types.AvaloniaNode<'t>, value: DateTimeOffset) =
-        Types.dependencyProperty x<DateTimeOffset>(DatePicker.MaxYearProperty, value, ValueNone) ]
+        Types.dependencyProperty x DatePicker.MaxYearProperty value
 
      [<CustomOperation("header")>] 
      member _.header<'t>(x: Types.AvaloniaNode<'t>, value: obj) =
-        Types.dependencyProperty x<obj>(DatePicker.HeaderProperty, value, ValueNone) ]
+        Types.dependencyProperty x DatePicker.HeaderProperty value
     
      [<CustomOperation("headerTemplate")>] 
      member _.headerTemplate<'t>(x: Types.AvaloniaNode<'t>, template: IDataTemplate) =
-        Types.dependencyProperty x<IDataTemplate>(DatePicker.HeaderTemplateProperty, template, ValueNone) ]
+        Types.dependencyProperty x DatePicker.HeaderTemplateProperty template
     
