@@ -220,3 +220,13 @@ let ``Oc.filter`` () =
     Assert.Equal([6; 4], b)
     Assert.Equal(b, c)    
     
+[<Fact>]
+let ``Oc.iter`` () =
+    let a = ocol [1..5]
+    let b = ResizeArray<int>()
+    
+    a |> Oc.iter (fun i -> b.Add i) (fun i -> b.Add -i)
+    
+    a.Remove 0
+    a.Insert 4 9
+    Assert.Equal([1; 2; 3; 4; 5; -1; 9], b)
