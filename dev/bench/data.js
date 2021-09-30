@@ -13,32 +13,6 @@ window.BENCHMARK_DATA = {
             "name": "uxsoft",
             "username": "uxsoft"
           },
-          "id": "62c91eda6fc7aedfc95d1d36eed95f2200343939",
-          "message": "Simplified change",
-          "timestamp": "2021-09-19T21:51:37Z",
-          "url": "https://github.com/uxsoft/FUI/pull/5/commits/62c91eda6fc7aedfc95d1d36eed95f2200343939"
-        },
-        "date": 1632126151089,
-        "tool": "benchmarkdotnet",
-        "benches": [
-          {
-            "name": "FUI.Benchmarks.Benchmark+Benchmarks.CartesianProduct",
-            "value": 14914.306060606046,
-            "unit": "ns",
-            "range": "± 2509.203856577399"
-          }
-        ]
-      },
-      {
-        "commit": {
-          "author": {
-            "name": "uxsoft",
-            "username": "uxsoft"
-          },
-          "committer": {
-            "name": "uxsoft",
-            "username": "uxsoft"
-          },
           "id": "8306bcc8d5b612c6b3bba71138b056ce7f0e90d6",
           "message": "Simplified change",
           "timestamp": "2021-09-19T21:51:37Z",
