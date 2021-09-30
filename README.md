@@ -11,13 +11,13 @@
 - Performant
     - Avoid Virtual DOM and diffing by taking a Reactive approach
 - Scalable
-    -  Able to decompose big application to components with precalculated lenses to the global model and update methods
+    -  Able to decompose big application to small components
 - Multi Platform
     - The following platforms should be supported through modular bindings
-        - FsBolero/Blazor
-        - Avalonia
-        - Maui
-        - WinUI 3
+        - [x] Avalonia
+        - [ ] FsBolero/Blazor
+        - [ ] Maui
+        - [ ] WinUI 3
 
 ## Declarative DSL 
 
