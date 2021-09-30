@@ -1,17 +1,15 @@
 module FUI.Avalonia.ListBoxItem
 
 open Avalonia.Controls
-open FUI.UiBuilder
 open FUI.Avalonia.ContentControl
-open Avalonia.FuncUI.Builder
  
-type ListBoxItemBuilder<'t when 't :> ListBoxItem>() =
+type ListBoxItemBuilder<'t when 't :> ListBoxItem and 't : equality>() =
     inherit ContentControlBuilder<'t>()
 
     [<CustomOperation("isSelected")>] 
     member _.isSelected<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
-        Types.dependencyProperty x<bool>(ListBoxItem.IsSelectedProperty, value, ValueNone) ]
+        Types.dependencyProperty x ListBoxItem.IsSelectedProperty value
 
     [<CustomOperation("onIsSelectedChanged")>] 
     member _.onIsSelectedChanged<'t>(x: Types.AvaloniaNode<'t>, func: bool -> unit) =
-        x @@ [ AttrBuilder<'t>.CreateSubscription<bool>(ListBoxItem.IsSelectedProperty, func) ]
+        Types.dependencyPropertyEvent x ListBoxItem.IsSelectedProperty func

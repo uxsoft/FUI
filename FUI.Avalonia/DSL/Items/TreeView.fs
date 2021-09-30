@@ -2,11 +2,9 @@
 
     open System.Collections
     open Avalonia.Controls
-    open FUI.UiBuilder
     open FUI.Avalonia.ItemsControl
-    open Avalonia.FuncUI.Builder
 
-    type TreeViewBuilder<'t when 't :> TreeView>() =
+    type TreeViewBuilder<'t when 't :> TreeView and 't : equality>() =
         inherit ItemsControlBuilder<'t>()
 
         /// <summary>
@@ -14,25 +12,25 @@
         /// </summary>
         [<CustomOperation("autoScrollToSelectedItem")>] 
         member _.autoScrollToSelectedItem<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
-            Types.dependencyProperty x<bool>(TreeView.AutoScrollToSelectedItemProperty, value, ValueNone) ]
+            Types.dependencyProperty x TreeView.AutoScrollToSelectedItemProperty value
         
         /// <summary>
         /// Sets the selected items.
         /// </summary>
         [<CustomOperation("selectedItem")>] 
         member _.selectedItem<'t>(x: Types.AvaloniaNode<'t>, value: obj) =
-            Types.dependencyProperty x<obj>(TreeView.SelectedItemProperty, value, ValueNone) ]
+            Types.dependencyProperty x TreeView.SelectedItemProperty value
          
         /// <summary>
         /// Sets the selected item.
         /// </summary>
         [<CustomOperation("selectedItems")>] 
         member _.selectedItems<'t>(x: Types.AvaloniaNode<'t>, value: IList) =
-            Types.dependencyProperty x<IList>(TreeView.SelectedItemsProperty, value, ValueNone) ]
+            Types.dependencyProperty x TreeView.SelectedItemsProperty value
 
         /// <summary>
         /// Sets the selection mode.
         /// </summary>
         [<CustomOperation("selectionMode")>] 
         member _.selectionMode<'t>(x: Types.AvaloniaNode<'t>, value: SelectionMode) =
-            Types.dependencyProperty x<SelectionMode>(TreeView.SelectionModeProperty, value, ValueNone) ]
+            Types.dependencyProperty x TreeView.SelectionModeProperty value
