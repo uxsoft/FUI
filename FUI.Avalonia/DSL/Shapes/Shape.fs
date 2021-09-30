@@ -5,39 +5,38 @@ open FUI.UiBuilder
 open FUI.Avalonia.Control
 open Avalonia.Controls.Shapes
 open Avalonia.Media
-open Avalonia.FuncUI.Builder
 
-type ShapeBuilder<'t when 't :> Shape>() =
+type ShapeBuilder<'t when 't :> Shape and 't : equality>() =
     inherit ControlBuilder<'t>()
     
     [<CustomOperation("fill")>] 
     member _.fill<'t>(x: Types.AvaloniaNode<'t>, brush: IBrush) =
-        Types.dependencyProperty x<IBrush>(Shape.FillProperty, brush, ValueNone) ]
+        Types.dependencyProperty x Shape.FillProperty brush
     
     [<CustomOperation("stretch")>] 
     member _.stretch<'t>(x: Types.AvaloniaNode<'t>, value: Stretch) =
-        Types.dependencyProperty x<Stretch>(Shape.StretchProperty, value, ValueNone) ]
+        Types.dependencyProperty x Shape.StretchProperty value
         
     [<CustomOperation("stroke")>] 
     member _.stroke<'t>(x: Types.AvaloniaNode<'t>, brush: IBrush) =
-        Types.dependencyProperty x<IBrush>(Shape.StrokeProperty, brush, ValueNone) ]
+        Types.dependencyProperty x Shape.StrokeProperty brush
         
     [<CustomOperation("strokeThickness")>] 
     member _.strokeThickness<'t>(x: Types.AvaloniaNode<'t>, value: double) =
-        Types.dependencyProperty x<double>(Shape.StrokeThicknessProperty, value, ValueNone) ]
+        Types.dependencyProperty x Shape.StrokeThicknessProperty value
         
     [<CustomOperation("strokeDashArray")>] 
     member _.strokeDashArray<'t>(x: Types.AvaloniaNode<'t>, value: AvaloniaList<double>) =
-        Types.dependencyProperty x<AvaloniaList<double>>(Shape.StrokeDashArrayProperty, value, ValueNone) ]
+        Types.dependencyProperty x Shape.StrokeDashArrayProperty value
         
     [<CustomOperation("strokeDashOffset")>] 
     member _.strokeDashOffset<'t>(x: Types.AvaloniaNode<'t>, value: double) =
-        Types.dependencyProperty x<double>(Shape.StrokeDashOffsetProperty, value, ValueNone) ]
+        Types.dependencyProperty x Shape.StrokeDashOffsetProperty value
         
     [<CustomOperation("strokeLineCap")>] 
     member _.strokeLineCap<'t>(x: Types.AvaloniaNode<'t>, value: PenLineCap) =
-        Types.dependencyProperty x<PenLineCap>(Shape.StrokeLineCapProperty, value, ValueNone) ]
+        Types.dependencyProperty x Shape.StrokeLineCapProperty value
 
     [<CustomOperation("strokeJoinCap")>] 
     member _.strokeJoinCap<'t>(x: Types.AvaloniaNode<'t>, value: PenLineJoin) =
-        Types.dependencyProperty x<PenLineJoin>(Shape.StrokeJoinProperty, value, ValueNone) ]
+        Types.dependencyProperty x Shape.StrokeJoinProperty value
