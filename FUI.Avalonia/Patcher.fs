@@ -27,11 +27,11 @@ let removeDependencyProperty (control: obj) name (value: obj) (property: Avaloni
     | :? Avalonia.AvaloniaObject as ao -> ao.ClearValue(property)
     | _ -> printfn $"Can't set a Dependency Property on a control which doesn't derive from AvaloniaObject"
     
-let addRoutedEvent control name value (meta: RoutedEventMeta<_>) =
-    let cts = meta.Subscribe control
+let addRoutedEvent control name value (meta: 't -> CancellationTokenSource) =
+    let cts = meta control
     routedEventCache.Add((control, name), cts)
 
-let removeRoutedEvent control name value (meta: RoutedEventMeta<_>) =
+let removeRoutedEvent control name value (meta: 't -> CancellationTokenSource) =
     let cts = routedEventCache.[control, name]
     cts.Cancel()
 
