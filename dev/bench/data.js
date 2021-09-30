@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1632992927056,
+  "lastUpdate": 1632993372352,
   "repoUrl": "https://github.com/uxsoft/FUI",
   "entries": {
     "Benchmark.Net Benchmark": [
@@ -488,6 +488,50 @@ window.BENCHMARK_DATA = {
             "value": 1240704.8080000002,
             "unit": "ns",
             "range": "± 49184.94794192131"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "uxsoft",
+            "username": "uxsoft"
+          },
+          "committer": {
+            "name": "uxsoft",
+            "username": "uxsoft"
+          },
+          "id": "8bb59ac367ec2326707806e5c177a8046bc77786",
+          "message": "Avalonia DSL",
+          "timestamp": "2021-09-22T03:52:51Z",
+          "url": "https://github.com/uxsoft/FUI/pull/6/commits/8bb59ac367ec2326707806e5c177a8046bc77786"
+        },
+        "date": 1632993371449,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "FUI.Benchmarks.CartesianProduct",
+            "value": 14032.599879964193,
+            "unit": "ns",
+            "range": "± 231.2506800402025"
+          },
+          {
+            "name": "FUI.Benchmarks.CounterUI",
+            "value": 1315678.9442708334,
+            "unit": "ns",
+            "range": "± 13460.778577320032"
+          },
+          {
+            "name": "FUI.Benchmarks.CartesianProduct",
+            "value": 18708.181999999993,
+            "unit": "ns",
+            "range": "± 604.3557925778097"
+          },
+          {
+            "name": "FUI.Benchmarks.CounterUI",
+            "value": 1243554.6728125,
+            "unit": "ns",
+            "range": "± 37415.76588070771"
           }
         ]
       }
