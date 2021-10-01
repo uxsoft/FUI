@@ -21,7 +21,12 @@ jobs:
         
     - name: Restore dependencies
       run: dotnet restore
-      
+
+    - name: Set version in project file
+      uses: roryprimrose/set-vs-sdk-project-version@v1
+      with:
+        version: 1.${{ github.run_number }}.0
+
     - name: Build
       run: dotnet build -c Release --no-restore
       
@@ -51,11 +56,6 @@ jobs:
         comment-on-alert: true
         fail-on-alert: false
         alert-comment-cc-users: '@uxsoft'
-        
-    - name: Set version in project file
-      uses: roryprimrose/set-vs-sdk-project-version@v1
-      with:
-        version: 1.${{ github.run_number }}.0
         
     - name: Publish to NuGet
       if: github.ref == 'refs/heads/master'
