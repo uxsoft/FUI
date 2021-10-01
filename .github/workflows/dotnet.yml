@@ -57,11 +57,6 @@ jobs:
       with:
         version: 1.${{ github.run_number }}.0
         
-    - name: Publish NuGet
-      uses: rohith/publish-nuget@v2
-      with:
-        PROJECT_FILE_PATH: ./FUI.Avalonia/FUI.Avalonia.fsproj
-        VERSION_STATIC: 1.${{ github.run_number }}.0
-        TAG_COMMIT: true
-        NUGET_KEY: ${{ secrets.NUGET_KEY }}
-        INCLUDE_SYMBOLS: false   
+    - name: Publish to NuGet
+      if: github.ref == 'refs/heads/master'
+      run: dotnet nuget push *.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_KEY }} --skip-duplicate
