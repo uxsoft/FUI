@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1633121850027,
+  "lastUpdate": 1633122085353,
   "repoUrl": "https://github.com/uxsoft/FUI",
   "entries": {
     "Benchmark.Net Benchmark": [
@@ -1080,6 +1080,54 @@ window.BENCHMARK_DATA = {
             "value": 1379798.465555556,
             "unit": "ns",
             "range": "± 49859.87419616758"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "me@uxsoft.cz",
+            "name": "Jan Dryk",
+            "username": "uxsoft"
+          },
+          "committer": {
+            "email": "me@uxsoft.cz",
+            "name": "Jan Dryk",
+            "username": "uxsoft"
+          },
+          "distinct": true,
+          "id": "fc42dc43e22393aa5a728c6cb559861ce28f3353",
+          "message": "fix regression with nuget push",
+          "timestamp": "2021-10-01T22:58:18+02:00",
+          "tree_id": "529c8b7219ff6a34c28dcdf16a4db52a567c1439",
+          "url": "https://github.com/uxsoft/FUI/commit/fc42dc43e22393aa5a728c6cb559861ce28f3353"
+        },
+        "date": 1633122084820,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "FUI.Benchmarks.CartesianProduct",
+            "value": 15000.404009137836,
+            "unit": "ns",
+            "range": "± 191.06655086090777"
+          },
+          {
+            "name": "FUI.Benchmarks.CounterUI",
+            "value": 1147391.302734375,
+            "unit": "ns",
+            "range": "± 13250.591923760827"
+          },
+          {
+            "name": "FUI.Benchmarks.CartesianProduct",
+            "value": 19741.760666666665,
+            "unit": "ns",
+            "range": "± 178.3946528053002"
+          },
+          {
+            "name": "FUI.Benchmarks.CounterUI",
+            "value": 1161837.287333333,
+            "unit": "ns",
+            "range": "± 20791.013742373827"
           }
         ]
       }
