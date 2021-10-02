@@ -48,7 +48,7 @@ let property (x: AvaloniaNode<'t>) (name: string) (value: obj) (getter: 't -> ob
                 Setter = setter
                 DefaultValueFactory = factory } }
     attr prop x
-    
+
 let routedEvent<'t, 'e when 't : equality and 't :> IInteractive and 'e :> RoutedEventArgs> (x: AvaloniaNode<'t>) (routedEvent: RoutedEvent<'e>) (handler: 'e -> unit) =
     let subscribeFunc (control: 't) =
         let cts = new CancellationTokenSource()
