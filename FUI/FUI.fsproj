@@ -16,5 +16,11 @@
       <Compile Include="Observables\Builder.fs" />
       <Compile Include="DSL\UiBuilder.fs" />
       <Compile Include="DSL\IfBuilder.fs" />
+      <Compile Include="HotReload\HotState.fs" />
+      <Compile Include="HotReload\HotReload.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="System.Reactive" Version="5.0.0" />
     </ItemGroup>
 </Project>
