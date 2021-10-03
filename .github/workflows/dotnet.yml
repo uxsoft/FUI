@@ -17,7 +17,8 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '5.0.x'
+          dotnet-version: '6.0.x'
+          include-prerelease: true
 
       - name: Build
         run: dotnet build -c Release
@@ -78,15 +79,8 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '5.0.x'
-          
-#      - name: Set version in project file
-#        uses: roryprimrose/set-vs-sdk-project-version@v1
-#        with:
-#          version: 1.${{ github.run_number }}.0
-#
-#      - name: Build
-#        run: dotnet build -c Release
+          dotnet-version: '6.0.x'
+          include-prerelease: true
       
       - name: Create NuGet Package
         run: dotnet pack -c Release /p:Version=1.${{ github.run_number }}.0

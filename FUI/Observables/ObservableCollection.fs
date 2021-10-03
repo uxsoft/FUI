@@ -1,6 +1,7 @@
 module FUI.ObservableCollection
 
 open System
+open System.Linq
 open FUI.CollectionChange
 
 type IReadOnlyObservableCollection =
@@ -53,6 +54,14 @@ type ObservableCollection<'t>(source: System.Collections.Generic.IList<'t>) =
     
     override this.ToString() = $"O{cId}: %A{this}"
         
+    override this.Equals other =
+        match other with
+        | :? IObservableCollection<'t> as p -> Enumerable.SequenceEqual(this, p)
+        | _ -> false
+        
+    override this.GetHashCode () =
+        items.GetHashCode()
+        
     interface IObservableCollection<'t> with
         member this.Get index = this.Get index
         member this.Get index = box (this.Get index)
@@ -70,7 +79,7 @@ type ObservableCollection<'t>(source: System.Collections.Generic.IList<'t>) =
         member this.GetEnumerator() = items.GetEnumerator()
         member this.GetEnumerator() = (items :> System.Collections.IEnumerable).GetEnumerator()
  
-type 'T ocol = ObservableCollection<'T>
+type 'T col = ObservableCollection<'T>
 
 [<AutoOpen>]
 module Extensions =

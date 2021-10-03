@@ -8,7 +8,7 @@ open FUI.CollectionChange
 [<Fact>]
 let ``ObservableCollection.Get`` () =
     let mutable counter = 0
-    let a = ocol [1..5] :> IObservableCollection<int>
+    let a = col [1..5] :> IObservableCollection<int>
     
     a.OnChanged.Add(function
         | _ -> counter <- counter + 1)
@@ -22,7 +22,7 @@ let ``ObservableCollection.Get`` () =
 [<Fact>]
 let ``ObservableCollection.IndexOf`` () =
     let mutable counter = 0
-    let a = ocol [1..5] :> IObservableCollection<int>
+    let a = col [1..5] :> IObservableCollection<int>
     
     a.OnChanged.Add(function
         | _ -> counter <- counter + 1)
@@ -36,7 +36,7 @@ let ``ObservableCollection.IndexOf`` () =
 [<Fact>]
 let ``ObservableCollection.Count`` () =
     let mutable counter = 0
-    let a = ocol [1..5] :> IObservableCollection<int>
+    let a = col [1..5] :> IObservableCollection<int>
     
     a.OnChanged.Add(function
         | _ -> counter <- counter + 1)
@@ -50,7 +50,7 @@ let ``ObservableCollection.Count`` () =
 [<Fact>]
 let ``IObservableCollection.Contains`` () =
     let mutable counter = 0
-    let a = ocol [1..5] :> IObservableCollection<int>
+    let a = col [1..5] :> IObservableCollection<int>
     
     a.OnChanged.Add(function
         | _ -> counter <- counter + 1)
@@ -64,7 +64,7 @@ let ``IObservableCollection.Contains`` () =
 [<Fact>]
 let ``ObservableCollection.Clear`` () =
     let mutable counter = 0
-    let a = ocol [1..5] :> IObservableCollection<int>
+    let a = col [1..5] :> IObservableCollection<int>
     
     a.OnChanged.Add(fun _ -> counter <- counter + 1)
     a.Clear()
@@ -75,7 +75,7 @@ let ``ObservableCollection.Clear`` () =
 [<Fact>]
 let ``ObservableCollection.Insert`` () =
     let mutable counter = 0
-    let a = ocol [1..5] :> IObservableCollection<int>
+    let a = col [1..5] :> IObservableCollection<int>
     
     a.OnChanged.Add(function
         | Insert _ -> counter <- counter + 1
@@ -89,7 +89,7 @@ let ``ObservableCollection.Insert`` () =
 [<Fact>]
 let ``ObservableCollection.Move`` () =
     let mutable counter = 0
-    let a = ocol [1..5] :> IObservableCollection<int>
+    let a = col [1..5] :> IObservableCollection<int>
     
     a.OnChanged.Add(fun _ -> counter <- counter + 1)
     
@@ -102,7 +102,7 @@ let ``ObservableCollection.Move`` () =
 [<Fact>]
 let ``ObservableCollection.Remove`` () =
     let mutable counter = 0
-    let a = ocol [1..5] :> IObservableCollection<int>
+    let a = col [1..5] :> IObservableCollection<int>
     
     a.OnChanged.Add(fun _ -> counter <- counter + 1)
 
@@ -114,7 +114,7 @@ let ``ObservableCollection.Remove`` () =
 [<Fact>]
 let ``ObservableCollection.Set`` () =
     let mutable counter = 0
-    let a = ocol [1..5] :> IObservableCollection<int>
+    let a = col [1..5] :> IObservableCollection<int>
     
     a.OnChanged.Add(fun _ -> counter <- counter + 1)
     
@@ -127,7 +127,7 @@ let ``ObservableCollection.Set`` () =
 [<Fact>]
 let ``ObservableCollection.Add`` () =
     let mutable counter = 0
-    let a = ocol [1..5]
+    let a = col [1..5]
     
     a.OnChanged.Add(function
         | Insert _ -> counter <- counter + 1
@@ -141,7 +141,7 @@ let ``ObservableCollection.Add`` () =
 [<Fact>]
 let ``ObservableCollection.Item`` () =
     let mutable counter = 0
-    let a = ocol [1..5]
+    let a = col [1..5]
     
     a.OnChanged.Add(fun _ -> counter <- counter + 1)
     
@@ -154,7 +154,7 @@ let ``ObservableCollection.Item`` () =
     
 [<Fact>]
 let ``IReadOnlyCollection`` () =
-    let a = ocol ()
+    let a = col ()
     a.Add 9
     
     let b = a :> IReadOnlyObservableCollection<int>
@@ -168,7 +168,7 @@ let ``IReadOnlyCollection`` () =
         
 [<Fact>]
 let ``Oc.map`` () =
-    let a = ocol [1..5]
+    let a = col [1..5]
     let b = Oc.map (fun i -> i * 2) a
     
     Assert.Equal(5, b.Count)
@@ -184,7 +184,7 @@ let ``Oc.map`` () =
     
 [<Fact>]
 let ``Oc.filter`` () =
-    let a = ocol [1..5]
+    let a = col [1..5]
     let b = Oc.filter (fun i -> i % 2 = 0) a
     let c = ResizeArray(b)
     
@@ -222,7 +222,7 @@ let ``Oc.filter`` () =
     
 [<Fact>]
 let ``Oc.iter`` () =
-    let a = ocol [1..5]
+    let a = col [1..5]
     let b = ResizeArray<int>()
     
     a |> Oc.iter (fun i -> b.Add i) (fun i -> b.Add -i)

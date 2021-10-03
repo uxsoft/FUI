@@ -7,7 +7,7 @@ open FUI.ObservableValue
 [<Fact>]
 let ``ObservableValue`` () =
     let mutable counter = 0    
-    let a = oval 1
+    let a = var 1
     a.OnChanged.Add(fun () -> counter <- counter + 1)
     
     a.Value <- 2
@@ -22,7 +22,7 @@ let ``ObservableValue`` () =
 [<Fact>]
 let ``Ov.iter`` () =
     let mutable counter = 0    
-    let a = oval 1
+    let a = var 1
     
     let onChange value =
         counter <- counter + 1
@@ -40,7 +40,7 @@ let ``Ov.iter`` () =
 [<Fact>]
 let ``Ov.map`` () =
     let mutable counter = 0
-    let a = oval 1
+    let a = var 1
     let b = a |> Ov.map (fun i -> i * 3)
         
     b.OnChanged.Add(fun () ->
@@ -60,7 +60,7 @@ let ``Ov.map`` () =
 [<Fact>]
 let ``Ov.toObservableCollection`` () =
     let mutable counter = 0
-    let a = oval 1
+    let a = var 1
     let b = a |> Ov.toObservableCollection
         
     Assert.Equal([1], b)
