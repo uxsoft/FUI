@@ -8,7 +8,7 @@ open FUI.ObservableValue
 open FUI.Avalonia.DSL
 open FUI.IfBuilder
 
-[<SimpleJob(RuntimeMoniker.Net50, invocationCount = 100)>]
+[<SimpleJob(RuntimeMoniker.Net60, invocationCount = 100)>]
 [<JsonExporterAttribute.FullCompressed>]
 type Benchmarks() =
     
@@ -29,8 +29,8 @@ type Benchmarks() =
     [<Benchmark>]
     member _.CounterUI() =
         let model =
-            {| Counter = oval 0
-               Items = ocol [1; 2; 3] |}
+            {| Counter = var 0
+               Items = col [1; 2; 3] |}
             
         let view () =
             StackPanel {

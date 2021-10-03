@@ -5,16 +5,25 @@ open System.Diagnostics
 open System.IO
 open System.Reactive.Subjects
 open System.Reflection
+open System.Text.Json
+open FUI.HotReload.Json
 
 type IHotReloadable =
-    interface end
+    abstract member Accept: IHotReloadable -> unit 
+    
 
-// watcher
-
-// loader
-
-//
-
+let transferModel<'t> previousModel =
+    try
+        let options = JsonSerializerOptions()
+        options.Converters.Add(JsonObservablesConverter())
+        
+        let json = JsonSerializer.Serialize(previousModel, options)
+        let model = JsonSerializer.Deserialize<'t>(json, options)
+        
+        match box model with
+        | null -> None
+        | _ -> Some model
+    with err -> None
 
 let compileOnChange (assemblyPath: string) =
     let projDir =

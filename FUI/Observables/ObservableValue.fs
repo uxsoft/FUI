@@ -1,5 +1,7 @@
 module FUI.ObservableValue
 
+open System
+
 type IObservableValue =
     abstract member GetValue: unit -> obj
     abstract member OnChanged: IEvent<unit>
@@ -23,11 +25,19 @@ type ObservableValue<'t>(initialValue: 't) =
         x.Value <- mutator x.Value
     
     member x.OnChanged = event.Publish
+    
+    override this.Equals other =
+        match other with
+        | :? IObservableValue as p -> p.GetValue().Equals(this.Value)
+        | _ -> false
+        
+    override this.GetHashCode() =
+        (box this.Value).GetHashCode()
         
     interface IObservableValue<'t> with
         member this.Value with get () = this.Value
         member this.GetValue(): obj = box this.Value
         member this.OnChanged = event.Publish
         
-
-type 'T oval = ObservableValue<'T>
+    
+type 'T var = ObservableValue<'T>

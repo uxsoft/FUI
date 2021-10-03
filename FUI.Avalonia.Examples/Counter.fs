@@ -7,12 +7,12 @@ open FUI.Avalonia.DSL
 open FUI.IfBuilder
 
 type Model =
-    { Counter: int oval
-      Items: int ocol }
+    { Counter: int var
+      Items: int col }
     
 let init () =
-    { Counter = oval 0
-      Items = ocol [1; 2; 3] }
+    { Counter = var 0
+      Items = col [1; 2; 3] }
     
 let view () =
     let model = init ()
