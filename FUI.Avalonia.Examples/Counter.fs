@@ -14,9 +14,7 @@ let init () =
     { Counter = var 0
       Items = col [1; 2; 3] }
     
-let view () =
-    let model = init ()
-    
+let view (model: Model) =
     StackPanel {
         Label {
             let txt = (model.Counter |> Ov.map string)
@@ -26,7 +24,7 @@ let view () =
             onClick (fun _ ->
                 model.Items.Add (model.Items.Count + 1)
                 model.Counter.Update (fun v -> v + 1))
-            "+"
+            "+++"
         }
         Button {
             onClick (fun _ ->
@@ -43,10 +41,10 @@ let view () =
         
         
         let isEven = model.Counter |> Ov.map (fun i -> (i % 2) = 0)
-        If (isEven) {
+        If isEven {
             Label { "even" }
         }
-        Else (isEven) {
+        Else isEven {
             Label { "odd" }
         }
         

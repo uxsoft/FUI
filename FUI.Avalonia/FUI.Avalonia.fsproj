@@ -100,6 +100,7 @@
         <Compile Include="DSL\Microcharts\ChartView.fs" />
         <Compile Include="DSL\Microcharts\Chart.fs" />
         <Compile Include="DSL\DSL.fs" />
+        <Compile Include="Hot.fs" />
     </ItemGroup>
 
     <ItemGroup>
@@ -116,6 +117,7 @@
     <ItemGroup>
       <PackageReference Include="Avalonia.Desktop" Version="0.10.7" />
       <PackageReference Include="Microcharts" Version="0.9.5.9" />
+      <PackageReference Include="System.Reactive" Version="5.0.0" />
       <PackageReference Include="System.Reactive.Linq" Version="5.0.0" />
     </ItemGroup>
 </Project>
