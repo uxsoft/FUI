@@ -18,9 +18,9 @@ let ``Transfer static model`` () =
           Col = [1; 2]
           Obj = {| ObjVal = "objVal" |} }
     
-    let modelCopy = HotReload.transferModel<StaticModel> model
+    let modelCopy = HotReload.transferModel<StaticModel> model (fun () -> failwith "Should not fall back")
     
-    Assert.Equal(Some model, modelCopy)
+    Assert.Equal(model, modelCopy)
 
 type VarModel =
     { Str: string var } 
@@ -30,9 +30,9 @@ let ``Transfer model with ObservableValue`` () =
     let model : VarModel = 
         { Str = var "asd"  }
     
-    let modelCopy = HotReload.transferModel<VarModel> model
+    let modelCopy = HotReload.transferModel<VarModel> model (fun () -> failwith "Should not fall back")
     
-    Assert.Equal(Some model, modelCopy)
+    Assert.Equal(model, modelCopy)
     
 type ColModel =
     { Col: int col } 
@@ -42,9 +42,9 @@ let ``Transfer model with ObservableCollection`` () =
     let model : ColModel = 
         { Col = col [ 1; 2 ] }
     
-    let modelCopy = HotReload.transferModel<ColModel> model
+    let modelCopy = HotReload.transferModel<ColModel> model (fun () -> failwith "Should not fall back")
     
-    Assert.Equal(Some model, modelCopy)
+    Assert.Equal(model, modelCopy)
 
 type Model =
     { Str: string var
@@ -58,6 +58,6 @@ let ``Transfer complex model`` () =
           Col = col [ 1; 2 ]
           Obj = var {| ObjVal = var "objVal" |}  }
     
-    let modelCopy = HotReload.transferModel<Model> model
+    let modelCopy = HotReload.transferModel<Model> model (fun () -> failwith "Should not fall back")
     
-    Assert.Equal(Some model, modelCopy)
+    Assert.Equal(model, modelCopy)

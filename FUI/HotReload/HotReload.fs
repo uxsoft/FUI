@@ -3,16 +3,20 @@ module FUI.HotReload.HotReload
 open System
 open System.Diagnostics
 open System.IO
-open System.Reactive.Subjects
+open System.Reactive.Concurrency
 open System.Reflection
 open System.Text.Json
+open System.Reactive.Linq
 open FUI.HotReload.Json
 
 type IHotReloadable =
-    abstract member Accept: IHotReloadable -> unit 
+    abstract member GetModel: unit -> obj
+    abstract member SetView: 'view -> unit
     
+    /// Hydrated accepts current
+    abstract member Accept: IHotReloadable -> unit 
 
-let transferModel<'t> previousModel =
+let transferModel<'t> previousModel (defaultThunk: unit -> 't) =
     try
         let options = JsonSerializerOptions()
         options.Converters.Add(JsonObservablesConverter())
@@ -21,18 +25,23 @@ let transferModel<'t> previousModel =
         let model = JsonSerializer.Deserialize<'t>(json, options)
         
         match box model with
-        | null -> None
-        | _ -> Some model
-    with err -> None
+        | null -> defaultThunk()
+        | _ -> model
+    with err -> defaultThunk()
 
-let compileOnChange (assemblyPath: string) =
+let watchCode (assemblyPath: string) =
+    let path (str: string) = str.Replace("/", string Path.DirectorySeparatorChar)
+    
     let projDir =
-        Path.Combine("", "bin", "")
+        path "/bin/"
         |> assemblyPath.LastIndexOf
         |> assemblyPath.Remove
         
-    let hotDir = Path.Combine(projDir, "bin", "Hot")
-    let hotFile = Path.Combine(hotDir, Path.GetFileName(assemblyPath))
+    let hotDir = Path.Combine(projDir, path "bin/Hot/")
+    let hotFile =
+        assemblyPath.Replace(
+            path "/bin/",
+            path "/bin/Hot/")
     
     if Directory.Exists(hotDir) then
         Directory.Delete(hotDir, true)
@@ -55,12 +64,16 @@ let compileOnChange (assemblyPath: string) =
     
     (hotFile, [proc :> IDisposable])
 
-let notifyOnCompile (hotFile: string, chain: IDisposable list) =
+let watchHotAssemblies (hotFile: string, chain: IDisposable list) =
     let hotDir = Path.GetDirectoryName hotFile
+    
+    if Directory.Exists(hotDir) = false then
+        Directory.CreateDirectory(hotDir) |> ignore
+    
     let watcher =
         new FileSystemWatcher(
             Path = hotDir,
-            Filter = hotFile,
+            Filter = Path.GetFileName(hotFile),
             IncludeSubdirectories = true,
             EnableRaisingEvents = true)
     
@@ -84,24 +97,22 @@ let hydrate (hotFile: string) =
     let instance = Activator.CreateInstance(reloadable)
     instance :?> IHotReloadable
     
-let reload (reloadable: IHotReloadable) =
-    ()
-    
-let subscribeHydrateAndReload (hotFile: string, event: IEvent<FileSystemEventHandler, FileSystemEventArgs>, chain: IDisposable list) =
+let reload (current: IHotReloadable) (scheduler: IScheduler) (hotFile: string, event: IEvent<FileSystemEventHandler, FileSystemEventArgs>, chain: IDisposable list) =
     let disposable =
         event 
-        |> Event.map (fun _ -> hydrate hotFile)
-        |> (fun e -> e.Subscribe reload)
+            .ObserveOn(scheduler)
+            .Select(fun e -> hydrate hotFile)
+            .Subscribe(fun hydrated -> hydrated.Accept current)
         
     chain @ [ disposable ]
 
-let hotReload (view: IHotReloadable) =
-    let assemblyPath = view.GetType().Assembly.Location
+let hotReload (current: IHotReloadable) (scheduler: IScheduler) =
+    let assemblyPath = current.GetType().Assembly.Location
     
     let disposables = 
         assemblyPath
-        |> compileOnChange 
-        |> notifyOnCompile
-        |> subscribeHydrateAndReload
+        |> watchCode 
+        |> watchHotAssemblies
+        |> reload current scheduler
     
     disposables

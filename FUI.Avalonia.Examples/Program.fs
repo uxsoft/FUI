@@ -1,9 +1,32 @@
 ﻿module FUI.Avalonia.Program
 
 open Avalonia
+open Avalonia.Controls
+open Avalonia.Controls.Presenters
 open Avalonia.Themes.Fluent
 open Avalonia.Controls.ApplicationLifetimes
+open Avalonia.Threading
 open FUI.Avalonia.DSL
+open FUI.HotReload.HotReload
+
+type Hot() as this =
+    inherit ContentPresenter()
+    
+    let model = Counter.init()
+    do this.Content <- Counter.view model
+    
+    interface IHotReloadable with
+        member this.Accept(old) =
+            // hydrated accepts current
+            let m = transferModel (old.GetModel()) Counter.init // Transfer existing model data to new model type
+            let v = Counter.view m // Build UI using new view
+            old.SetView v // Use old container to host new UI
+            
+        member this.GetModel() =
+            box model
+                    
+        member this.SetView(view) =
+            this.Content <- view
 
 let createMainWindow () =    
     Window {
@@ -11,8 +34,9 @@ let createMainWindow () =
         height 400.
         width 400.
         
-        let content = Counter.view ()
-        content
+        let hot = Hot()
+        hotReload hot AvaloniaScheduler.Instance |> ignore
+        hot
     }
         
 type App() =
