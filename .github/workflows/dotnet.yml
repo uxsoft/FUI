@@ -91,6 +91,10 @@ jobs:
       - name: Create NuGet Package
         run: dotnet pack -c Release /p:Version=1.${{ github.run_number }}.0
 
-      - name: Publish to NuGet
+      - name: Publish to NuGet (FUI)
+        if: github.ref == 'refs/heads/master'
+        run: dotnet nuget push "FUI/bin/Release/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_KEY }} --skip-duplicate
+
+      - name: Publish to NuGet (FUI.Avalonia)
         if: github.ref == 'refs/heads/master'
         run: dotnet nuget push "FUI.Avalonia/bin/Release/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_KEY }} --skip-duplicate
