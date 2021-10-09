@@ -10,7 +10,7 @@ type WindowBuilder<'t when 't :> Window and 't : equality>() =
     member inline this.Run x =            
         this.RunWithChild x (fun window child -> window.Content <- child)
         
-    [<CustomOperation("SizeToContent")>]
+    [<CustomOperation("sizeToContent")>]
     member inline _.sizeToContent(x: Types.AvaloniaNode<'t>, v: SizeToContent) =
         Types.dependencyProperty x Window.SizeToContentProperty v
     
@@ -18,8 +18,8 @@ type WindowBuilder<'t when 't :> Window and 't : equality>() =
     member inline _.extendClientAreaToDecorationsHint(x: Types.AvaloniaNode<'t>, v: bool) =
         Types.dependencyProperty x Window.ExtendClientAreaToDecorationsHintProperty v
 
-    [<CustomOperation("ExtendClientAreaChromeHintsProperty")>]
-    member inline _.ExtendClientAreaChromeHintsProperty(x: Types.AvaloniaNode<'t>, v: ExtendClientAreaChromeHints) =
+    [<CustomOperation("extendClientAreaChromeHintsProperty")>]
+    member inline _.extendClientAreaChromeHintsProperty(x: Types.AvaloniaNode<'t>, v: ExtendClientAreaChromeHints) =
         Types.dependencyProperty x Window.ExtendClientAreaChromeHintsProperty v
     
     [<CustomOperation("extendClientAreaTitleBarHeightHint")>]
