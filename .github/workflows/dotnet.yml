@@ -49,6 +49,12 @@ jobs:
         with:
           path: ./*
           key: ${{ github.sha }}
+          
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+          include-prerelease: true
 
       - name: Run benchmark
         run: cd FUI.Benchmarks && dotnet run -c Release --exporters json --filter '*'
