@@ -9,31 +9,58 @@ open FUI.ObservableValue
 open FUI.UiBuilder
 open FUI.Avalonia.Types
 
-let routedEventCache<'t when 't : equality> = Dictionary<'t * string, CancellationTokenSource>() 
+let bindings<'t when 't : equality> = Dictionary<'t * string, IDisposable>() 
+let subscriptions<'t when 't : equality> = Dictionary<'t * string, CancellationTokenSource>() 
 
 let addProperty control name value (meta: PropertyMeta<_>) =
-    meta.Setter(control, value)
+    match box value with
+    | :? IObservableValue as ov ->
+        let binding = ov.OnChanged.Subscribe(fun v -> meta.Setter(control, ov.GetValue()))
+        bindings.[(control, name)] <- binding
+        meta.Setter(control, ov.GetValue())
+    | _ -> 
+        meta.Setter(control, value)
     
 let removeProperty control name value (meta: PropertyMeta<_>) =
+    let key = control, name
+    if bindings.ContainsKey key then
+        let _, binding = bindings.Remove key
+        binding.Dispose()
+       
     meta.Setter(control, meta.DefaultValueFactory())
 
 let addDependencyProperty (control: obj) name (value: obj) (property: Avalonia.AvaloniaProperty) =
     match control with
-    | :? Avalonia.AvaloniaObject as ao -> ao.SetValue(property, value)
+    | :? Avalonia.AvaloniaObject as ao ->
+        match box value with
+        | :? IObservableValue as ov ->
+            let binding = ov.OnChanged.Subscribe(fun v -> ao.SetValue(property, ov.GetValue()))
+            bindings.[(control, name)] <- binding
+            ao.SetValue(property, ov.GetValue())
+        | _ -> 
+            ao.SetValue(property, value)
     | _ -> printfn $"Can't set a Dependency Property on a control which doesn't derive from AvaloniaObject"
     
 let removeDependencyProperty (control: obj) name (value: obj) (property: Avalonia.AvaloniaProperty) =
     match control with
-    | :? Avalonia.AvaloniaObject as ao -> ao.ClearValue(property)
-    | _ -> printfn $"Can't set a Dependency Property on a control which doesn't derive from AvaloniaObject"
+    | :? Avalonia.AvaloniaObject as ao ->
+        let key = control, name
+        if bindings.ContainsKey key then
+            let _, binding = bindings.Remove key
+            binding.Dispose()
+            
+        ao.ClearValue(property)
+    | _ -> printfn $"Can't unset a Dependency Property on a control which doesn't derive from AvaloniaObject"
     
 let addRoutedEvent control name value (meta: 't -> CancellationTokenSource) =
     let cts = meta control
-    routedEventCache.Add((control, name), cts)
+    subscriptions.Add((control, name), cts)
 
 let removeRoutedEvent control name value (meta: 't -> CancellationTokenSource) =
-    let cts = routedEventCache.[control, name]
-    cts.Cancel()
+    let key = control, name
+    if subscriptions.ContainsKey key then
+        let _, cts = subscriptions.Remove key
+        cts.Cancel()
 
 let addAttribute control (attribute: Attribute<_>) =
     match attribute.Meta with

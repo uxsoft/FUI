@@ -18,8 +18,8 @@ type WindowBuilder<'t when 't :> Window and 't : equality>() =
     member inline _.extendClientAreaToDecorationsHint(x: Types.AvaloniaNode<'t>, v: bool) =
         Types.dependencyProperty x Window.ExtendClientAreaToDecorationsHintProperty v
 
-    [<CustomOperation("extendClientAreaChromeHintsProperty")>]
-    member inline _.extendClientAreaChromeHintsProperty(x: Types.AvaloniaNode<'t>, v: ExtendClientAreaChromeHints) =
+    [<CustomOperation("extendClientAreaChromeHints")>]
+    member inline _.extendClientAreaChromeHints(x: Types.AvaloniaNode<'t>, v: ExtendClientAreaChromeHints) =
         Types.dependencyProperty x Window.ExtendClientAreaChromeHintsProperty v
     
     [<CustomOperation("extendClientAreaTitleBarHeightHint")>]

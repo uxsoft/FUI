@@ -10,8 +10,9 @@ open Avalonia.Controls.Templates
 type TemplatedControlBuilder<'t when 't :> TemplatedControl and 't : equality>() =
     inherit ControlBuilder<'t>()
     
-    [<CustomOperation("background")>] 
-    member _.background<'t>(x: Types.AvaloniaNode<'t>, value: IBrush) =
+    /// IBrush
+    [<CustomOperation("background")>]
+    member _.background<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TemplatedControl.BackgroundProperty value
 
     [<CustomOperation("borderBrush")>] 
