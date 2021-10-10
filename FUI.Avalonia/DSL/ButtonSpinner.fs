@@ -6,23 +6,17 @@ open FUI.Avalonia.Spinner
 type ButtonSpinnerBuilder<'t when 't :> ButtonSpinner and 't : equality>() =
     inherit SpinnerBuilder<'t>()
     
-    /// <summary>
-    /// Sets a value indicating whether the <see cref="ButtonSpinner"/> should allow to spin.
-    /// </summary>
+    /// bool | ObservableValue<bool>
     [<CustomOperation("allowSpin")>] 
-    member _.allowSpin<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+    member _.allowSpin<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ButtonSpinner.AllowSpinProperty value
 
-    /// <summary>
-    /// Sets a value indicating whether the spin buttons should be shown.
-    /// </summary>
+    /// bool | ObservableValue<bool>
     [<CustomOperation("showButtonSpinner")>] 
-    member _.showButtonSpinner<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+    member _.showButtonSpinner<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ButtonSpinner.ShowButtonSpinnerProperty value
 
-    /// <summary>
-    /// Sets current location of the <see cref="ButtonSpinner"/>.
-    /// </summary>
+    /// Location | ObservableValue<Location>
     [<CustomOperation("buttonSpinnerLocation")>] 
-    member _.buttonSpinnerLocation<'t>(x: Types.AvaloniaNode<'t>, value: Location) =
+    member _.buttonSpinnerLocation<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ButtonSpinner.ButtonSpinnerLocationProperty value

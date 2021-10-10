@@ -7,57 +7,51 @@ open FUI.Avalonia.ContentControl
 type ScrollViewerBuilder<'t when 't :> ScrollViewer and 't : equality>() =
     inherit ContentControlBuilder<'t>()
 
+    /// bool | ObservableValue<bool>
     [<CustomOperation("allowAutoHide")>]
-    member _.allowAutoHide<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+    member _.allowAutoHide<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ScrollViewer.AllowAutoHideProperty value
     
-    /// <summary>
-    /// Sets the extent of the scrollable content.
-    /// </summary>
+    /// Size | ObservableValue<Size>
     [<CustomOperation("extent")>]
-    member _.extent<'t>(x: Types.AvaloniaNode<'t>, value: Size) =
+    member _.extent<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ScrollViewer.ExtentProperty value
 
+    /// bool | ObservableValue<bool>
     [<CustomOperation("isExpanded")>]
-    member _.isExpanded<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+    member _.isExpanded<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ScrollViewer.IsExpandedProperty value
 
+    /// Size | ObservableValue<Size>
     [<CustomOperation("largeChange")>]
-    member _.largeChange<'t>(x: Types.AvaloniaNode<'t>, value: Size) =
+    member _.largeChange<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ScrollViewer.LargeChangeProperty value
 
-    /// <summary>
-    /// Sets the current scroll offset.
-    /// </summary>
+    /// Vector | ObservableValue<Vector>
     [<CustomOperation("offset")>]
-    member _.offset<'t>(x: Types.AvaloniaNode<'t>, value: Vector) =
+    member _.offset<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ScrollViewer.OffsetProperty value
 
     [<CustomOperation("onScrollChanged")>]
-    member _.onScrollChanged<'t>(x: Types.AvaloniaNode<'t>, func: ScrollChangedEventArgs -> unit) =
+    member _.onScrollChanged<'t, 'v>(x: Types.AvaloniaNode<'t>, func: ScrollChangedEventArgs -> unit) =
         Types.routedEvent x ScrollViewer.ScrollChangedEvent func
 
+    /// Size | ObservableValue<Size>
     [<CustomOperation("smallChange")>]
-    member _.smallChange<'t>(x: Types.AvaloniaNode<'t>, value: Size) =
+    member _.smallChange<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ScrollViewer.SmallChangeProperty value
 
-    /// <summary>
-    /// Sets the size of the viewport on the scrollable content.
-    /// </summary>
+    /// Size | ObservableValue<Size>
     [<CustomOperation("viewport")>]
-    member _.viewport<'t>(x: Types.AvaloniaNode<'t>, value: Size) =
+    member _.viewport<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ScrollViewer.ViewportProperty value
         
-    /// <summary>
-    /// Sets the vertical scrollbar value.
-    /// </summary>
+    /// double | ObservableValue<double>
     [<CustomOperation("verticalScrollBarValue")>]
-    member _.verticalScrollBarValue<'t>(x: Types.AvaloniaNode<'t>, value: double) =
+    member _.verticalScrollBarValue<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ScrollViewer.VerticalScrollBarValueProperty value
         
-     /// <summary>
-    /// Sets the horizontal scrollbar value.
-    /// </summary>
+    /// double | ObservableValue<double>
     [<CustomOperation("horizontalScrollBarValue")>]
-    member _.horizontalScrollBarValue<'t>(x: Types.AvaloniaNode<'t>, value: double) =
+    member _.horizontalScrollBarValue<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ScrollViewer.HorizontalScrollBarValueProperty value

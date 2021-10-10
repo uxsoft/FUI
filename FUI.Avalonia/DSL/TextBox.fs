@@ -8,82 +8,101 @@ open Avalonia.Media
 type TextBoxBuilder<'t when 't :> TextBox and 't : equality>() =
     inherit TemplatedControlBuilder<'t>()
 
+    /// bool | ObservableValue<bool>
     [<CustomOperation("acceptsReturn")>]
-    member _.acceptsReturn<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+    member _.acceptsReturn<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBox.AcceptsReturnProperty value
 
+    /// bool | ObservableValue<bool>
     [<CustomOperation("acceptsTab")>]
-    member _.acceptsTab<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+    member _.acceptsTab<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBox.AcceptsTabProperty value        
 
+    /// int | ObservableValue<int>
     [<CustomOperation("caretIndex")>]
-    member _.caretIndex<'t>(x: Types.AvaloniaNode<'t>, value: int) =
+    member _.caretIndex<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBox.CaretIndexProperty value                
-                    
+            
+    /// bool | ObservableValue<bool>        
     [<CustomOperation("isReadOnly")>]
-    member _.isReadOnly<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+    member _.isReadOnly<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBox.IsReadOnlyProperty value
 
+    /// HorizontalAlignment | ObservableValue<HorizontalAlignment>
     [<CustomOperation("horizontalContentAlignment")>]
-    member _.horizontalContentAlignment<'t>(x: Types.AvaloniaNode<'t>, value: HorizontalAlignment) =
+    member _.horizontalContentAlignment<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBox.HorizontalContentAlignmentProperty value
 
+    /// char | ObservableValue<char>
     [<CustomOperation("passwordChar")>]
-    member _.passwordChar<'t>(x: Types.AvaloniaNode<'t>, value: char) =
+    member _.passwordChar<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBox.PasswordCharProperty value
         
+    /// IBrush | ObservableValue<IBrush>
     [<CustomOperation("selectionBrush")>]
-    member _.selectionBrush<'t>(x: Types.AvaloniaNode<'t>, value: IBrush) =
+    member _.selectionBrush<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBox.SelectionBrushProperty value
         
+    /// IBrush | ObservableValue<IBrush>
     [<CustomOperation("selectionForegroundBrush")>]
-    member _.selectionForegroundBrush<'t>(x: Types.AvaloniaNode<'t>, value: IBrush) =
+    member _.selectionForegroundBrush<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBox.SelectionForegroundBrushProperty value  
         
+    /// IBrush | ObservableValue<IBrush>
     [<CustomOperation("caretBrush")>]
-    member _.caretBrush<'t>(x: Types.AvaloniaNode<'t>, value: IBrush) =
+    member _.caretBrush<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBox.CaretBrushProperty value
         
+    /// int | ObservableValue<int>
     [<CustomOperation("selectionStart")>]
-    member _.selectionStart<'t>(x: Types.AvaloniaNode<'t>, value: int) =
+    member _.selectionStart<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBox.SelectionStartProperty value     
         
+    /// int | ObservableValue<int>
     [<CustomOperation("selectionEnd")>]
-    member _.selectionEnd<'t>(x: Types.AvaloniaNode<'t>, value: int) =
+    member _.selectionEnd<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBox.SelectionEndProperty value     
         
+    /// int | ObservableValue<int>
     [<CustomOperation("maxLength")>]
-    member _.maxLength<'t>(x: Types.AvaloniaNode<'t>, value: int) =
+    member _.maxLength<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBox.MaxLengthProperty value     
         
+    /// string | ObservableValue<string>
     [<CustomOperation("text")>]
-    member _.text<'t>(x: Types.AvaloniaNode<'t>, value: string) =
+    member _.text<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBox.TextProperty value
         
     [<CustomOperation("onTextChanged")>]
-    member _.onTextChanged<'t>(x: Types.AvaloniaNode<'t>, func: string -> unit) =
+    member _.onTextChanged<'t, 'v>(x: Types.AvaloniaNode<'t>, func: string -> unit) =
         Types.dependencyPropertyEvent x TextBox.TextProperty func
         
+    /// TextAlignment | ObservableValue<TextAlignment>
     [<CustomOperation("textAlignment")>]
-    member _.textAlignment<'t>(x: Types.AvaloniaNode<'t>, alignment: TextAlignment) =
+    member _.textAlignment<'t, 'v>(x: Types.AvaloniaNode<'t>, alignment: 'v) =
         Types.dependencyProperty x TextBox.TextAlignmentProperty alignment
         
+    /// TextWrapping | ObservableValue<TextWrapping>
     [<CustomOperation("textWrapping")>]
-    member _.textWrapping<'t>(x: Types.AvaloniaNode<'t>, value: TextWrapping) =
+    member _.textWrapping<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBox.TextWrappingProperty value
         
+    /// bool | ObservableValue<bool>
     [<CustomOperation("useFloatingWatermark")>]
-    member _.useFloatingWatermark<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+    member _.useFloatingWatermark<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBox.UseFloatingWatermarkProperty value
         
+    /// string | ObservableValue<string>
     [<CustomOperation("newLine")>]
-    member _.newLine<'t>(x: Types.AvaloniaNode<'t>, value: string) =
+    member _.newLine<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBox.NewLineProperty value
 
+    /// VerticalAlignment | ObservableValue<VerticalAlignment>
     [<CustomOperation("verticalContentAlignment")>]
-    member _.verticalContentAlignment<'t>(x: Types.AvaloniaNode<'t>, value: VerticalAlignment) =
+    member _.verticalContentAlignment<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBox.VerticalContentAlignmentProperty value
         
+    /// string | ObservableValue<string>
     [<CustomOperation("watermark")>]
-    member _.watermark<'t>(x: Types.AvaloniaNode<'t>, value: string) =
+    member _.watermark<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBox.WatermarkProperty value

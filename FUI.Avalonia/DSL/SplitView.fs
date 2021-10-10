@@ -7,38 +7,47 @@ open Avalonia.Media
 type SplitViewBuilder<'t when 't :> SplitView and 't : equality>() = 
     inherit ContentControlBuilder<'t>()
 
+    /// float | ObservableValue<float>
     [<CustomOperation("compactPaneLengthProperty")>]
-    member _.compactPaneLengthProperty<'t>(x: Types.AvaloniaNode<'t>, value: float) =
+    member _.compactPaneLengthProperty<'t, 'v>(x: Types.AvaloniaNode<'t>, value: float) =
         Types.dependencyProperty x SplitView.CompactPaneLengthProperty value
 
+    /// SplitViewDisplayMode | ObservableValue<SplitViewDisplayMode>
     [<CustomOperation("displayMode")>]
-    member _.displayMode<'t>(x: Types.AvaloniaNode<'t>, value: SplitViewDisplayMode) =
+    member _.displayMode<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x SplitView.DisplayModeProperty value
 
+    /// bool | ObservableValue<bool>
     [<CustomOperation("isPaneOpen")>]
-    member _.isPaneOpen<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+    member _.isPaneOpen<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x SplitView.IsPaneOpenProperty value
 
+    /// float | ObservableValue<float>
     [<CustomOperation("openPaneLength")>]
-    member _.openPaneLength<'t>(x: Types.AvaloniaNode<'t>, value: float) =
+    member _.openPaneLength<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x SplitView.OpenPaneLengthProperty value
 
+    /// IBrush | ObservableValue<IBrush>
     [<CustomOperation("paneBackground")>]
-    member _.paneBackground<'t>(x: Types.AvaloniaNode<'t>, value: IBrush) =
+    member _.paneBackground<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x SplitView.PaneBackgroundProperty value
 
+    /// SplitViewPanePlacement | ObservableValue<SplitViewPanePlacement>
     [<CustomOperation("panePlacement")>]
-    member _.panePlacement<'t>(x: Types.AvaloniaNode<'t>, value: SplitViewPanePlacement) =
+    member _.panePlacement<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x SplitView.PanePlacementProperty value
 
+    /// obj | ObservableValue<obj>
     [<CustomOperation("pane")>]
-    member _.pane<'t>(x: Types.AvaloniaNode<'t>, value: obj) =
+    member _.pane<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x SplitView.PaneProperty value
 
+    /// bool | ObservableValue<bool>
     [<CustomOperation("useLightDismissOverlayMode")>]
-    member _.useLightDismissOverlayMode<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+    member _.useLightDismissOverlayMode<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x SplitView.UseLightDismissOverlayModeProperty value
 
+    /// SplitViewTemplateSettings | ObservableValue<SplitViewTemplateSettings>
     [<CustomOperation("templateSettings")>]
-    member _.templateSettings<'t>(x: Types.AvaloniaNode<'t>, value: SplitViewTemplateSettings) =
+    member _.templateSettings<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x SplitView.TemplateSettingsProperty value

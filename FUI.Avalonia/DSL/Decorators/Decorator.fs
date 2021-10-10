@@ -14,6 +14,7 @@ type DecoratorBuilder<'t when 't :> Decorator and 't : equality>() =
             | :? IControl as child -> control.Child <- child
             | _ -> printfn "Child of Decorator must be of type IControl")
         
+    /// Thickness | ObservableValue<Thickness>
     [<CustomOperation("padding")>]
-    member _.padding<'t>(x: Types.AvaloniaNode<'t>, value: Thickness) =
+    member _.padding<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Decorator.PaddingProperty value

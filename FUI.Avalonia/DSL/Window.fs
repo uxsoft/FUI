@@ -10,64 +10,79 @@ type WindowBuilder<'t when 't :> Window and 't : equality>() =
     member inline this.Run x =            
         this.RunWithChild x (fun window child -> window.Content <- child)
         
+    /// SizeToContent | ObservableValue<SizeToContent>
     [<CustomOperation("sizeToContent")>]
-    member inline _.sizeToContent(x: Types.AvaloniaNode<'t>, v: SizeToContent) =
+    member inline _.sizeToContent(x: Types.AvaloniaNode<'t>, v: 'v) =
         Types.dependencyProperty x Window.SizeToContentProperty v
     
+    /// bool | ObservableValue<bool>
     [<CustomOperation("extendClientAreaToDecorationsHint")>]
-    member inline _.extendClientAreaToDecorationsHint(x: Types.AvaloniaNode<'t>, v: bool) =
+    member inline _.extendClientAreaToDecorationsHint(x: Types.AvaloniaNode<'t>, v: 'v) =
         Types.dependencyProperty x Window.ExtendClientAreaToDecorationsHintProperty v
 
+    /// ExtendClientAreaChromeHints | ObservableValue<ExtendClientAreaChromeHints>
     [<CustomOperation("extendClientAreaChromeHints")>]
-    member inline _.extendClientAreaChromeHints(x: Types.AvaloniaNode<'t>, v: ExtendClientAreaChromeHints) =
+    member inline _.extendClientAreaChromeHints(x: Types.AvaloniaNode<'t>, v: 'v) =
         Types.dependencyProperty x Window.ExtendClientAreaChromeHintsProperty v
     
+    /// double | ObservableValue<double>
     [<CustomOperation("extendClientAreaTitleBarHeightHint")>]
-    member inline _.extendClientAreaTitleBarHeightHint(x: Types.AvaloniaNode<'t>, v: double) =
+    member inline _.extendClientAreaTitleBarHeightHint(x: Types.AvaloniaNode<'t>, v: 'v) =
         Types.dependencyProperty x Window.ExtendClientAreaTitleBarHeightHintProperty v
 
+    /// bool | ObservableValue<bool>
     [<CustomOperation("isExtendedIntoWindowDecorations")>]
-    member inline _.isExtendedIntoWindowDecorations(x: Types.AvaloniaNode<'t>, v: bool) =
+    member inline _.isExtendedIntoWindowDecorations(x: Types.AvaloniaNode<'t>, v: 'v) =
         Types.dependencyProperty x Window.IsExtendedIntoWindowDecorationsProperty v
 
+    /// Thickness | ObservableValue<Thickness>
     [<CustomOperation("windowDecorationMargin")>]
-    member inline _.windowDecorationMargin(x: Types.AvaloniaNode<'t>, v: Thickness) =
+    member inline _.windowDecorationMargin(x: Types.AvaloniaNode<'t>, v: 'v) =
         Types.dependencyProperty x Window.WindowDecorationMarginProperty v
 
+    /// Thickness | ObservableValue<Thickness>
     [<CustomOperation("offScreenMargin")>]
-    member inline _.offScreenMargin(x: Types.AvaloniaNode<'t>, v: Thickness) =
+    member inline _.offScreenMargin(x: Types.AvaloniaNode<'t>, v: 'v) =
         Types.dependencyProperty x Window.OffScreenMarginProperty v
 
+    /// SystemDecorations | ObservableValue<SystemDecorations>
     [<CustomOperation("systemDecorations")>]
-    member inline _.systemDecorations(x: Types.AvaloniaNode<'t>, v: SystemDecorations) =
+    member inline _.systemDecorations(x: Types.AvaloniaNode<'t>, v: 'v) =
         Types.dependencyProperty x Window.SystemDecorationsProperty v
 
+    /// bool | ObservableValue<bool>
     [<CustomOperation("showActivated")>]
-    member inline _.showActivated(x: Types.AvaloniaNode<'t>, v: bool) =
+    member inline _.showActivated(x: Types.AvaloniaNode<'t>, v: 'v) =
         Types.dependencyProperty x Window.ShowActivatedProperty v
 
+    /// bool | ObservableValue<bool>
     [<CustomOperation("showInTaskbar")>]
-    member inline _.showInTaskbar(x: Types.AvaloniaNode<'t>, v: bool) =
+    member inline _.showInTaskbar(x: Types.AvaloniaNode<'t>, v: 'v) =
         Types.dependencyProperty x Window.ShowInTaskbarProperty v
 
+    /// WindowState | ObservableValue<WindowState>
     [<CustomOperation("windowState")>]
-    member inline _.windowState(x: Types.AvaloniaNode<'t>, v: WindowState) =
+    member inline _.windowState(x: Types.AvaloniaNode<'t>, v: 'v) =
         Types.dependencyProperty x Window.WindowStateProperty v
 
+    /// string | ObservableValue<string>
     [<CustomOperation("title")>]
-    member inline _.title(x: Types.AvaloniaNode<'t>, v: string) =
+    member inline _.title(x: Types.AvaloniaNode<'t>, v: 'v) =
         Types.dependencyProperty x Window.TitleProperty v
 
+    /// WindowIcon | ObservableValue<WindowIcon>
     [<CustomOperation("icon")>]
-    member inline _.icon(x: Types.AvaloniaNode<'t>, v: WindowIcon) =
+    member inline _.icon(x: Types.AvaloniaNode<'t>, v: 'v) =
         Types.dependencyProperty x Window.IconProperty v
 
+    /// WindowStartupLocation | ObservableValue<WindowStartupLocation>
     [<CustomOperation("windowStartupLocation")>]
-    member inline _.windowStartupLocation(x: Types.AvaloniaNode<'t>, v: WindowStartupLocation) =
+    member inline _.windowStartupLocation(x: Types.AvaloniaNode<'t>, v: 'v) =
         Types.dependencyProperty x Window.WindowStartupLocationProperty v
 
+    /// bool | ObservableValue<bool>
     [<CustomOperation("canResize")>]
-    member inline _.canResize(x: Types.AvaloniaNode<'t>, v: bool) =
+    member inline _.canResize(x: Types.AvaloniaNode<'t>, v: 'v) =
         Types.dependencyProperty x Window.CanResizeProperty v
 
 //    [<CustomOperation("WindowClosedEvent")>]

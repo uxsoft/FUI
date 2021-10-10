@@ -7,31 +7,27 @@ open FUI.Avalonia.RangeBase
 type ScrollBarBuilder<'t when 't :> ScrollBar and 't : equality>() =
     inherit RangeBaseBuilder<'t>()
 
+    /// bool | ObservableValue<bool>
     [<CustomOperation("allowAutoHide")>]
-    member _.allowAutoHide<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+    member _.allowAutoHide<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ScrollBar.AllowAutoHideProperty value
 
+    /// bool | ObservableValue<bool>
     [<CustomOperation("isExpanded")>]
-    member _.isExpanded<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+    member _.isExpanded<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ScrollBar.IsExpandedProperty value
     
-    /// <summary>
-    /// Sets the amount of the scrollable content that is currently visible.
-    /// </summary>
+    /// double | ObservableValue<double>
     [<CustomOperation("viewportSize")>]
-    member _.viewportSize<'t>(x: Types.AvaloniaNode<'t>, value: double) =
+    member _.viewportSize<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ScrollBar.ViewportSizeProperty value
         
-    /// <summary>
-    /// Sets a value that indicates whether the scrollbar should hide itself when it is not needed.
-    /// </summary>    
+    /// ScrollBarVisibility | ObservableValue<ScrollBarVisibility>
     [<CustomOperation("visibility")>]
-    member _.visibility<'t>(x: Types.AvaloniaNode<'t>, visibility: ScrollBarVisibility) =
+    member _.visibility<'t, 'v>(x: Types.AvaloniaNode<'t>, visibility: 'v) =
         Types.dependencyProperty x ScrollBar.VisibilityProperty visibility
 
-    /// <summary>
-    /// Sets the orientation of the scrollbar.
-    /// </summary>
+    /// Orientation | ObservableValue<Orientation>
     [<CustomOperation("orientation")>]
-    member _.orientation<'t>(x: Types.AvaloniaNode<'t>, orientation: Orientation) =
+    member _.orientation<'t, 'v>(x: Types.AvaloniaNode<'t>, orientation: 'v) =
         Types.dependencyProperty x ScrollBar.OrientationProperty orientation

@@ -8,6 +8,7 @@ open Avalonia.Controls.Shapes
 type PathBuilder<'t when 't :> Path and 't : equality>() =
     inherit ShapeBuilder<'t>()
     
+    /// Geometry | ObservableValue<Geometry>
     [<CustomOperation("data")>]
-    member _.data<'t>(x: Types.AvaloniaNode<'t>, geometry: Geometry) =
+    member _.data<'t, 'v>(x: Types.AvaloniaNode<'t>, geometry: 'v) =
         Types.dependencyProperty x Path.DataProperty geometry

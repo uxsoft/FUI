@@ -13,58 +13,72 @@ type TextBlockBuilder<'t when 't :> TextBlock and 't : equality>() =
         this.RunWithChild x (fun textBlock text ->
             textBlock.Text <- string text)
         
+    /// string | ObservableValue<string>
     [<CustomOperation("text")>] 
-    member _.text<'t>(x: Types.AvaloniaNode<'t>, value: string) =
+    member _.text<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBlock.TextProperty value
         
+    /// IBrush | ObservableValue<IBrush>
     [<CustomOperation("background")>] 
-    member _.background<'t>(x: Types.AvaloniaNode<'t>, value: IBrush) =
+    member _.background<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBlock.BackgroundProperty value
     
+    /// FontFamily | ObservableValue<FontFamily>
     [<CustomOperation("fontFamily")>] 
-    member _.fontFamily<'t>(x: Types.AvaloniaNode<'t>, value: FontFamily) =
+    member _.fontFamily<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBlock.FontFamilyProperty value
         
+    /// double | ObservableValue<double>
     [<CustomOperation("fontSize")>] 
-    member _.fontSize<'t>(x: Types.AvaloniaNode<'t>, value: double) =
+    member _.fontSize<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBlock.FontSizeProperty value
         
+    /// FontStyle | ObservableValue<FontStyle>
     [<CustomOperation("fontStyle")>] 
-    member _.fontStyle<'t>(x: Types.AvaloniaNode<'t>, value: FontStyle) =
+    member _.fontStyle<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBlock.FontStyleProperty value
         
+    /// FontWeight | ObservableValue<FontWeight>
     [<CustomOperation("fontWeight")>] 
-    member _.fontWeight<'t>(x: Types.AvaloniaNode<'t>, value: FontWeight) =
+    member _.fontWeight<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBlock.FontWeightProperty value
         
+    /// IBrush | ObservableValue<IBrush>
     [<CustomOperation("foreground")>] 
-    member _.foreground<'t>(x: Types.AvaloniaNode<'t>, value: IBrush) =
+    member _.foreground<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBlock.ForegroundProperty value
 
+    /// float | ObservableValue<float>
     [<CustomOperation("lineHeight")>] 
-    member _.lineHeight<'t>(x: Types.AvaloniaNode<'t>, value: float) =
+    member _.lineHeight<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBlock.LineHeightProperty value
         
+    /// int | ObservableValue<int>
     [<CustomOperation("maxLines")>] 
-    member _.maxLines<'t>(x: Types.AvaloniaNode<'t>, value: int) =
+    member _.maxLines<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBlock.MaxLinesProperty value
 
+    /// Thickness | ObservableValue<Thickness>
     [<CustomOperation("padding")>] 
-    member _.padding<'t>(x: Types.AvaloniaNode<'t>, value: Thickness) =
+    member _.padding<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBlock.PaddingProperty value
 
+    /// TextAlignment | ObservableValue<TextAlignment>
     [<CustomOperation("textAlignment")>] 
-    member _.textAlignment<'t>(x: Types.AvaloniaNode<'t>, alignment: TextAlignment) =
+    member _.textAlignment<'t, 'v>(x: Types.AvaloniaNode<'t>, alignment: 'v) =
         Types.dependencyProperty x TextBlock.TextAlignmentProperty alignment
 
+    /// TextDecorationCollection | ObservableValue<TextDecorationCollection>
     [<CustomOperation("textDecorations")>] 
-    member _.textDecorations<'t>(x: Types.AvaloniaNode<'t>, value: TextDecorationCollection) =
+    member _.textDecorations<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBlock.TextDecorationsProperty value
 
+    /// TextTrimming | ObservableValue<TextTrimming>
     [<CustomOperation("textTrimming")>] 
-    member _.textTrimming<'t>(x: Types.AvaloniaNode<'t>, value: TextTrimming) =
+    member _.textTrimming<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBlock.TextTrimmingProperty value
         
+    /// TextWrapping | ObservableValue<TextWrapping>
     [<CustomOperation("textWrapping")>] 
-    member _.textWrapping<'t>(x: Types.AvaloniaNode<'t>, value: TextWrapping) =
+    member _.textWrapping<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TextBlock.TextWrappingProperty value

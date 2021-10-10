@@ -8,10 +8,12 @@ open Avalonia.Controls.Templates
 type HeaderedContentControlBuilder<'t when 't :> HeaderedContentControl and 't : equality>() =
     inherit ContentControlBuilder<'t>()
         
+    /// obj | ObservableValue<obj>
     [<CustomOperation("header")>] 
-    member _.header<'t, 'c when 't :> HeaderedContentControl and 'c :> obj>(x: Types.AvaloniaNode<'t>, value: 'c) =
+    member _.header<'t, 'v when 't :> HeaderedContentControl>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x HeaderedContentControl.HeaderProperty value
         
+    /// IDataTemplate | ObservableValue<IDataTemplate>
     [<CustomOperation("headerTemplate")>] 
-    member _.headerTemplate<'t when 't :> HeaderedContentControl>(x: Types.AvaloniaNode<'t>, value: IDataTemplate) =
+    member _.headerTemplate<'t, 'v when 't :> HeaderedContentControl>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x HeaderedContentControl.HeaderTemplateProperty value

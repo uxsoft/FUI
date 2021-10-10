@@ -8,31 +8,27 @@ open Avalonia.Layout
 type SliderBuilder<'t when 't :> Slider and 't : equality>() =
     inherit RangeBaseBuilder<'t>()
 
-    /// <summary>
-    /// Sets the orientation of a <see cref="Slider"/>.
-    /// </summary>
+    /// Orientation | ObservableValue<Orientation>
     [<CustomOperation("orientation")>]
-    member _.orientation<'t>(x: Types.AvaloniaNode<'t>, value: Orientation) =
+    member _.orientation<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Slider.OrientationProperty value
 
-    /// <summary>
-    /// Sets a value that indicates whether the <see cref="Slider"/> automatically moves the <see cref="Thumb"/> to the closest tick mark.
-    /// </summary>
+    /// bool | ObservableValue<bool>
     [<CustomOperation("isSnapToTickEnabled")>]
-    member _.isSnapToTickEnabled<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+    member _.isSnapToTickEnabled<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Slider.IsSnapToTickEnabledProperty value
 
-    /// <summary>
-    /// Sets the interval between tick marks.
-    /// </summary>
+    /// float | ObservableValue<float>
     [<CustomOperation("tickFrequency")>]
-    member _.tickFrequency<'t>(x: Types.AvaloniaNode<'t>, value: float) =
+    member _.tickFrequency<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Slider.TickFrequencyProperty value
 
+    /// TickPlacement | ObservableValue<TickPlacement>
     [<CustomOperation("tickPlacement")>]
-    member _.tickPlacement<'t>(x: Types.AvaloniaNode<'t>, value: TickPlacement) =
+    member _.tickPlacement<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Slider.TickPlacementProperty value
 
+    /// float seq | ObservableValue<float seq>
     [<CustomOperation("ticks")>]
-    member _.ticks<'t>(x: Types.AvaloniaNode<'t>, value: float seq) =
+    member _.ticks<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Slider.TicksProperty (AvaloniaList value)

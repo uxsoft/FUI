@@ -7,14 +7,17 @@ open FUI.Avalonia.SelectingItemsControl
 type ListBoxBuilder<'t when 't :> ListBox and 't : equality>() =
     inherit SelectingItemsControlBuilder<'t>()
 
-    member _.selectedItems<'t>(x: Types.AvaloniaNode<'t>, items: IList) =
+    /// IList | ObservableValue<IList>
+    member _.selectedItems<'t, 'v>(x: Types.AvaloniaNode<'t>, items: 'v) =
         Types.dependencyProperty x ListBox.SelectedItemsProperty items
 
-    member _.onSelectedItemsChanged<'t>(x: Types.AvaloniaNode<'t>, func: IList -> unit) =
+    member _.onSelectedItemsChanged<'t, 'v>(x: Types.AvaloniaNode<'t>, func: IList -> unit) =
          Types.dependencyPropertyEvent x ListBox.SelectedItemsProperty func
-    
-    member _.selectionMode<'t>(x: Types.AvaloniaNode<'t>, mode: SelectionMode) =
+
+    /// SelectionMode | ObservableValue<SelectionMode>    
+    member _.selectionMode<'t, 'v>(x: Types.AvaloniaNode<'t>, mode: 'v) =
         Types.dependencyProperty x ListBox.SelectionModeProperty mode
     
-    member _.virtualizationMode<'t>(x: Types.AvaloniaNode<'t>, mode: ItemVirtualizationMode) =
+    /// ItemVirtualizationMode | ObservableValue<ItemVirtualizationMode>
+    member _.virtualizationMode<'t, 'v>(x: Types.AvaloniaNode<'t>, mode: 'v) =
         Types.dependencyProperty x ListBox.VirtualizationModeProperty mode

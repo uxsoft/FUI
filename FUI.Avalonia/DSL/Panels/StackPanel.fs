@@ -8,16 +8,12 @@ open Avalonia.Layout
 type StackPanelBuilder<'t when 't :> StackPanel and 't : equality>() =
     inherit PanelBuilder<'t>()
     
-    /// <summary>
-    /// Gets or sets the size of the spacing to place between child controls.
-    /// </summary>
+    /// double | ObservableValue<double>
     [<CustomOperation("spacing")>] 
-    member _.spacing<'t>(x: Types.AvaloniaNode<'t>, value: double) =
+    member _.spacing<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x StackPanel.SpacingProperty value
     
-    /// <summary>
-    /// Gets or sets the orientation in which child controls will be laid out.
-    /// </summary>
+    /// Orientation | ObservableValue<Orientation>
     [<CustomOperation("orientation")>] 
-    member _.orientation<'t>(x: Types.AvaloniaNode<'t>, orientation: Orientation) =
+    member _.orientation<'t, 'v>(x: Types.AvaloniaNode<'t>, orientation: 'v) =
         Types.dependencyProperty x StackPanel.OrientationProperty orientation

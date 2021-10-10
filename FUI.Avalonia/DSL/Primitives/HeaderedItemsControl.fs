@@ -7,6 +7,7 @@ open FUI.Avalonia.ItemsControl
 type HeaderedItemsControlBuilder<'t when 't :> HeaderedItemsControl and 't : equality>() =
     inherit ItemsControlBuilder<'t>()
     
+    /// obj | ObservableValue<obj>
     [<CustomOperation("header")>] 
-    member _.header<'t, 'c when 't :> HeaderedItemsControl and 'c :> obj>(x: Types.AvaloniaNode<'t>, value: 'c) =
+    member _.header<'t, 'v when 't :> HeaderedItemsControl>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x  HeaderedItemsControl.HeaderProperty value

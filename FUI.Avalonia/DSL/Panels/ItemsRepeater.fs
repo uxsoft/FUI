@@ -17,6 +17,7 @@ type ItemsRepeaterBuilder<'t when 't :> ItemsRepeater and 't : equality>() =
             panel.Items <- items
             children.OnChanged.Add(Change.commit items))
         
+    /// IDataTemplate | ObservableValue<IDataTemplate>
     [<CustomOperation("itemTemplate")>] 
-    member _.itemTemplate<'t>(x: Types.AvaloniaNode<'t>, value : IDataTemplate) =
+    member _.itemTemplate<'t, 'v>(x: Types.AvaloniaNode<'t>, value : 'v) =
         Types.dependencyProperty x ItemsRepeater.ItemTemplateProperty value

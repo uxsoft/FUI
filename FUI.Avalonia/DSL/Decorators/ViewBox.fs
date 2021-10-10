@@ -7,9 +7,7 @@ open Avalonia.Media
 type ViewBoxBuilder<'t when 't :> Viewbox and 't : equality>() =
     inherit DecoratorBuilder<'t>()
 
-    /// <summary>
-    /// Sets the stretch mode, which determines how child fits into the available space.
-    /// </summary>
+    /// Stretch | ObservableValue<Stretch>
     [<CustomOperation("stretch")>]
-    member _.stretch<'t>(x: Types.AvaloniaNode<'t>, value: Stretch) =
+    member _.stretch<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Viewbox.StretchProperty value

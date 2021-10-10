@@ -7,30 +7,22 @@
     type TreeViewBuilder<'t when 't :> TreeView and 't : equality>() =
         inherit ItemsControlBuilder<'t>()
 
-        /// <summary>
-        /// Sets a value indicating whether to automatically scroll to newly selected items.
-        /// </summary>
+        /// bool | ObservableValue<bool>
         [<CustomOperation("autoScrollToSelectedItem")>] 
-        member _.autoScrollToSelectedItem<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+        member _.autoScrollToSelectedItem<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
             Types.dependencyProperty x TreeView.AutoScrollToSelectedItemProperty value
         
-        /// <summary>
-        /// Sets the selected items.
-        /// </summary>
+        /// obj | ObservableValue<obj>
         [<CustomOperation("selectedItem")>] 
-        member _.selectedItem<'t>(x: Types.AvaloniaNode<'t>, value: obj) =
+        member _.selectedItem<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
             Types.dependencyProperty x TreeView.SelectedItemProperty value
-         
-        /// <summary>
-        /// Sets the selected item.
-        /// </summary>
+
+        /// IList | ObservableValue<IList>         
         [<CustomOperation("selectedItems")>] 
-        member _.selectedItems<'t>(x: Types.AvaloniaNode<'t>, value: IList) =
+        member _.selectedItems<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
             Types.dependencyProperty x TreeView.SelectedItemsProperty value
 
-        /// <summary>
-        /// Sets the selection mode.
-        /// </summary>
+        /// SelectionMode | ObservableValue<SelectionMode>
         [<CustomOperation("selectionMode")>] 
-        member _.selectionMode<'t>(x: Types.AvaloniaNode<'t>, value: SelectionMode) =
+        member _.selectionMode<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
             Types.dependencyProperty x TreeView.SelectionModeProperty value

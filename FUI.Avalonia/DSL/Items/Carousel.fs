@@ -7,8 +7,10 @@ open FUI.Avalonia.SelectingItemsControl
 type CarouselBuilder<'t when 't :> Carousel and 't : equality>() =
     inherit SelectingItemsControlBuilder<'t>()
 
-    member _.isVirtualized<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+    /// bool | ObservableValue<bool>
+    member _.isVirtualized<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Carousel.IsVirtualizedProperty value
     
-    member _.pageTransition<'t>(x: Types.AvaloniaNode<'t>, transition: IPageTransition) =
+    /// IPageTransition | ObservableValue<IPageTransition>
+    member _.pageTransition<'t, 'v>(x: Types.AvaloniaNode<'t>, transition: 'v) =
         Types.dependencyProperty x Carousel.PageTransitionProperty transition

@@ -8,10 +8,12 @@ open Avalonia.Media.Imaging
 type ImageBuilder<'t when 't :> Image and 't : equality>() =
     inherit ControlBuilder<'t>()
     
+    /// IBitmap | ObservableValue<IBitmap>
     [<CustomOperation("source")>]
-    member _.source<'t>(x: Types.AvaloniaNode<'t>, value: IBitmap) =
+    member _.source<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Image.SourceProperty value
         
+    /// Stretch | ObservableValue<Stretch>
     [<CustomOperation("stretch")>]
-    member _.stretch<'t>(x: Types.AvaloniaNode<'t>, value: Stretch) =
+    member _.stretch<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Image.StretchProperty value

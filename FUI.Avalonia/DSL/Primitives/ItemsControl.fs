@@ -17,14 +17,17 @@ type ItemsControlBuilder<'t when 't :> ItemsControl and 't : equality>() =
             panel.Items <- items
             children.OnChanged.Add(Change.commit items))
         
+    /// IEnumerable<obj> | ObservableValue<IEnumerable<obj>
     [<CustomOperation("items")>] 
-    member _.items<'t, 'i when 'i :> obj>(x: Types.AvaloniaNode<'t>, views: 'i list) =
+    member _.items<'t, 'v>(x: Types.AvaloniaNode<'t>, views: 'v) =
         Types.dependencyProperty x ItemsControl.ItemsProperty views
         
+    /// ITemplate<IPanel> | ObservableValue<ITemplate<IPanel>>
     [<CustomOperation("itemsPanel")>] 
-    member _.itemsPanel<'t>(x: Types.AvaloniaNode<'t>, value: ITemplate<IPanel>) =
+    member _.itemsPanel<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ItemsControl.ItemsPanelProperty value
         
+    /// IDataTemplate | ObservableValue<IDataTemplate>
     [<CustomOperation("itemTemplate")>] 
-    member _.itemTemplate<'t>(x: Types.AvaloniaNode<'t>, value: IDataTemplate) =
+    member _.itemTemplate<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ItemsControl.ItemTemplateProperty value

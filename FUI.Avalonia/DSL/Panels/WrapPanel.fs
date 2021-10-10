@@ -7,14 +7,17 @@ open Avalonia.Layout
 type WrapPanelBuilder<'t when 't :> WrapPanel and 't : equality>() =
     inherit PanelBuilder<'t>()
     
+    /// float | ObservableValue<float>
     [<CustomOperation("itemHeight")>] 
-    member _.itemHeight<'t>(x: Types.AvaloniaNode<'t>, value: float) =
+    member _.itemHeight<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x WrapPanel.ItemHeightProperty value
 
+    /// float | ObservableValue<float>
     [<CustomOperation("itemWidth")>] 
-    member _.itemWidth<'t>(x: Types.AvaloniaNode<'t>, value: float) =
+    member _.itemWidth<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x WrapPanel.ItemWidthProperty value
        
+    /// Orientation | ObservableValue<Orientation>
     [<CustomOperation("orientation")>] 
-    member _.orientation<'t>(x: Types.AvaloniaNode<'t>, orientation: Orientation) =
+    member _.orientation<'t, 'v>(x: Types.AvaloniaNode<'t>, orientation: 'v) =
         Types.dependencyProperty x WrapPanel.OrientationProperty orientation

@@ -10,124 +10,127 @@ open Avalonia.Visuals.Media.Imaging
 type ControlBuilder<'t when 't :> Control and 't : equality>() =
     inherit InputElementBuilder<'t>()
     
+    /// ITemplate<IControl> | ObservableValue<ITemplate<IControl>>
     [<CustomOperation("focusAdorner")>] 
-    member _.focusAdorner<'t, 'c when 'c :> IControl>(x: Types.AvaloniaNode<'t>, value: ITemplate<'c>) =
+    member _.focusAdorner<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Control.FocusAdornerProperty value
-                                                      
+                          
+    /// obj | ObservableValue<obj>                            
     [<CustomOperation("tag")>]
-    member _.tag<'t>(x: Types.AvaloniaNode<'t>, value: obj) =
+    member _.tag<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Control.TagProperty value
     
+    /// ContextMenu | ObservableValue<ContextMenu>
     [<CustomOperation("contextMenu")>] 
-    member _.contextMenu<'t>(x: Types.AvaloniaNode<'t>, menu: ContextMenu) =
+    member _.contextMenu<'t, 'v>(x: Types.AvaloniaNode<'t>, menu: 'v) =
         Types.dependencyProperty x Control.ContextMenuProperty menu
     
+    /// BitmapInterpolationMode | ObservableValue<BitmapInterpolationMode>
     [<CustomOperation("bitmapInterpolationMode")>]
-    member _.bitmapInterpolationMode<'t>(x: Types.AvaloniaNode<'t>, mode: BitmapInterpolationMode) =
+    member _.bitmapInterpolationMode<'t, 'v>(x: Types.AvaloniaNode<'t>, mode: 'v) =
         Types.dependencyProperty x Avalonia.Media.RenderOptions.BitmapInterpolationModeProperty mode
     
+    /// Dock | ObservableValue<Dock>
     [<CustomOperation("dock")>]
-    member _.dock<'t>(x: Types.AvaloniaNode<'t>, dock: Dock) =
+    member _.dock<'t, 'v>(x: Types.AvaloniaNode<'t>, dock: 'v) =
         Types.dependencyProperty x DockPanel.DockProperty dock 
         
+    /// double | ObservableValue<double>
     [<CustomOperation("left")>] 
-    member _.left<'t>(x: Types.AvaloniaNode<'t>, value: double) =
+    member _.left<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Canvas.LeftProperty value 
         
+    /// double | ObservableValue<double>
     [<CustomOperation("top")>] 
-    member _.top<'t>(x: Types.AvaloniaNode<'t>, value: double) =
+    member _.top<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Canvas.TopProperty value 
         
+    /// double | ObservableValue<double>
     [<CustomOperation("right")>] 
-    member _.right<'t>(x: Types.AvaloniaNode<'t>, value: double) =
+    member _.right<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Canvas.RightProperty value 
-        
+    
+    /// double | ObservableValue<double>    
     [<CustomOperation("bottom")>] 
-    member _.bottom<'t>(x: Types.AvaloniaNode<'t>, value: double) =
+    member _.bottom<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Canvas.BottomProperty value 
         
+    /// int | ObservableValue<int>
     [<CustomOperation("row")>] 
-    member _.row<'t>(x: Types.AvaloniaNode<'t>, row: int) =
+    member _.row<'t, 'v>(x: Types.AvaloniaNode<'t>, row: 'v) =
         Types.dependencyProperty x Grid.RowProperty row 
         
+    /// int | ObservableValue<int>
     [<CustomOperation("rowSpan")>] 
-    member _.rowSpan<'t>(x: Types.AvaloniaNode<'t>, span: int) =
+    member _.rowSpan<'t, 'v>(x: Types.AvaloniaNode<'t>, span: 'v) =
         Types.dependencyProperty x Grid.RowSpanProperty span 
         
+    /// int | ObservableValue<int>
     [<CustomOperation("column")>] 
-    member _.column<'t>(x: Types.AvaloniaNode<'t>, column: int) =
+    member _.column<'t, 'v>(x: Types.AvaloniaNode<'t>, column: 'v) =
         Types.dependencyProperty x Grid.ColumnProperty column 
         
+    /// int | ObservableValue<int>
     [<CustomOperation("columnSpan")>] 
-    member _.columnSpan<'t>(x: Types.AvaloniaNode<'t>, span: int) =
+    member _.columnSpan<'t, 'v>(x: Types.AvaloniaNode<'t>, span: 'v) =
         Types.dependencyProperty x Grid.ColumnSpanProperty span 
         
+    /// bool | ObservableValue<bool>
     [<CustomOperation("isSharedSizeScope")>] 
-    member _.isSharedSizeScope<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+    member _.isSharedSizeScope<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Grid.IsSharedSizeScopeProperty value 
         
+    /// bool | ObservableValue<bool>
     [<CustomOperation("showAccessKey")>]
-    member _.showAccessKey<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+    member _.showAccessKey<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x AccessText.ShowAccessKeyProperty value 
         
+    /// ScrollBarVisibility | ObservableValue<ScrollBarVisibility>
     [<CustomOperation("verticalScrollBarVisibility")>]
-    member _.verticalScrollBarVisibility<'t>(x: Types.AvaloniaNode<'t>, value: ScrollBarVisibility) =
+    member _.verticalScrollBarVisibility<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ScrollViewer.VerticalScrollBarVisibilityProperty value 
 
-    /// <summary>
-    /// Sets the horizontal scrollbar visibility.
-    /// </summary>
+    /// ScrollBarVisibility | ObservableValue<ScrollBarVisibility>
     [<CustomOperation("horizontalScrollBarVisibility")>]
-    member _.horizontalScrollBarVisibility<'t>(x: Types.AvaloniaNode<'t>, value: ScrollBarVisibility) =
+    member _.horizontalScrollBarVisibility<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ScrollViewer.HorizontalScrollBarVisibilityProperty value 
 
-
-    /// <summary>
-    /// A value indicating whether the tool tip is visible.
-    /// </summary>
+    /// bool | ObservableValue<bool>
     [<CustomOperation("toolTipIsOpen")>]
-    member _.toolTipIsOpen<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+    member _.toolTipIsOpen<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ToolTip.IsOpenProperty value 
 
-    /// <summary>
-    /// The content to be displayed in the control's tooltip.
-    /// </summary>
+    /// obj | ObservableValue<obj>
     [<CustomOperation("tip")>] 
-    member _.tip<'t, 'c when 't :> Control and 'c :> obj>(x: Types.AvaloniaNode<'t>, value: 'c) =
+    member _.tip<'t, 'v when 't :> Control>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ToolTip.TipProperty value
 
-    /// <summary>
-    /// A value indicating how the tool tip is positioned.
-    /// </summary>
+    /// PlacementMode | ObservableValue<PlacementMode>
     [<CustomOperation("toolTipPlacement")>]
-    member _.toolTipPlacement<'t>(x: Types.AvaloniaNode<'t>, value: PlacementMode) =
+    member _.toolTipPlacement<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ToolTip.PlacementProperty value 
 
-    /// <summary>
-    /// A value indicating how the tool tip is positioned.
-    /// </summary>
+    /// float | ObservableValue<float>
     [<CustomOperation("toolTipHorizontalOffset")>]
-    member _.toolTipHorizontalOffset<'t>(x: Types.AvaloniaNode<'t>, value: float) =
+    member _.toolTipHorizontalOffset<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ToolTip.HorizontalOffsetProperty value 
 
-    /// <summary>
-    /// A value indicating how the tool tip is positioned.
-    /// </summary>
+    /// float | ObservableValue<float>
     [<CustomOperation("toolTipVerticalOffset")>]
-    member _.toolTipVerticalOffset<'t>(x: Types.AvaloniaNode<'t>, value: float) =
+    member _.toolTipVerticalOffset<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ToolTip.VerticalOffsetProperty value 
 
-    /// <summary>
-    /// A value indicating the time, in milliseconds, before a tool tip opens.
-    /// </summary>
+    /// int | ObservableValue<int>
     [<CustomOperation("toolTipShowDelay")>]
-    member _.toolTipShowDelay<'t>(x: Types.AvaloniaNode<'t>, value: int) =
+    member _.toolTipShowDelay<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x ToolTip.ShowDelayProperty value 
 
+    /// obj seq | ObservableValue<obj seq>
     [<CustomOperation("errors")>]
-    member _.errors<'t>(x: Types.AvaloniaNode<'t>, errors: seq<obj>) =
+    member _.errors<'t, 'v>(x: Types.AvaloniaNode<'t>, errors: 'v) =
         Types.dependencyProperty x DataValidationErrors.ErrorsProperty errors
         
+    /// bool | ObservableValue<bool>
     [<CustomOperation("hasErrors")>]
-    member _.hasErrors<'t>(x: Types.AvaloniaNode<'t>, hasErrors: bool) =
+    member _.hasErrors<'t, 'v>(x: Types.AvaloniaNode<'t>, hasErrors: 'v) =
         Types.dependencyProperty x DataValidationErrors.HasErrorsProperty hasErrors

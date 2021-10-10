@@ -20,7 +20,8 @@ type PanelBuilder<'t when 't :> Panel and 't : equality>() =
             
             panel.Children.AddRange list
             list.OnChanged.Add(Change.commit panel.Children))
-            
+    
+    /// IBrush | ObservableValue<IBrush>        
     [<CustomOperation("background")>]
-    member _.background<'t>(x: Types.AvaloniaNode<'t>, value: IBrush) =
+    member _.background<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Panel.BackgroundProperty value

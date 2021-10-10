@@ -6,23 +6,17 @@ open FUI.Avalonia.Panel
 type UniformGridBuilder<'t when 't :> UniformGrid and 't : equality>() =
     inherit PanelBuilder<'t>() 
 
-    /// <summary>
-    /// Specifies the column count. If set to 0, column count will be calculated automatically.
-    /// </summary>
+    /// int | ObservableValue<int>
     [<CustomOperation("columns")>] 
-    member _.columns<'t>(x: Types.AvaloniaNode<'t>, value: int) =
+    member _.columns<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x UniformGrid.ColumnsProperty value
 
-    /// <summary>
-    /// Specifies the row count. If set to 0, row count will be calculated automatically.
-    /// </summary>
+    /// int | ObservableValue<int>
     [<CustomOperation("rows")>] 
-    member _.rows<'t>(x: Types.AvaloniaNode<'t>, value: int) =
+    member _.rows<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x UniformGrid.RowsProperty value
-       
-    /// <summary>
-    /// Specifies, for the first row, the column where the items should start.
-    /// </summary>
+    
+    /// int | ObservableValue<int>   
     [<CustomOperation("firstColumn")>] 
-    member _.firstColumn<'t>(x: Types.AvaloniaNode<'t>, value: int) =
+    member _.firstColumn<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x UniformGrid.FirstColumnProperty value

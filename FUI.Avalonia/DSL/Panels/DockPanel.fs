@@ -6,6 +6,7 @@ open FUI.Avalonia.Panel
 type DockPanelBuilder<'t when 't :> DockPanel and 't : equality>() =
     inherit PanelBuilder<'t>()
     
+    /// bool | ObservableValue<bool>
     [<CustomOperation("lastChildFill")>]
-    member _.lastChildFill<'t>(x: Types.AvaloniaNode<'t>, fill: bool) =
+    member _.lastChildFill<'t, 'v>(x: Types.AvaloniaNode<'t>, fill: 'v) =
         Types.dependencyProperty x DockPanel.LastChildFillProperty fill

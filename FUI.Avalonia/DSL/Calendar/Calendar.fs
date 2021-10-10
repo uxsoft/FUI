@@ -8,50 +8,59 @@ open Avalonia.Controls
 type CalendarBuilder<'t when 't :> Calendar and 't : equality>() =
     inherit TemplatedControlBuilder<'t>()
 
+     /// DayOfWeek | ObservableValue<DayOfWeek>
      [<CustomOperation("firstDayOfWeek")>] 
-     member _.firstDayOfWeek<'t>(x: Types.AvaloniaNode<'t>, value: DayOfWeek) =
+     member _.firstDayOfWeek<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Calendar.FirstDayOfWeekProperty value
     
+     /// bool | ObservableValue<bool>
      [<CustomOperation("isTodayHighlighted")>] 
-     member _.isTodayHighlighted<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+     member _.isTodayHighlighted<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Calendar.IsTodayHighlightedProperty value
 
+     /// IBrush | ObservableValue<IBrush>
      [<CustomOperation("headerBackground")>] 
-     member _.headerBackground<'t>(x: Types.AvaloniaNode<'t>, value: IBrush) =
+     member _.headerBackground<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Calendar.HeaderBackgroundProperty value
 
+     /// CalendarMode | ObservableValue<CalendarMode>
      [<CustomOperation("displayMode")>] 
-     member _.displayMode<'t>(x: Types.AvaloniaNode<'t>, value: CalendarMode) =
+     member _.displayMode<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Calendar.DisplayModeProperty value
 
      [<CustomOperation("onDisplayModeChanged")>] 
-     member _.onDisplayModeChanged<'t>(x: Types.AvaloniaNode<'t>, func: CalendarMode -> unit) =
+     member _.onDisplayModeChanged<'t, 'v>(x: Types.AvaloniaNode<'t>, func: CalendarMode -> unit) =
         Types.dependencyPropertyEvent x Calendar.DisplayModeProperty func
 
+     /// CalendarSelectionMode | ObservableValue<CalendarSelectionMode>
      [<CustomOperation("selectionMode")>] 
-     member _.selectionMode<'t>(x: Types.AvaloniaNode<'t>, value: CalendarSelectionMode) =
+     member _.selectionMode<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x Calendar.SelectionModeProperty value
 
      [<CustomOperation("onSelectionModeChanged")>] 
-     member _.onSelectionModeChanged<'t>(x: Types.AvaloniaNode<'t>, func: CalendarSelectionMode  -> unit) =
+     member _.onSelectionModeChanged<'t, 'v>(x: Types.AvaloniaNode<'t>, func: CalendarSelectionMode  -> unit) =
         Types.dependencyPropertyEvent x Calendar.SelectionModeProperty func
 
+     /// Nullable DateTime | ObservableValue<Nullable DateTime>
      [<CustomOperation("selectedDate")>] 
-     member _.selectedDate<'t>(x: Types.AvaloniaNode<'t>, value: DateTime) =
-        Types.dependencyProperty x Calendar.SelectedDateProperty (Nullable value)
+     member _.selectedDate<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+        Types.dependencyProperty x Calendar.SelectedDateProperty value
 
      [<CustomOperation("onSelectedDateChanged")>] 
-     member _.onSelectedDateChanged<'t>(x: Types.AvaloniaNode<'t>, func: Nullable<DateTime> -> unit) =
+     member _.onSelectedDateChanged<'t, 'v>(x: Types.AvaloniaNode<'t>, func: Nullable<DateTime> -> unit) =
         Types.dependencyPropertyEvent x Calendar.SelectedDateProperty func
 
+     /// DateTime | ObservableValue<DateTime>
      [<CustomOperation("displayDate")>] 
-     member _.displayDate<'t>(x: Types.AvaloniaNode<'t>, value: DateTime) =
+     member _.displayDate<'t, 'v>(x: Types.AvaloniaNode<'t>, value: DateTime) =
         Types.dependencyProperty x Calendar.DisplayDateProperty value
 
+     /// DateTime | ObservableValue<DateTime>
      [<CustomOperation("displayDateStart")>] 
-     member _.displayDateStart<'t>(x: Types.AvaloniaNode<'t>, value: DateTime) =
-        Types.dependencyProperty x Calendar.DisplayDateStartProperty (Nullable value)
+     member _.displayDateStart<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+        Types.dependencyProperty x Calendar.DisplayDateStartProperty value
 
+     /// DateTime | ObservableValue<DateTime>
      [<CustomOperation("displayDateEnd")>] 
-     member _.displayDateEnd<'t>(x: Types.AvaloniaNode<'t>, value: DateTime) =
-        Types.dependencyProperty x Calendar.DisplayDateEndProperty (Nullable value)
+     member _.displayDateEnd<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+        Types.dependencyProperty x Calendar.DisplayDateEndProperty value

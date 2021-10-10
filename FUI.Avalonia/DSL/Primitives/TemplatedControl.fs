@@ -10,47 +10,57 @@ open Avalonia.Controls.Templates
 type TemplatedControlBuilder<'t when 't :> TemplatedControl and 't : equality>() =
     inherit ControlBuilder<'t>()
     
-    /// IBrush
+    /// IBrush | ObservableValue<IBrush>
     [<CustomOperation("background")>]
     member _.background<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TemplatedControl.BackgroundProperty value
 
+    /// IBrush | ObservableValue<IBrush>
     [<CustomOperation("borderBrush")>] 
-    member _.borderBrush<'t>(x: Types.AvaloniaNode<'t>, value: IBrush) =
+    member _.borderBrush<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TemplatedControl.BorderBrushProperty value
         
+    /// Thickness | ObservableValue<Thickness>
     [<CustomOperation("borderThickness")>] 
-    member _.borderThickness<'t>(x: Types.AvaloniaNode<'t>, value: Thickness) =
+    member _.borderThickness<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TemplatedControl.BorderThicknessProperty value
         
+    /// FontFamily | ObservableValue<FontFamily>
     [<CustomOperation("fontFamily")>] 
-    member _.fontFamily<'t>(x: Types.AvaloniaNode<'t>, value: FontFamily) =
+    member _.fontFamily<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TemplatedControl.FontFamilyProperty value
         
+    /// double | ObservableValue<double>
     [<CustomOperation("fontSize")>] 
-    member _.fontSize<'t>(x: Types.AvaloniaNode<'t>, value: double) =
+    member _.fontSize<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TemplatedControl.FontSizeProperty value
         
+    /// FontStyle | ObservableValue<FontStyle>
     [<CustomOperation("fontStyle")>] 
-    member _.fontStyle<'t>(x: Types.AvaloniaNode<'t>, value: FontStyle) =
+    member _.fontStyle<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TemplatedControl.FontStyleProperty value
 
+    /// FontWeight | ObservableValue<FontWeight>
     [<CustomOperation("fontWeight")>] 
-    member _.fontWeight<'t>(x: Types.AvaloniaNode<'t>, value: FontWeight) =
+    member _.fontWeight<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TemplatedControl.FontWeightProperty value
         
+    /// IBrush | ObservableValue<IBrush>
     [<CustomOperation("foreground")>] 
-    member _.foreground<'t>(x: Types.AvaloniaNode<'t>, value: IBrush) =
+    member _.foreground<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TemplatedControl.ForegroundProperty value
         
+    /// Thickness | ObservableValue<Thickness>
     [<CustomOperation("padding")>] 
-    member _.padding<'t>(x: Types.AvaloniaNode<'t>, value: Thickness) =
+    member _.padding<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TemplatedControl.PaddingProperty value
 
+    /// IControlTemplate | ObservableValue<IControlTemplate>
     [<CustomOperation("template")>] 
-    member _.template<'t>(x: Types.AvaloniaNode<'t>, value: IControlTemplate) =
+    member _.template<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TemplatedControl.TemplateProperty value
     
+    /// bool | ObservableValue<bool>
     [<CustomOperation("isTemplateFocusTarget")>] 
-    member _.isTemplateFocusTarget<'t>(x: Types.AvaloniaNode<'t>, value: bool) =
+    member _.isTemplateFocusTarget<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x TemplatedControl.IsTemplateFocusTargetProperty value

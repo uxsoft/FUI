@@ -6,16 +6,12 @@ open FUI.Avalonia.Button
 type RepeatButtonBuilder<'t when 't :> RepeatButton and 't : equality>() =
     inherit ButtonBuilder<'t>()
 
-    /// <summary>
-    /// Sets the amount of time, in milliseconds, of repeating clicks.
-    /// </summary>
+    /// int | ObservableValue<int>
     [<CustomOperation("interval")>]
-    member _.interval<'t>(x: Types.AvaloniaNode<'t>, value: int) =
+    member _.interval<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x RepeatButton.IntervalProperty value
     
-    /// <summary>
-    /// Sets the amount of time, in milliseconds, to wait before repeating begins.
-    /// </summary>
+    /// int | ObservableValue<int>
     [<CustomOperation("delay")>]
-    member _.delay<'t>(x: Types.AvaloniaNode<'t>, value: int) =
+    member _.delay<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
         Types.dependencyProperty x RepeatButton.DelayProperty value
