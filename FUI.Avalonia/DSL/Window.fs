@@ -1,8 +1,6 @@
 module FUI.Avalonia.Window
 
-open Avalonia
 open Avalonia.Controls
-open Avalonia.Platform
 open FUI.Avalonia.Patcher
 
 type WindowBuilder<'t when 't :> Window and 't : equality>() =
@@ -85,10 +83,10 @@ type WindowBuilder<'t when 't :> Window and 't : equality>() =
     member inline _.canResize(x: Types.AvaloniaNode<'t>, v: 'v) =
         Types.dependencyProperty x Window.CanResizeProperty v
 
-//    [<CustomOperation("WindowClosedEvent")>]
-//    member inline _.WindowClosedEvent(x: Types.AvaloniaNode<'t>, v: string) =
-//        Types.routedEvent x Window.WindowClosedEvent v
-//        
-//    [<CustomOperation("onWindowOpened")>]
-//    member inline _.onWindowOpened(x: Types.AvaloniaNode<'t>, v: string) =
-//        Types.routedEvent x Window.WindowOpenedEvent v
+    [<CustomOperation("onWindowClosed")>]
+    member inline _.onWindowClosed(x: Types.AvaloniaNode<'t>, handler: 'a -> unit) =
+        Types.observableEvent x Window.WindowClosedEvent.Raised (nameof Window.WindowClosedEvent) handler
+        
+    [<CustomOperation("onWindowOpened")>]
+    member inline _.onWindowOpened(x: Types.AvaloniaNode<'t>, handler: 'a -> unit) =
+        Types.observableEvent x Window.WindowOpenedEvent.Raised (nameof Window.WindowOpenedEvent) handler

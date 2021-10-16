@@ -3,7 +3,6 @@ module FUI.Avalonia.Types
 open System
 open System.Threading
 open Avalonia
-open Avalonia.Controls
 open Avalonia.Interactivity
 open FUI.UiBuilder
 
@@ -74,6 +73,19 @@ let dependencyPropertyEvent<'t, 'a when 't : equality and 't :> IAvaloniaObject>
         
     let prop = 
         { Name = dp.Name
+          Value = ()
+          Meta = RoutedEvent subscribeFunc }
+        
+    attr prop x
+    
+let observableEvent<'t, 'a when 't : equality and 't :> IAvaloniaObject> x (obs: IObservable<'a>) (name: string) (handler: 'a -> unit) =
+    let subscribeFunc (control: 't) =
+        let cts = new CancellationTokenSource()
+        obs.Subscribe(handler, cts.Token)
+        cts
+        
+    let prop = 
+        { Name = name
           Value = ()
           Meta = RoutedEvent subscribeFunc }
         
