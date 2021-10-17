@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1634468409120,
+  "lastUpdate": 1634470427837,
   "repoUrl": "https://github.com/uxsoft/FUI",
   "entries": {
     "Benchmark.Net Benchmark": [
@@ -1884,6 +1884,42 @@ window.BENCHMARK_DATA = {
             "value": 1050677.2706451616,
             "unit": "ns",
             "range": "± 47633.5629897964"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "me@uxsoft.cz",
+            "name": "Jan Dryk",
+            "username": "uxsoft"
+          },
+          "committer": {
+            "email": "me@uxsoft.cz",
+            "name": "Jan Dryk",
+            "username": "uxsoft"
+          },
+          "distinct": true,
+          "id": "eb561b316688c260f3a09f7c38c3d58fd1d865aa",
+          "message": "fix benchmarks reporting duplicate values",
+          "timestamp": "2021-10-17T13:31:27+02:00",
+          "tree_id": "39a7d3bb066cc2540ed432b948158b760b34acb1",
+          "url": "https://github.com/uxsoft/FUI/commit/eb561b316688c260f3a09f7c38c3d58fd1d865aa"
+        },
+        "date": 1634470426921,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "FUI.Benchmarks.CartesianProduct",
+            "value": 21875.521538461548,
+            "unit": "ns",
+            "range": "± 755.3162148034023"
+          },
+          {
+            "name": "FUI.Benchmarks.CounterUI",
+            "value": 1223385.2670270272,
+            "unit": "ns",
+            "range": "± 40819.06477403805"
           }
         ]
       }
