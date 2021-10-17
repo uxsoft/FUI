@@ -11,7 +11,7 @@ type ItemsControlBuilder<'t when 't :> ItemsControl and 't : equality>() =
     inherit TemplatedControlBuilder<'t>()
 
     member this.Run x =
-        this.RunWithChildren x (fun panel (children: IReadOnlyObservableCollection<obj>) ->
+        this.RunWithChildren<'t> x (fun panel (children: IReadOnlyObservableCollection<obj>) ->
             //TODO optimise by implementing INotifyCollectionChanged so that we don't have to create a copy
             let items = System.Collections.ObjectModel.ObservableCollection(children)
             panel.Items <- items
@@ -19,15 +19,15 @@ type ItemsControlBuilder<'t when 't :> ItemsControl and 't : equality>() =
         
     /// IEnumerable<obj> | ObservableValue<IEnumerable<obj>
     [<CustomOperation("items")>] 
-    member _.items<'t, 'v>(x: Types.AvaloniaNode<'t>, views: 'v) =
+    member _.items<'t, 'v>(x, views: 'v) =
         Types.dependencyProperty x ItemsControl.ItemsProperty views
         
     /// ITemplate<IPanel> | ObservableValue<ITemplate<IPanel>>
     [<CustomOperation("itemsPanel")>] 
-    member _.itemsPanel<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.itemsPanel<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x ItemsControl.ItemsPanelProperty value
         
     /// IDataTemplate | ObservableValue<IDataTemplate>
     [<CustomOperation("itemTemplate")>] 
-    member _.itemTemplate<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.itemTemplate<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x ItemsControl.ItemTemplateProperty value

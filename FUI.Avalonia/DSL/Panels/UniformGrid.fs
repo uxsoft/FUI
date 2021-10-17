@@ -8,15 +8,15 @@ type UniformGridBuilder<'t when 't :> UniformGrid and 't : equality>() =
 
     /// int | ObservableValue<int>
     [<CustomOperation("columns")>] 
-    member _.columns<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.columns<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x UniformGrid.ColumnsProperty value
 
     /// int | ObservableValue<int>
     [<CustomOperation("rows")>] 
-    member _.rows<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.rows<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x UniformGrid.RowsProperty value
     
     /// int | ObservableValue<int>   
     [<CustomOperation("firstColumn")>] 
-    member _.firstColumn<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.firstColumn<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x UniformGrid.FirstColumnProperty value

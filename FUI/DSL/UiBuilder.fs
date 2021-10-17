@@ -3,11 +3,13 @@ module FUI.UiBuilder
 open System.Collections.Generic
 open FUI.ObservableCollection
 
-type Node<'child, 'attr> =
-    { Attributes: Builder.Builder<'attr>
-      Children: Builder.Builder<'child> }
+type IAttribute = interface end
 
-type UiBuilder<'t when 't : equality>() =
+type Node =
+    { Attributes: Builder.Builder<IAttribute>
+      Children: Builder.Builder<obj> }
+
+type UiBuilder() =
     member inline _.Zero() =
         { Attributes = Builder.empty
           Children = Builder.empty }
@@ -16,35 +18,33 @@ type UiBuilder<'t when 't : equality>() =
 
     member inline x.Yield() = x.Zero()
             
-    member _.Yield(child: obj) =
+    member this.Yield(child: obj) =
         match child with
         | null ->
-            { Attributes = Builder.empty
-              Children = Builder.empty }
-        | :? Node<'child, 'attr> as element ->
+            this.Zero()
+        | :? Node as element ->
             element
-        | :? list<'child> as children ->
+        | :? list<obj> as children ->
             { Attributes = Builder.empty
               Children = Builder.init children }
-        | :? 'attr as attr ->
+        | :? ObservableCollection.IReadOnlyObservableCollection<obj> as children ->
+            { Attributes = Builder.empty
+              Children = Builder.appendObservable children Builder.empty } 
+        | :? IAttribute as attr ->
             { Attributes = Builder.init [ attr ]
               Children = Builder.empty }
-        | :? 'child as child ->
+        | _ ->
             { Attributes = Builder.empty
               Children = Builder.init [ child ] }
-        | _ ->
-            printfn $"Attempt to yield %O{child} failed"
-            { Attributes = Builder.empty
-              Children = Builder.empty }
 
-    member _.Combine(a: Node<_, _>, b: Node<_, _>) =
+    member _.Combine(a: Node, b: Node) =
         { Attributes = Builder.append a.Attributes b.Attributes
           Children = Builder.append a.Children b.Children }
 
-    member x.For(s: Node<_, _>, f) =
+    member x.For(s: Node, f) =
         x.Combine(s, f ())
         
-    member x.For(list: IReadOnlyObservableCollection<'a>, f: 'a -> Node<_, _>) =
+    member x.For(list: IReadOnlyObservableCollection<'a>, f: 'a -> Node) =
         // TODO create an optimised (unzip?) operation in Oc module and use it
         let elements = list |> Oc.map f
         let attributes =
@@ -62,10 +62,10 @@ type UiBuilder<'t when 't : equality>() =
         { Attributes = Builder.empty |> Builder.appendObservable attributes
           Children = Builder.empty |> Builder.appendObservable children }
             
-    member x.For(list: 'a seq, f: 'a -> Node<_, _>) =
+    member x.For(list: 'a seq, f: 'a -> Node) =
         let elements = Seq.map f list
         { Attributes = elements |> Seq.map (fun i -> i.Attributes) |> Builder.concat
           Children =  elements |> Seq.map (fun i -> i.Children) |> Builder.concat }
         
-let attr prop (node: Node<_, _>) =
+let attr prop (node: Node) =
     { node with Attributes = node.Attributes |> Builder.appendStatic prop }

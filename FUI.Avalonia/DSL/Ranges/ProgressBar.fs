@@ -9,15 +9,15 @@ type ProgressBarBuilder<'t when 't :> ProgressBar and 't : equality>() =
 
     /// bool | ObservableValue<bool>
     [<CustomOperation("isIndeterminate")>]
-    member _.isIndeterminate<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.isIndeterminate<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x ProgressBar.IsIndeterminateProperty, value
 
     /// Orientation | ObservableValue<Orientation>
     [<CustomOperation("orientation")>]
-    member _.orientation<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.orientation<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x ProgressBar.OrientationProperty, value
 
     /// bool | ObservableValue<bool>
     [<CustomOperation("showProgressText")>]
-    member _.showProgressText<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.showProgressText<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x ProgressBar.ShowProgressTextProperty, value

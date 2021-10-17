@@ -10,5 +10,5 @@ type PolygonBuilder<'t when 't :> Polygon and 't : equality>() =
 
     /// IList<Point> | ObservableValue<IList<Point>>
     [<CustomOperation("points")>]
-    member _.points<'t, 'v>(x: Types.AvaloniaNode<'t>, points: 'v) =
+    member _.points<'t, 'v>(x, points: 'v) =
         Types.dependencyProperty x Polygon.PointsProperty points

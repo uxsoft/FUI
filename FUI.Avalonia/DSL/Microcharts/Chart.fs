@@ -8,4 +8,4 @@ type ChartBuilder<'t when 't :> ChartView.ChartView and 't : equality>() =
     inherit ControlBuilder<'t>()
 
     member this.Run x =
-        this.RunWithChild x (fun control child -> control.Chart <- Some (unbox<Chart> child))
+        this.RunWithChild<'t> x (fun control child -> control.Chart <- Some (unbox<Chart> child))

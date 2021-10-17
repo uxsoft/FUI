@@ -9,11 +9,11 @@ type LineBuilder<'t when 't :> Line and 't : equality>() =
 
     /// Point | ObservableValue<Point>
     [<CustomOperation("startPoint")>] 
-    member _.startPoint<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.startPoint<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x Line.StartPointProperty value
         
     /// Point | ObservableValue<Point>
     [<CustomOperation("endPoint")>] 
-    member _.endPoint<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.endPoint<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x Line.EndPointProperty value
       

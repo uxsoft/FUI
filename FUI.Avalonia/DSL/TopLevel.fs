@@ -11,30 +11,30 @@ type TopLevelBuilder<'t when 't :> TopLevel and 't : equality>() =
 
     /// Size | ObservableValue<Size>
     [<CustomOperation("clientSize")>]
-    member _.clientSize(x: AvaloniaNode<'t>, v: 'v) =
+    member _.clientSize(x, v: 'v) =
         Types.dependencyProperty x TopLevel.ClientSizeProperty v
 
     /// Size | ObservableValue<Size>
     [<CustomOperation("frameSize")>]
-    member _.frameSize(x: AvaloniaNode<'t>, v: 'v) =
+    member _.frameSize(x, v: 'v) =
         Types.dependencyProperty x TopLevel.FrameSizeProperty v
   
     /// IInputElement | ObservableValue<IInputElement>
     [<CustomOperation("pointerOverElement")>]
-    member _.pointerOverElement(x: AvaloniaNode<'t>, v: 'v) =
+    member _.pointerOverElement(x, v: 'v) =
         Types.dependencyProperty x TopLevel.PointerOverElementProperty v
   
     /// WindowTransparencyLevel | ObservableValue<WindowTransparencyLevel>
     [<CustomOperation("transparencyLevelHint")>]
-    member _.transparencyLevelHint(x: AvaloniaNode<'t>, v: 'v) =
+    member _.transparencyLevelHint(x, v: 'v) =
         Types.dependencyProperty x TopLevel.TransparencyLevelHintProperty v
   
     /// WindowTransparencyLevel | ObservableValue<WindowTransparencyLevel>
     [<CustomOperation("actualTransparencyLevel")>]
-    member _.actualTransparencyLevel(x: AvaloniaNode<'t>, v: 'v) =
+    member _.actualTransparencyLevel(x, v: 'v) =
         Types.dependencyProperty x TopLevel.ActualTransparencyLevelProperty v
   
     /// IBrush | ObservableValue<IBrush>
     [<CustomOperation("transparencyBackgroundFallback")>]
-    member _.transparencyBackgroundFallback(x: AvaloniaNode<'t>, v: 'v) =
+    member _.transparencyBackgroundFallback(x, v: 'v) =
         Types.dependencyProperty x TopLevel.TransparencyBackgroundFallbackProperty v

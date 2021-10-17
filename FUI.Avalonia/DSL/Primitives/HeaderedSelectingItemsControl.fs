@@ -8,5 +8,5 @@ type HeaderedSelectingItemsControlBuilder<'t when 't :> HeaderedSelectingItemsCo
      
     /// obj | ObservableValue<obj>
     [<CustomOperation("header")>] 
-    member _.header<'t, 'c when 't :> HeaderedSelectingItemsControl and 'c :> obj>(x: Types.AvaloniaNode<'t>, value: 'c) =
+    member _.header<'t, 'c when 't :> HeaderedSelectingItemsControl and 'c :> obj>(x, value: 'c) =
         Types.dependencyProperty x HeaderedSelectingItemsControl.HeaderProperty value

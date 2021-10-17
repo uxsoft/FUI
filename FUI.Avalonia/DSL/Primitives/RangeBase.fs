@@ -8,29 +8,29 @@ type RangeBaseBuilder<'t when 't :> RangeBase and 't : equality>() =
 
     /// double | ObservableValue<double>
     [<CustomOperation("minimum")>] 
-    member _.minimum<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.minimum<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x RangeBase.MinimumProperty value
             
     /// double | ObservableValue<double>
     [<CustomOperation("maximum")>] 
-    member _.maximum<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.maximum<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x RangeBase.MaximumProperty value
         
     /// double | ObservableValue<double>
     [<CustomOperation("value")>] 
-    member _.value<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.value<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x RangeBase.ValueProperty value
 
     [<CustomOperation("onValueChanged")>] 
-    member _.onValueChanged<'t, 'v>(x: Types.AvaloniaNode<'t>, func: double -> unit) =
+    member _.onValueChanged<'t, 'v>(x, func: double -> unit) =
         Types.dependencyPropertyEvent x RangeBase.ValueProperty func
 
     /// double | ObservableValue<double>
     [<CustomOperation("smallChange")>] 
-    member _.smallChange<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.smallChange<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x RangeBase.SmallChangeProperty value
         
     /// double | ObservableValue<double>
     [<CustomOperation("largeChange")>] 
-    member _.largeChange<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.largeChange<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x RangeBase.LargeChangeProperty value

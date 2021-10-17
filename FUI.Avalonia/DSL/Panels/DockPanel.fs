@@ -8,5 +8,5 @@ type DockPanelBuilder<'t when 't :> DockPanel and 't : equality>() =
     
     /// bool | ObservableValue<bool>
     [<CustomOperation("lastChildFill")>]
-    member _.lastChildFill<'t, 'v>(x: Types.AvaloniaNode<'t>, fill: 'v) =
+    member _.lastChildFill<'t, 'v>(x, fill: 'v) =
         Types.dependencyProperty x DockPanel.LastChildFillProperty fill

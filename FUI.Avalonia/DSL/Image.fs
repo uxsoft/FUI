@@ -10,10 +10,10 @@ type ImageBuilder<'t when 't :> Image and 't : equality>() =
     
     /// IBitmap | ObservableValue<IBitmap>
     [<CustomOperation("source")>]
-    member _.source<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.source<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x Image.SourceProperty value
         
     /// Stretch | ObservableValue<Stretch>
     [<CustomOperation("stretch")>]
-    member _.stretch<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.stretch<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x Image.StretchProperty value

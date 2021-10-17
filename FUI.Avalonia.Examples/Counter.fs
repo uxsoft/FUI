@@ -7,6 +7,7 @@ open FUI.ObservableValue
 open FUI.ObservableCollection
 open FUI.Avalonia.DSL
 open FUI.IfBuilder
+open FUI.FragmentBuilder
 
 type Model =
     { Counter: int var
@@ -20,9 +21,11 @@ let init () =
     
 let view (model: Model) =
     StackPanel {
-        Label {
-            let txt = (model.Counter |> Ov.map string)
-            txt
+        Fragment {
+            Label {
+                let txt = (model.Counter |> Ov.map string)
+                txt
+            }
         }
         Button {
             onClick (fun _ ->

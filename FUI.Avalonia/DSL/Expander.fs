@@ -9,19 +9,19 @@ type ExpanderBuilder<'t when 't :> Expander and 't : equality>() =
 
     /// IPageTransition | ObservableValue<IPageTransition>
     [<CustomOperation("contentTransition")>]
-    member _.contentTransition<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.contentTransition<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x Expander.ContentTransitionProperty value
 
     /// ExpandDirection | ObservableValue<ExpandDirection>
     [<CustomOperation("expandDirection")>]
-    member _.expandDirection<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.expandDirection<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x Expander.ExpandDirectionProperty value
 
     /// bool | ObservableValue<bool>
     [<CustomOperation("isExpanded")>]
-    member _.isExpanded<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.isExpanded<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x Expander.IsExpandedProperty value
 
     [<CustomOperation("onIsExpandedChanged")>]
-    member _.onIsExpandedChanged<'t, 'v>(x: Types.AvaloniaNode<'t>, func: bool -> unit) =
+    member _.onIsExpandedChanged<'t, 'v>(x, func: bool -> unit) =
         Types.dependencyPropertyEvent x Expander.IsExpandedProperty func

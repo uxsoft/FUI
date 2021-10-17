@@ -5,10 +5,10 @@ open FUI.ObservableCollection
 open FUI.UiBuilder
 open FUI.ObservableValue
 
-type IfBuilder<'t when 't : equality>(q: IObservableValue<bool>) =
-    inherit UiBuilder<'t>()
+type IfBuilder(q: IObservableValue<bool>) =
+    inherit UiBuilder()
     
-    member _.Run (x: Node<_, _>) =
+    member _.Run (x: Node) =
         let sourceAttributes = x.Attributes |> Builder.build
         let sourceChildren = x.Children |> Builder.build
         
@@ -18,7 +18,7 @@ type IfBuilder<'t when 't : equality>(q: IObservableValue<bool>) =
         let refreshAttributes() =
             ifAttributes.Set 0 (
                 if q.Value then sourceAttributes
-                else Oc.empty :> IReadOnlyObservableCollection<KeyValuePair<string,obj>>)
+                else Oc.empty :> IReadOnlyObservableCollection<IAttribute>)
             
         let refreshChildren() =
             ifChildren.Set 0 (

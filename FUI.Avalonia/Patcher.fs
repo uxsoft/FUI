@@ -62,21 +62,31 @@ let removeRoutedEvent control name value (meta: 't -> CancellationTokenSource) =
         let _, cts = subscriptions.Remove key
         cts.Cancel()
 
-let addAttribute control (attribute: Attribute<_>) =
-    match attribute.Meta with
-    | Property meta -> addProperty control attribute.Name attribute.Value meta
-    | DependencyProperty meta -> addDependencyProperty control attribute.Name attribute.Value meta
-    | RoutedEvent meta -> addRoutedEvent control attribute.Name attribute.Value meta
+let addAttribute<'t when 't : equality> (control: 't) (attribute: IAttribute) =
+    match attribute with
+    | :? Attribute<_> as attribute -> 
+        match attribute.Meta with
+        | Property meta -> addProperty control attribute.Name attribute.Value meta
+        | DependencyProperty meta -> addDependencyProperty control attribute.Name attribute.Value meta
+        | RoutedEvent meta -> addRoutedEvent control attribute.Name attribute.Value meta
+    | _ ->
+        printfn "failed to cast attribute"
+        ()
     
-let removeAttribute control attribute =
-    match attribute.Meta with
-    | Property meta -> removeProperty control attribute.Name attribute.Value meta
-    | DependencyProperty meta -> removeDependencyProperty control attribute.Name attribute.Value meta
-    | RoutedEvent meta -> removeRoutedEvent control attribute.Name attribute.Value meta
+let removeAttribute<'t when 't : equality> (control: 't) (attribute: IAttribute) =
+    match attribute with
+    | :? Attribute<'t> as attribute -> 
+        match attribute.Meta with
+        | Property meta -> removeProperty control attribute.Name attribute.Value meta
+        | DependencyProperty meta -> removeDependencyProperty control attribute.Name attribute.Value meta
+        | RoutedEvent meta -> removeRoutedEvent control attribute.Name attribute.Value meta
+    | _ ->
+        printfn "failed to cast attribute"
+        ()
 
 // DSL Avalonia Platform
-type UiBuilder<'t when 't : equality> with
-    member _.RunWithChildren (x: AvaloniaNode<'t>) (setChildren: 't -> IReadOnlyObservableCollection<obj> -> unit) =
+type UiBuilder with
+    member _.RunWithChildren<'t when 't : equality> (x: AvaloniaNode) (setChildren: 't -> IReadOnlyObservableCollection<obj> -> unit) =
         try
             let control = Activator.CreateInstance<'t>()
 
@@ -93,7 +103,7 @@ type UiBuilder<'t when 't : equality> with
             printfn $"{e}"
             reraise()
             
-    member this.RunWithChild (x: AvaloniaNode<'t>) (setChild: 't -> obj -> unit) =
+    member this.RunWithChild<'t when 't : equality> (x: AvaloniaNode) (setChild: 't -> obj -> unit) =
         let setChild (control: 't) (children: IReadOnlyObservableCollection<obj>) =
             //TODO Oc.head 
             let set () = 
@@ -108,7 +118,7 @@ type UiBuilder<'t when 't : equality> with
             set()
             children.OnChanged.Add (fun _ -> set())
             
-        this.RunWithChildren x setChild
+        this.RunWithChildren<'t> x setChild
         
-    member this.RunChildless (x: AvaloniaNode<'t>) =
-        this.RunWithChildren x (fun _ _ -> ())
+    member this.RunChildless<'t when 't : equality> (x: AvaloniaNode) =
+        this.RunWithChildren<'t> x (fun _ _ -> ())

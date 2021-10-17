@@ -10,10 +10,10 @@ type StackPanelBuilder<'t when 't :> StackPanel and 't : equality>() =
     
     /// double | ObservableValue<double>
     [<CustomOperation("spacing")>] 
-    member _.spacing<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.spacing<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x StackPanel.SpacingProperty value
     
     /// Orientation | ObservableValue<Orientation>
     [<CustomOperation("orientation")>] 
-    member _.orientation<'t, 'v>(x: Types.AvaloniaNode<'t>, orientation: 'v) =
+    member _.orientation<'t, 'v>(x, orientation: 'v) =
         Types.dependencyProperty x StackPanel.OrientationProperty orientation
