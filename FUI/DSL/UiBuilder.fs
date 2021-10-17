@@ -15,9 +15,10 @@ type UiBuilder() =
           Children = Builder.empty }
         
     member inline _.Delay(f) = f ()
-
+    
     member inline x.Yield() = x.Zero()
             
+    //TODO Unit test Yield
     member this.Yield(child: obj) =
         match child with
         | null ->
@@ -27,7 +28,7 @@ type UiBuilder() =
         | :? list<obj> as children ->
             { Attributes = Builder.empty
               Children = Builder.init children }
-        | :? ObservableCollection.IReadOnlyObservableCollection<obj> as children ->
+        | :? IReadOnlyObservableCollection<obj> as children ->
             { Attributes = Builder.empty
               Children = Builder.appendObservable children Builder.empty } 
         | :? IAttribute as attr ->
