@@ -2,6 +2,7 @@ module FUI.UiBuilder
 
 open System.Collections.Generic
 open FUI.ObservableCollection
+open FUI.ObservableValue
 
 type IAttribute = interface end
 
@@ -62,6 +63,9 @@ type UiBuilder() =
             
         { Attributes = Builder.empty |> Builder.appendObservable attributes
           Children = Builder.empty |> Builder.appendObservable children }
+        
+    member x.For(var: IObservableValue<'a>, f: 'a -> Node) =
+        x.For(var |> Ov.toObservableCollection, f)
             
     member x.For(list: 'a seq, f: 'a -> Node) =
         let elements = Seq.map f list

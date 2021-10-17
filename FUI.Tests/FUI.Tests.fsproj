@@ -7,13 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="EventsTests.fs" />
-        <Compile Include="ObservableValueTests.fs" />
-        <Compile Include="CollectionChangeTests.fs" />
-        <Compile Include="ObservableCollectionTests.fs" />
-        <Compile Include="CompositeObservableCollectionTest.fs" />
-        <Compile Include="BuilderTests.fs" />
-        <Compile Include="TransferModel.fs" />
+        <Compile Include="Avalonia\StackPanel.fs" />
+        <Compile Include="Core\EventsTests.fs" />
+        <Compile Include="Core\ObservableValueTests.fs" />
+        <Compile Include="Core\CollectionChangeTests.fs" />
+        <Compile Include="Core\ObservableCollectionTests.fs" />
+        <Compile Include="Core\CompositeObservableCollectionTest.fs" />
+        <Compile Include="Core\BuilderTests.fs" />
+        <Compile Include="Core\TransferModel.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 
@@ -35,6 +36,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\FUI.Avalonia\FUI.Avalonia.fsproj" />
       <ProjectReference Include="..\FUI\FUI.fsproj" />
     </ItemGroup>
 

@@ -54,7 +54,7 @@ let watchCode (assemblyPath: string) =
                 FileName = "dotnet",
                 Arguments = $"watch msbuild /p:BaseOutputPath={hotDir}",
                 UseShellExecute = true,
-                CreateNoWindow = true,
+                CreateNoWindow = true,   
                 RedirectStandardOutput = false,
                 RedirectStandardError = false,
                 WorkingDirectory = projDir))
@@ -101,6 +101,7 @@ let reload (current: IHotReloadable) (scheduler: IScheduler) (hotFile: string, e
     let disposable =
         event 
             .ObserveOn(scheduler)
+            .Throttle(TimeSpan.FromSeconds(0.1))
             .Select(fun e -> hydrate hotFile)
             .Subscribe(fun hydrated -> hydrated.Accept current)
         

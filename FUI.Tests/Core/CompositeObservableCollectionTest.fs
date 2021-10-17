@@ -3,7 +3,6 @@ module FUI.Tests.CompositeObservableCollectionTest
 open FUI
 open FUI.ObservableCollection
 open Xunit
-open Xunit
 
 [<Fact>]
 let ``Oc.append`` () =

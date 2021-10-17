@@ -1,12 +1,8 @@
 module FUI.Avalonia.ContentPresenter
 
-open Avalonia
-open Avalonia.Controls.Templates
 open FUI.Avalonia.Patcher
 open FUI.Avalonia.Control
-open Avalonia.Layout    
 open Avalonia.Controls.Presenters
-open Avalonia.Media
 
 type ContentPresenterBuilder<'t when 't :> ContentPresenter and 't : equality>() =
     inherit ControlBuilder<'t>()

@@ -3,12 +3,14 @@ module FUI.Avalonia.Control
 open Avalonia.Controls
 open Avalonia.Controls.Primitives
 open FUI.Avalonia.InputElement
-open FUI.UiBuilder
+open FUI.Avalonia.Patcher
 open FUI.Avalonia
-open Avalonia.Visuals.Media.Imaging
 
 type ControlBuilder<'t when 't :> Control and 't : equality>() =
     inherit InputElementBuilder<'t>()
+    
+    member this.Run x =
+        this.RunChildless<'t> x
     
     /// ITemplate<IControl> | ObservableValue<ITemplate<IControl>>
     [<CustomOperation("focusAdorner")>] 
