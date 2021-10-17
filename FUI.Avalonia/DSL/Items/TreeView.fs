@@ -9,20 +9,20 @@
 
         /// bool | ObservableValue<bool>
         [<CustomOperation("autoScrollToSelectedItem")>] 
-        member _.autoScrollToSelectedItem<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+        member _.autoScrollToSelectedItem<'t, 'v>(x, value: 'v) =
             Types.dependencyProperty x TreeView.AutoScrollToSelectedItemProperty value
         
         /// obj | ObservableValue<obj>
         [<CustomOperation("selectedItem")>] 
-        member _.selectedItem<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+        member _.selectedItem<'t, 'v>(x, value: 'v) =
             Types.dependencyProperty x TreeView.SelectedItemProperty value
 
         /// IList | ObservableValue<IList>         
         [<CustomOperation("selectedItems")>] 
-        member _.selectedItems<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+        member _.selectedItems<'t, 'v>(x, value: 'v) =
             Types.dependencyProperty x TreeView.SelectedItemsProperty value
 
         /// SelectionMode | ObservableValue<SelectionMode>
         [<CustomOperation("selectionMode")>] 
-        member _.selectionMode<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+        member _.selectionMode<'t, 'v>(x, value: 'v) =
             Types.dependencyProperty x TreeView.SelectionModeProperty value

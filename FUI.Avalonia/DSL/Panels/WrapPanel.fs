@@ -9,15 +9,15 @@ type WrapPanelBuilder<'t when 't :> WrapPanel and 't : equality>() =
     
     /// float | ObservableValue<float>
     [<CustomOperation("itemHeight")>] 
-    member _.itemHeight<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.itemHeight<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x WrapPanel.ItemHeightProperty value
 
     /// float | ObservableValue<float>
     [<CustomOperation("itemWidth")>] 
-    member _.itemWidth<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.itemWidth<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x WrapPanel.ItemWidthProperty value
        
     /// Orientation | ObservableValue<Orientation>
     [<CustomOperation("orientation")>] 
-    member _.orientation<'t, 'v>(x: Types.AvaloniaNode<'t>, orientation: 'v) =
+    member _.orientation<'t, 'v>(x, orientation: 'v) =
         Types.dependencyProperty x WrapPanel.OrientationProperty orientation

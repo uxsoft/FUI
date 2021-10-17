@@ -8,10 +8,10 @@ type RepeatButtonBuilder<'t when 't :> RepeatButton and 't : equality>() =
 
     /// int | ObservableValue<int>
     [<CustomOperation("interval")>]
-    member _.interval<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.interval<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x RepeatButton.IntervalProperty value
     
     /// int | ObservableValue<int>
     [<CustomOperation("delay")>]
-    member _.delay<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.delay<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x RepeatButton.DelayProperty value

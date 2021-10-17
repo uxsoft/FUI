@@ -10,10 +10,10 @@ type HeaderedContentControlBuilder<'t when 't :> HeaderedContentControl and 't :
         
     /// obj | ObservableValue<obj>
     [<CustomOperation("header")>] 
-    member _.header<'t, 'v when 't :> HeaderedContentControl>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.header<'t, 'v when 't :> HeaderedContentControl>(x, value: 'v) =
         Types.dependencyProperty x HeaderedContentControl.HeaderProperty value
         
     /// IDataTemplate | ObservableValue<IDataTemplate>
     [<CustomOperation("headerTemplate")>] 
-    member _.headerTemplate<'t, 'v when 't :> HeaderedContentControl>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.headerTemplate<'t, 'v when 't :> HeaderedContentControl>(x, value: 'v) =
         Types.dependencyProperty x HeaderedContentControl.HeaderTemplateProperty value

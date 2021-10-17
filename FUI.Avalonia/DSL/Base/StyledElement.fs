@@ -11,22 +11,22 @@ type StyledElementBuilder<'t when 't :> StyledElement and 't : equality>() =
     
     /// obj
     [<CustomOperation("dataContext")>]
-    member _.dataContext<'t, 'v>(x: Types.AvaloniaNode<'t>, dataContext: 'v) =
+    member _.dataContext<'t, 'v>(x, dataContext: 'v) =
         Types.dependencyProperty x StyledElement.DataContextProperty dataContext
         
     /// string | ObservableValue<string>
     [<CustomOperation("name")>]
-    member _.name<'t, 'v>(x: Types.AvaloniaNode<'t>, name: 'v) =
+    member _.name<'t, 'v>(x, name: 'v) =
         Types.dependencyProperty x StyledElement.NameProperty name
     
     /// ITemplatedControl | ObservableValue<ITemplatedControl>
     [<CustomOperation("templatedParent")>]
-    member _.templatedParent<'t, 'v>(x: Types.AvaloniaNode<'t>, template: 'v) =
+    member _.templatedParent<'t, 'v>(x, template: 'v) =
         Types.dependencyProperty x StyledElement.TemplatedParentProperty template
 
     /// string list
     [<CustomOperation("classes")>]
-    member _.classes<'t>(x: Types.AvaloniaNode<'t>, value: string list) =
+    member _.classes<'t>(x, value: string list) =
         let getter : ('t -> obj) = (fun control -> box control.Classes)
         let setter : ('t * obj -> unit) = (fun (control, value) -> control.Classes <- (unbox<Classes> value))
         
@@ -35,7 +35,7 @@ type StyledElementBuilder<'t when 't :> StyledElement and 't : equality>() =
     /// Use `classes` instead when possible.
     /// Styles | ObservableValue<Styles>
     [<CustomOperation("styles")>]
-    member _.styles<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.styles<'t, 'v>(x, value: 'v) =
         let getter : ('t -> obj) = (fun control -> box control.Styles)
         let setter : ('t * obj -> unit) = 
             (fun (control, value) -> 
@@ -46,7 +46,7 @@ type StyledElementBuilder<'t when 't :> StyledElement and 't : equality>() =
 
     /// IResourceDictionary | ObservableValue<IResourceDictionary>
     [<CustomOperation("resources")>]
-    member _.resources<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.resources<'t, 'v>(x, value: 'v) =
         let getter : ('t -> obj) = (fun control -> box control.Resources)
         let setter : ('t * obj -> unit) = (fun (control, value) -> control.Resources <- unbox<IResourceDictionary> value)
         let factory = fun () -> ResourceDictionary() |> box

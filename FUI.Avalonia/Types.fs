@@ -28,9 +28,11 @@ type Attribute<'t when 't : equality> =
     override this.GetHashCode () =
         this.Name.GetHashCode()
     
-type AvaloniaNode<'t when 't : equality> = Node<obj, Attribute<'t>>
+    interface IAttribute 
     
-let dependencyProperty (x: AvaloniaNode<'t>) (dp: Avalonia.AvaloniaProperty) v =
+type AvaloniaNode = Node
+    
+let dependencyProperty (x: AvaloniaNode) (dp: Avalonia.AvaloniaProperty) v =
     let prop = 
         { Name = dp.Name
           Value = v
@@ -38,7 +40,7 @@ let dependencyProperty (x: AvaloniaNode<'t>) (dp: Avalonia.AvaloniaProperty) v =
     
     attr prop x
    
-let property (x: AvaloniaNode<'t>) (name: string) (value: obj) (getter: 't -> obj) (setter: 't * obj -> unit) (factory: unit -> obj) =
+let property (x: AvaloniaNode) (name: string) (value: obj) (getter: 't -> obj) (setter: 't * obj -> unit) (factory: unit -> obj) =
     let prop = 
         { Name = name
           Value = value
@@ -48,7 +50,7 @@ let property (x: AvaloniaNode<'t>) (name: string) (value: obj) (getter: 't -> ob
                 DefaultValueFactory = factory } }
     attr prop x
 
-let routedEvent<'t, 'e when 't : equality and 't :> IInteractive and 'e :> RoutedEventArgs> (x: AvaloniaNode<'t>) (routedEvent: RoutedEvent<'e>) (handler: 'e -> unit) =
+let routedEvent<'t, 'e when 't : equality and 't :> IInteractive and 'e :> RoutedEventArgs> (x: AvaloniaNode) (routedEvent: RoutedEvent<'e>) (handler: 'e -> unit) =
     let subscribeFunc (control: 't) =
         let cts = new CancellationTokenSource()
         control
@@ -63,7 +65,7 @@ let routedEvent<'t, 'e when 't : equality and 't :> IInteractive and 'e :> Route
         
     attr prop x
     
-let dependencyPropertyEvent<'t, 'a when 't : equality and 't :> IAvaloniaObject> (x: AvaloniaNode<'t>) (dp: AvaloniaProperty<'a>) (handler: 'a -> unit) =
+let dependencyPropertyEvent<'t, 'a when 't : equality and 't :> IAvaloniaObject> (x: AvaloniaNode) (dp: AvaloniaProperty<'a>) (handler: 'a -> unit) =
     let subscribeFunc (control: 't) =
         let cts = new CancellationTokenSource()
         control

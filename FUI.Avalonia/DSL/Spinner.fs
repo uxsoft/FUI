@@ -8,9 +8,9 @@ type SpinnerBuilder<'t when 't :> Spinner and 't : equality>() =
     
     /// ValidSpinDirections | ObservableValue<ValidSpinDirections>
     [<CustomOperation("validSpinDirection")>] 
-    member _.validSpinDirection<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.validSpinDirection<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x Spinner.ValidSpinDirectionProperty value
     
     [<CustomOperation("onSpin")>] 
-    member _.onSpin<'t, 'v>(x: Types.AvaloniaNode<'t>, func: SpinEventArgs -> unit) =
+    member _.onSpin<'t, 'v>(x, func: SpinEventArgs -> unit) =
         Types.routedEvent x Spinner.SpinEvent func

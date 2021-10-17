@@ -9,21 +9,21 @@ type ToggleSwitchBuilder<'t when 't :> ToggleSwitch and 't : equality>() =
     
     /// obj | ObservableValue<obj>
     [<CustomOperation("onContent")>] 
-    member _.onContent<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.onContent<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x ToggleSwitch.OnContentProperty value
     
     /// IDataTemplate | ObservableValue<IDataTemplate>
     [<CustomOperation("onContentTemplate")>] 
-    member _.onContentTemplate<'t, 'v>(x: Types.AvaloniaNode<'t>, template: 'v) =
+    member _.onContentTemplate<'t, 'v>(x, template: 'v) =
         Types.dependencyProperty x ToggleSwitch.OnContentTemplateProperty template
     
     /// obj | ObservableValue<obj>
     [<CustomOperation("offContent")>] 
-    member _.offContent<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.offContent<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x ToggleSwitch.OffContentProperty value
 
     /// IDataTemplate | ObservableValue<IDataTemplate>
     [<CustomOperation("offContentTemplate")>] 
-    member _.offContentTemplate<'t, 'v>(x: Types.AvaloniaNode<'t>, template: 'v) =
+    member _.offContentTemplate<'t, 'v>(x, template: 'v) =
         Types.dependencyProperty x ToggleSwitch.OffContentTemplateProperty template
         

@@ -7,13 +7,13 @@ type TreeViewItemBuilder<'t when 't :> TreeViewItem and 't : equality>() =
     inherit HeaderedItemsControlBuilder<'t>()
 
     /// bool | ObservableValue<bool>
-    member _.isExpanded<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.isExpanded<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x TreeViewItem.IsExpandedProperty value
 
     /// bool | ObservableValue<bool>    
-    member _.isSelected<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.isSelected<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x TreeViewItem.IsSelectedProperty value
      
     /// int | ObservableValue<int>
-    member _.level<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.level<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x TreeViewItem.LevelProperty value

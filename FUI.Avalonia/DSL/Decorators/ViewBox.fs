@@ -9,5 +9,5 @@ type ViewBoxBuilder<'t when 't :> Viewbox and 't : equality>() =
 
     /// Stretch | ObservableValue<Stretch>
     [<CustomOperation("stretch")>]
-    member _.stretch<'t, 'v>(x: Types.AvaloniaNode<'t>, value: 'v) =
+    member _.stretch<'t, 'v>(x, value: 'v) =
         Types.dependencyProperty x Viewbox.StretchProperty value

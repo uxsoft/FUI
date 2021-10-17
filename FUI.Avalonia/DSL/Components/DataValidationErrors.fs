@@ -9,5 +9,5 @@ type DataValidationErrorsBuilder<'t when 't :> DataValidationErrors and 't : equ
     
     /// IDataTemplate | ObservableValue<IDataTemplate>
     [<CustomOperation("errorTemplate")>]
-    member _.errorTemplate<'t, 'v>(x: AvaloniaNode<'t>, template: 'v) =
+    member _.errorTemplate<'t, 'v>(x, template: 'v) =
         Types.dependencyProperty x DataValidationErrors.ErrorTemplateProperty template

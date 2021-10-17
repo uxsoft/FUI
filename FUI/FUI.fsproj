@@ -22,6 +22,7 @@
       <Compile Include="Observables\Builder.fs" />
       <Compile Include="DSL\UiBuilder.fs" />
       <Compile Include="DSL\IfBuilder.fs" />
+      <Compile Include="DSL\FragmentBuilder.fs" />
       <Compile Include="HotReload\Json.fs" />
       <Compile Include="HotReload\HotReload.fs" />
     </ItemGroup>

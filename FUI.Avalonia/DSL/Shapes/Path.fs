@@ -10,5 +10,5 @@ type PathBuilder<'t when 't :> Path and 't : equality>() =
     
     /// Geometry | ObservableValue<Geometry>
     [<CustomOperation("data")>]
-    member _.data<'t, 'v>(x: Types.AvaloniaNode<'t>, geometry: 'v) =
+    member _.data<'t, 'v>(x, geometry: 'v) =
         Types.dependencyProperty x Path.DataProperty geometry
