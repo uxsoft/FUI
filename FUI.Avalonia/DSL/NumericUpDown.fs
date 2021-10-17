@@ -26,18 +26,17 @@ type NumericUpDownBuilder<'t when 't :> NumericUpDown and 't : equality>() =
     /// bool | ObservableValue<bool>
     [<CustomOperation("clipValueToMinMax")>]
     member _.clipValueToMinMax<'t, 'v>(x, value: 'v) =
-        let getter : ('t -> obj) = (fun control -> box control.ClipValueToMinMax)
         let setter : ('t * obj -> unit) = (fun (control, value) -> control.ClipValueToMinMax <- unbox<bool> value)
-
-        Types.property x "ClipValueToMinMax" value getter setter (fun () -> box false)
+        let factory() = box false
+        Types.property x "ClipValueToMinMax" value setter factory
 
     /// CultureInfo | ObservableValue<CultureInfo>
     [<CustomOperation("cultureInfo")>]
     member _.cultureInfo<'t, 'v>(x, value: 'v) =
         let getter : ('t -> obj) = (fun control -> box control.CultureInfo)
         let setter : ('t * obj -> unit) = (fun (control, value) -> control.CultureInfo <- unbox<CultureInfo> value)
-
-        Types.property x "CultureInfo" value getter setter (fun () -> box CultureInfo.CurrentCulture)
+        let factory() = box CultureInfo.CurrentCulture
+        Types.property x "CultureInfo" value setter factory
 
     /// string | ObservableValue<string>
     [<CustomOperation("formatString")>]
@@ -67,18 +66,16 @@ type NumericUpDownBuilder<'t when 't :> NumericUpDown and 't : equality>() =
     /// NumberStyles | ObservableValue<NumberStyles>
     [<CustomOperation("parsingNumberStyle")>]
     member _.parsingNumberStyle<'t, 'v>(x, value: 'v) =
-        let getter : ('t -> obj) = (fun control -> box control.ParsingNumberStyle)
         let setter : ('t * obj -> unit) = (fun (control, value) -> control.ParsingNumberStyle <- unbox<NumberStyles> value)
-
-        Types.property x "ParsingNumberStyle" value getter setter (fun () -> box NumberStyles.Any)
+        let factory() = box NumberStyles.Any
+        Types.property x "ParsingNumberStyle" value setter factory
 
     /// string | ObservableValue<string>
     [<CustomOperation("text")>]
     member _.text<'t, 'v>(x, value: 'v) =
-        let getter : ('t -> obj) = (fun control -> box control.Text)
         let setter : ('t * obj -> unit) = (fun (control, value) -> control.Text <- unbox<string> value)
-
-        Types.property x "Text" value getter setter (fun () -> box "")
+        let factory() = box ""
+        Types.property x "Text" value setter factory
 
     [<CustomOperation("onTextChanged")>]
     member _.onTextChanged<'t, 'v>(x, func: string -> unit) =
@@ -87,10 +84,9 @@ type NumericUpDownBuilder<'t when 't :> NumericUpDown and 't : equality>() =
     /// double | ObservableValue<double>
     [<CustomOperation("value")>]
     member _.value<'t, 'v>(x, value: 'v) =
-        let getter : ('t -> obj) = (fun control -> box control.Value)
         let setter : ('t * obj -> unit) = (fun (control, value) -> control.Value <- unbox<double> value)
-
-        Types.property x "Value" value getter setter
+        let factory() = box 0.
+        Types.property x "Value" value setter factory
 
     [<CustomOperation("onValueChanged")>]
     member _.onValueChanged<'t, 'v>(x, func: double -> unit) =

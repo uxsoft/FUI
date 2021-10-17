@@ -14,14 +14,12 @@ type GridBuilder<'t when 't :> Grid and 't : equality>() =
 
     [<CustomOperation("columnDefinitions")>] 
     member _.columnDefinitions<'t, 'v>(x, value: string) =
-        let getter : 't -> obj = fun view -> box view.ColumnDefinitions
         let setter : 't * obj -> unit = fun (view, value) -> view.ColumnDefinitions <- unbox<ColumnDefinitions> value
-        
-        Types.property x "ColumnDefinitions" (ColumnDefinitions.Parse value) getter setter (fun () -> ColumnDefinitions() :> obj)
+        let factory() = ColumnDefinitions() |> box
+        Types.property x "ColumnDefinitions" (ColumnDefinitions.Parse value) setter factory
 
     [<CustomOperation("rowDefinitions")>] 
     member _.rowDefinitions<'t, 'v>(x, value: string) =
-        let getter : 't -> obj = fun view -> box view.RowDefinitions
         let setter : 't * obj -> unit = fun (view, value) -> view.RowDefinitions <- unbox<RowDefinitions> value
-        
-        Types.property x "ColumnDefinitions" (RowDefinitions.Parse value) getter setter (fun () -> RowDefinitions() :> obj)
+        let factory() = RowDefinitions() |> box
+        Types.property x "ColumnDefinitions" (RowDefinitions.Parse value) setter factory

@@ -4,23 +4,17 @@ open System
 open System.Threading
 open Avalonia
 open Avalonia.Interactivity
+open FUI
+open FUI.ObservableValue
 open FUI.UiBuilder
-
-type PropertyMeta<'t when 't : equality> =
-    { Getter: 't -> obj
-      Setter: 't * obj -> unit
-      DefaultValueFactory: unit -> obj }
-
-type AttributeMeta<'t when 't : equality> =
-    | Property of PropertyMeta<'t>
-    | DependencyProperty of Avalonia.AvaloniaProperty
-    | RoutedEvent of ('t -> CancellationTokenSource)
-
+    
 [<CustomEquality; NoComparison>]
-type Attribute<'t when 't : equality> =
+type Attribute =
     { Name: string
-      Value: obj
-      Meta: AttributeMeta<'t> }
+      Set: obj -> unit
+      Clear: obj -> unit }
+    
+    interface IAttribute
     
     override this.Equals (other: obj) : bool =
         this.Name.Equals other
@@ -28,67 +22,91 @@ type Attribute<'t when 't : equality> =
     override this.GetHashCode () =
         this.Name.GetHashCode()
     
-    interface IAttribute 
+let dependencyProperty (x: Node) (dp: AvaloniaProperty) v =
+    let set (o: obj) =
+        match box v with
+        | :? IObservableValue as ov ->
+            ov |> Ov.iter' (fun v -> (o :?> AvaloniaObject).SetValue(dp, v))
+        | _ -> (o :?> AvaloniaObject).SetValue(dp, v)
+        
+    let clear (o: obj) =
+        (o :?> AvaloniaObject).ClearValue(dp)
     
-type AvaloniaNode = Node
-    
-let dependencyProperty (x: AvaloniaNode) (dp: Avalonia.AvaloniaProperty) v =
     let prop = 
         { Name = dp.Name
-          Value = v
-          Meta = DependencyProperty dp }
+          Set = set
+          Clear = clear }
     
     attr prop x
    
-let property (x: AvaloniaNode) (name: string) (value: obj) (getter: 't -> obj) (setter: 't * obj -> unit) (factory: unit -> obj) =
+let property (x: Node) (name: string) (value: obj) (setter: 't * obj -> unit) (factory: unit -> obj) =
+    let set (o: obj) =
+        match box value with
+        | :? IObservableValue as ov ->
+            ov |> Ov.iter' (fun v -> setter ((o :?> 't), v))
+        | _ ->  setter ((o :?> 't), value)
+        
+    let clear (o: obj) =
+        setter ((o :?> 't), factory())
+    
     let prop = 
         { Name = name
-          Value = value
-          Meta = Property
-              { Getter = getter
-                Setter = setter
-                DefaultValueFactory = factory } }
+          Set = set
+          Clear = clear }
+    
     attr prop x
 
-let routedEvent<'t, 'e when 't : equality and 't :> IInteractive and 'e :> RoutedEventArgs> (x: AvaloniaNode) (routedEvent: RoutedEvent<'e>) (handler: 'e -> unit) =
-    let subscribeFunc (control: 't) =
-        let cts = new CancellationTokenSource()
-        control
+let routedEvent<'t, 'e when 't : equality and 't :> IInteractive and 'e :> RoutedEventArgs> (x: Node) (routedEvent: RoutedEvent<'e>) (handler: 'e -> unit) =
+    let mutable cts = new CancellationTokenSource()
+        
+    let set (o: obj) =
+        (o :?> IInteractive)
             .GetObservable(routedEvent)
             .Subscribe(handler, cts.Token)
-        cts
         
+    let clear (o: obj) =
+        cts.Cancel()
+        cts <- new CancellationTokenSource()
+    
     let prop = 
         { Name = routedEvent.Name
-          Value = ()
-          Meta = RoutedEvent subscribeFunc }
-        
+          Set = set
+          Clear = clear }
+    
     attr prop x
     
-let dependencyPropertyEvent<'t, 'a when 't : equality and 't :> IAvaloniaObject> (x: AvaloniaNode) (dp: AvaloniaProperty<'a>) (handler: 'a -> unit) =
-    let subscribeFunc (control: 't) =
-        let cts = new CancellationTokenSource()
-        control
+let dependencyPropertyEvent<'t, 'a when 't : equality and 't :> IAvaloniaObject> (x: Node) (dp: AvaloniaProperty<'a>) (handler: 'a -> unit) =
+    let mutable cts = new CancellationTokenSource()
+        
+    let set (o: obj) =
+        (o :?> IAvaloniaObject)
             .GetObservable(dp)
             .Subscribe(handler, cts.Token)
-        cts
         
+    let clear (o: obj) =
+        cts.Cancel()
+        cts <- new CancellationTokenSource()
+    
     let prop = 
         { Name = dp.Name
-          Value = ()
-          Meta = RoutedEvent subscribeFunc }
-        
+          Set = set
+          Clear = clear }
+    
     attr prop x
     
 let observableEvent<'t, 'a when 't : equality and 't :> IAvaloniaObject> x (obs: IObservable<'a>) (name: string) (handler: 'a -> unit) =
-    let subscribeFunc (control: 't) =
-        let cts = new CancellationTokenSource()
-        obs.Subscribe(handler, cts.Token)
-        cts
+    let mutable cts = new CancellationTokenSource()
         
+    let set (o: obj) =
+        obs.Subscribe(handler, cts.Token)
+        
+    let clear (o: obj) =
+        cts.Cancel()
+        cts <- new CancellationTokenSource()
+    
     let prop = 
         { Name = name
-          Value = ()
-          Meta = RoutedEvent subscribeFunc }
-        
+          Set = set
+          Clear = clear }
+    
     attr prop x

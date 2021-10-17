@@ -27,28 +27,24 @@ type StyledElementBuilder<'t when 't :> StyledElement and 't : equality>() =
     /// string list
     [<CustomOperation("classes")>]
     member _.classes<'t>(x, value: string list) =
-        let getter : ('t -> obj) = (fun control -> box control.Classes)
         let setter : ('t * obj -> unit) = (fun (control, value) -> control.Classes <- (unbox<Classes> value))
-        
-        Types.property x "Classes" (Classes value) getter setter (fun () -> Classes() |> box)
+        let factory() = Classes() |> box
+        Types.property x "Classes" (Classes value) setter factory
 
     /// Use `classes` instead when possible.
     /// Styles | ObservableValue<Styles>
     [<CustomOperation("styles")>]
     member _.styles<'t, 'v>(x, value: 'v) =
-        let getter : ('t -> obj) = (fun control -> box control.Styles)
         let setter : ('t * obj -> unit) = 
             (fun (control, value) -> 
                  control.Styles.Clear()
                  control.Styles.AddRange(unbox<Styles> value))
-
-        Types.property x "Styles" value getter setter (fun () -> Styles() |> box)
+        let factory() = Styles() |> box
+        Types.property x "Styles" value setter factory
 
     /// IResourceDictionary | ObservableValue<IResourceDictionary>
     [<CustomOperation("resources")>]
     member _.resources<'t, 'v>(x, value: 'v) =
-        let getter : ('t -> obj) = (fun control -> box control.Resources)
         let setter : ('t * obj -> unit) = (fun (control, value) -> control.Resources <- unbox<IResourceDictionary> value)
-        let factory = fun () -> ResourceDictionary() |> box
-        
-        Types.property x "Resources" value getter setter factory
+        let factory() = ResourceDictionary() |> box
+        Types.property x "Resources" value setter factory

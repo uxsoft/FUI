@@ -21,3 +21,6 @@ let toObservableCollection (state: IObservableValue<'a>) =
     let col = ObservableCollection([state.Value])
     state.OnChanged.Add(fun () -> col.[0] <- state.Value)
     col
+    
+let equals v state =
+    map (fun i -> i = v) state
