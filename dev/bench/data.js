@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1634470427837,
+  "lastUpdate": 1634485782171,
   "repoUrl": "https://github.com/uxsoft/FUI",
   "entries": {
     "Benchmark.Net Benchmark": [
@@ -1920,6 +1920,42 @@ window.BENCHMARK_DATA = {
             "value": 1223385.2670270272,
             "unit": "ns",
             "range": "± 40819.06477403805"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "me@uxsoft.cz",
+            "name": "Jan Dryk",
+            "username": "uxsoft"
+          },
+          "committer": {
+            "email": "me@uxsoft.cz",
+            "name": "Jan Dryk",
+            "username": "uxsoft"
+          },
+          "distinct": true,
+          "id": "b1fd8398291c138b297083999cf556f4e1418d95",
+          "message": "fix building of childless components",
+          "timestamp": "2021-10-17T17:47:13+02:00",
+          "tree_id": "f1e6515f458b10b321142f2065792d298764fc75",
+          "url": "https://github.com/uxsoft/FUI/commit/b1fd8398291c138b297083999cf556f4e1418d95"
+        },
+        "date": 1634485780957,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "FUI.Benchmarks.CartesianProduct",
+            "value": 20865.9644,
+            "unit": "ns",
+            "range": "± 1892.1045562789484"
+          },
+          {
+            "name": "FUI.Benchmarks.CounterUI",
+            "value": 867809.8856338029,
+            "unit": "ns",
+            "range": "± 42451.13333910673"
           }
         ]
       }
