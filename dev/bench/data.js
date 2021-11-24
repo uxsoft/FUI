@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1634485782171,
+  "lastUpdate": 1637790555656,
   "repoUrl": "https://github.com/uxsoft/FUI",
   "entries": {
     "Benchmark.Net Benchmark": [
@@ -1956,6 +1956,42 @@ window.BENCHMARK_DATA = {
             "value": 867809.8856338029,
             "unit": "ns",
             "range": "± 42451.13333910673"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "me@uxsoft.cz",
+            "name": "Jan Dryk",
+            "username": "uxsoft"
+          },
+          "committer": {
+            "email": "me@uxsoft.cz",
+            "name": "Jan Dryk",
+            "username": "uxsoft"
+          },
+          "distinct": true,
+          "id": "2e2f3c0ec857639505f1e4cc996e0ed2cfb8debc",
+          "message": "add a WindowsAppSdk target",
+          "timestamp": "2021-11-24T22:46:27+01:00",
+          "tree_id": "73c9e3e0a375bf6c5c42bd829e128aa574fdb20c",
+          "url": "https://github.com/uxsoft/FUI/commit/2e2f3c0ec857639505f1e4cc996e0ed2cfb8debc"
+        },
+        "date": 1637790554765,
+        "tool": "benchmarkdotnet",
+        "benches": [
+          {
+            "name": "FUI.Benchmarks.CartesianProduct",
+            "value": 19014.515862068954,
+            "unit": "ns",
+            "range": "± 986.5741735084298"
+          },
+          {
+            "name": "FUI.Benchmarks.CounterUI",
+            "value": 1025825.1216216217,
+            "unit": "ns",
+            "range": "± 34306.20894403531"
           }
         ]
       }
